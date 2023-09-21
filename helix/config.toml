@@ -1,0 +1,65 @@
+
+# error warning use my color 
+theme="mytheme"
+
+[editor]
+# Show currently open buffers, only when more than one exists.=bufferline = "multiple"
+# Highlight all lines with a cursor
+cursorline = true
+
+# Show a ruler at column 120
+rulers = [120]
+# Force the theme to show colors
+true-color = true
+
+mouse = true
+
+auto-format =false
+
+middle-click-paste= true
+
+scroll-lines = 1
+
+
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+
+[editor.soft-wrap]
+enable = true
+
+
+[editor.indent-guides]
+character = "│"
+render = true
+
+
+[editor.statusline]
+left = ["mode", "spinner"]
+center = ["file-name", "total-line-numbers","file-modification-indicator"]
+right = ["version-control", "diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+
+
+[editor.lsp]
+# Disable automatically popups of signature parameter help
+auto-signature-help = false
+# Show LSP messages in the status line
+display-messages = true
+
+
+[editor.search]
+wrap-around = true
+
+[keys.normal]
+# Use system clipboard
+y = "yank_main_selection_to_clipboard"
+p = "paste_clipboard_before"
+
