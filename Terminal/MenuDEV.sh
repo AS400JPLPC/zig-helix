@@ -207,6 +207,7 @@ do
 
 	esac 
 	fi # fintest option
+printf '\e[8;'26';'80't'
 done
 
 tput cnorm
