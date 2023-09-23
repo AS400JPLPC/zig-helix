@@ -114,6 +114,7 @@ printf '\e[8;'26';'80't'
 
 
 PROJECT="ZTERM"
+LIBPROJECT="/home/soleil/Zterm/"
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 while [ "$choix" != "99" ]
 do
@@ -155,37 +156,37 @@ do
 
 # Gen
         1)
-			/home/soleil/.Terminal/EnvCPP.sh  "/home/soleil/Zterm/"   "Gen"			
+			/home/soleil/.Terminal/EnvCPP.sh  $LIBPROJECT   "Gen"			
 
             ;;
 #Gencurs
         11)
-			/home/soleil/.Terminal/EnvZig.sh  "/home/soleil/Zterm/"   "Gencurs"			
+			/home/soleil/.Terminal/EnvZig.sh  $LIBPROJECT   "Gencurs"			
 
             ;;
 
 #Gterm
         12)
-			/home/soleil/.Terminal/EnvZig.sh  "/home/soleil/Zsdl/"   "Tconsole"			
+			/home/soleil/.Terminal/EnvZig.sh  $LIBPROJECT   "Tconsole"			
 
             ;;
 
 
 #Tconsole
         13)
-			/home/soleil/.Terminal/EnvZig.sh  "/home/soleil/Zterm/"   "Gterm"			
+			/home/soleil/.Terminal/EnvZig.sh  $LIBPROJECT   "Gterm"			
 
             ;;
 
 #project
 		55)
-			/home/soleil/.Terminal/myproject.sh $HOME/Zterm/src-zig/ $PROJECT
+			/home/soleil/.Terminal/myproject.sh $LIBPROJECT"src-zig" $PROJECT
 
             ;;
 
 #?file
 		66)
-			/home/soleil/.Terminal/lastfile.sh $PROJECT
+			/home/soleil/.Terminal/lastfile.sh $LIBPROJECT"src-zig"
 
             ;;
 #?clear 
