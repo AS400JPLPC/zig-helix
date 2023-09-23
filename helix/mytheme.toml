@@ -1,123 +1,145 @@
-### Sublime Text Sonokai Theme
-## Original Author: sainnhe
-# URL: https://github.com/sainnhe/sonokai
-## Modified by p4ymak
-# URL: https://github.com/p4ymak
-# License: MIT License
+# Author: Shafkath Shuhan <shafkathshuhannyc@gmail.com>
 
-"type" = "blue"
-"constant" = "magenta"
-"constant.numeric" = "magenta"
-"constant.character.escape" = "orange"
-"string" = "sienna"
-"comment" = "grey"
-"variable" = "fg"
-"variable.builtin" = "orange"
-"variable.parameter" = "fg"
-"variable.other.member" = "fg"
-"label" = "orange"
-"punctuation" = "light-pink"
-"punctuation.delimiter" = "light-pink"
-"punctuation.bracket" = "kaki"
-"keyword" = "red"
-"operator" = "orange"
-"function" = "green"
-"function.builtin" = "blue"
-"function.macro" = "magenta"
-"tag" = "yellow"
-"namespace" = "blue"
-"attribute" = "magenta"
-"constructor" = "blue"
-"module" = "blue"
-"special" = "orange"
+"namespace" = { fg = "type" }
+"module" = { fg = "type" }
 
-"markup.heading.marker" = "grey"
-"markup.heading.1" = { fg = "red", modifiers = ["bold"] }
-"markup.heading.2" = { fg = "orange", modifiers = ["bold"] }
-"markup.heading.3" = { fg = "yellow", modifiers = ["bold"] }
-"markup.heading.4" = { fg = "green", modifiers = ["bold"] }
-"markup.heading.5" = { fg = "blue", modifiers = ["bold"] }
-"markup.heading.6" = { fg = "fg", modifiers = ["bold"] }
-"markup.list" = "red"
-"markup.bold" = { modifiers = ["bold"] }
+"type" = { fg = "type" }
+"type.builtin" = { fg = "type" }
+"type.enum.variant" = { fg = "constant" }
+"constructor" = { fg = "type" }
+"variable.other.member" = { fg = "variable" }
+
+"keyword" = { fg = "blue2" }
+"keyword.directive" = { fg = "blue2" }
+"keyword.control" = { fg = "special" }
+"label" = { fg = "blue2" }
+"tag" = "blue2"
+
+"special" = { fg = "text" }
+"operator" = { fg = "text" }
+
+"punctuation" = { fg = "text" }
+"punctuation.delimiter" = { fg = "text" }
+
+"variable" = { fg = "variable" }
+"variable.parameter" = { fg = "variable" }
+"variable.builtin" = { fg = "blue2" }
+"constant" = { fg = "constant" }
+"constant.builtin" = { fg = "blue2" }
+
+"function" = { fg = "fn_declaration" }
+"function.builtin" = { fg = "fn_declaration" }
+"function.macro" = { fg = "blue2" }
+"attribute" = { fg = "fn_declaration" }
+
+"comment" = { fg = "dark_green" }
+
+"string" = { fg = "orange" }
+"constant.character" = { fg = "orange" }
+"string.regexp" = { fg = "gold" }
+"constant.numeric" = { fg = "pale_green" }
+"constant.character.escape" = { fg = "gold" }
+
+"markup.heading" = { fg = "blue2", modifiers = ["bold"] }
+"markup.list" = "blue3"
+"markup.bold" = { fg = "blue2", modifiers = ["bold"] }
 "markup.italic" = { modifiers = ["italic"] }
 "markup.strikethrough" = { modifiers = ["crossed_out"] }
-"markup.link.url" = { fg = "blue", modifiers = ["underlined"] }
-"markup.link.text" = "magenta"
-"markup.quote" = "grey"
-"markup.raw" = "green"
+"markup.link.url" = { modifiers = ["underlined"] }
+"markup.link.text" = "orange"
+"markup.quote" = "dark_green"
+"markup.raw" = "orange"
 
-"diff.plus" = "green"
-"diff.delta" = "orange"
-"diff.minus" = "red"
+"diff.plus" = { fg = "dark_green2" }
+"diff.delta" = { fg = "blue4" }
+"diff.minus" = { fg = "orange_red" }
 
-"ui.background" = { bg = "bg0" }
-"ui.cursor" = { modifiers = ['reversed'] }
-"ui.cursor.match" = { fg = "sienna", modifiers = ['slow_blink','reversed'], bg = "diff_yellow" }
-"ui.cursor.insert" = { fg = "black", bg = "grey" }
-"ui.cursor.select" = { fg = "bg0", bg = "blue" }
-"ui.selection" = { bg = "bg5" }
-"ui.selection.primary" = { bg = "bg4" }
-"ui.linenr" = "grey"
-"ui.linenr.selected" = "fg"
-"ui.cursorline.primary" = { bg = "bg1" }
-"ui.statusline" = { fg = "fg", bg = "bg3" }
-"ui.statusline.inactive" = { fg = "grey", bg = "bg1" }
-"ui.popup" = { fg = "grey", bg = "bg2" }
-"ui.window" = { fg = "grey", bg = "bg0" }
-"ui.help" = { fg = "fg", bg = "bg1" }
-"ui.text" = "fg"
-"ui.text.focus" = "green"
-"ui.menu" = { fg = "fg", bg = "bg2" }
-"ui.menu.selected" = { fg = "bg0", bg = "green" }
-"ui.virtual.whitespace" = { fg = "grey_dim" }
+"ui.background" = { fg = "light_gray", bg = "dark_gray2" }
+
+"ui.window" = { bg = "widget" }
+"ui.popup" = { fg = "text", bg = "widget" }
+"ui.help" = { fg = "text", bg = "widget" }
+"ui.menu" = { fg = "text", bg = "widget" }
+"ui.menu.selected" = { bg = "dark_blue2" }
 
 
-"ui.virtual.ruler" = { bg = "" }
-
-"ui.virtual.inlay-hint" = { fg = "light-gray" } 
-
-info = { fg = 'green', bg = 'bg2' }
-hint = { fg = 'blue', bg = 'bg2', modifiers = ['bold'] }
-warning = { fg = 'yellow', bg = 'bg2', modifiers = ['bold'] }
-error = { fg = 'red', bg = 'bg2', modifiers = ['bold'] }
-
-"diagnostic.info" = { underline = { style = "curl", color = "green" } }
-"diagnostic.hint" = { underline = { style = "curl", color = "blue" } }
-"diagnostic.warning" = { underline = { style = "curl", color = "yellow" } }
-"diagnostic.error" = { underline = { style = "curl", color = "red" } }
+"ui.cursor" = { fg = "cursor", modifiers = ["reversed"]  }
+"ui.cursor.primary" = { fg = "cursor", modifiers = ["reversed"] }
+"ui.cursor.match" = { fg = "sienna", modifiers = ['slow_blink','reversed'], bg = "Myellow" }
 
 
+
+"ui.selection" = { bg = "#3a3d41" }
+"ui.selection.primary" = { bg = "dark_blue" }
+
+"ui.linenr" = { fg = "dark_gray" }
+"ui.linenr.selected" = { fg = "blue" } # "light_gray2"
+
+"ui.cursorline.primary" = { bg = "dark_gray3" }
+"ui.statusline" = { fg = "white", bg = "blue" }  # Mlight-gray
+"ui.statusline.inactive" = { fg = "white", bg = "blue" } # blue
+"ui.statusline.insert" = { fg = "white", bg = "yellow" }
+"ui.statusline.select" = { fg = "white", bg = "magenta" }
+
+"ui.bufferline" = { fg = "text", bg = "widget" }
+"ui.bufferline.active" = { fg = "white", bg = "blue" }
+"ui.bufferline.background" = { bg = "background" }
+
+"ui.text" = { fg = "text" }
+"ui.text.focus" = { fg = "white" }
+
+"ui.virtual.whitespace" = { fg = "Mlight-gray" } 
+"ui.virtual.ruler" = { bg = "borders" }
+"ui.virtual.indent-guide" = { fg = "dark_gray4" } 
+"ui.virtual.inlay-hint" = { fg = "white", bg = "#444444" }
+
+"warning" = { fg = "gold2" }
+"error" = { fg = "red" }
+"info" = { fg = "light_blue" }
+"hint" = { fg = "light_gray3" }
+
+"diagnostic.error".underline = { color = "red", style = "curl" }
+"diagnostic".underline = { color = "gold", style = "curl" }
 
 [palette]
+white = "#ffffff"
+orange = "#ce9178"
+gold = "#d7ba7d"
+gold2 = "#cca700"
+pale_green = "#b5cea8"
+dark_green = "#6A9955"
+dark_green2 = "#487e02"
+light_gray = "#d4d4d4"
+light_gray2 = "#c6c6c6"
+light_gray3 = "#eeeeee"
+dark_gray = "#858585"
+dark_gray2 = "#1e1e1e"
+dark_gray3 = "#282828"
+dark_gray4 = "#404040"
+blue = "#007acc"
+blue2 = "#569CD6"
+blue3 = "#6796E6"
+blue4 = "#1b81a8"
+light_blue = "#75beff"
+dark_blue = "#264f78"
+dark_blue2 = "#094771"
+red = "#ff1212"
+orange_red = "#f14c4c"
 
-black = "#181819"
-bg0 = "#2c2e34"
-bg1 = "#33353f"
-bg2 = "#363944"
-bg3 = "#3b3e48"
-bg4 = "#5c606A"
-bg5 = "#444852"
-bg_red = "#ff6077"
-diff_red = "#55393d"
-bg_green = "#a7df78"
-diff_green = "#394634"
-bg_blue = "#85d3f2"
-diff_blue = "#354157"
-diff_yellow = "#4e432f"
-fg = "#e2e2e3"
-red = "#fc5d7c"
-orange = "#f39660"
-kaki = "#bdb76b"
-yellow = "#e7c664" 
-green = "#9ed072"
-cyan = "#8dd0b6" # added for compatibility with `edge` scheme
-blue = "#76cce0"
-magenta = "#b39df3"
-grey = "#7f8490"
-grey_dim = "#595f6f"
-light-gray = "#636C6e" 
-light-pink = "#ffb6c1"
+type = "#4EC9B0"
+special = "#C586C0"
+variable = "#9CDCFE"
+fn_declaration = "#DCDCAA"
+constant = "#4FC1FF"
+
+background = "#1e1e1e"
+text = "#d4d4d4"
+cursor = "#b5cea8" # <- pale_green  origine   "#a6a6a6"
+widget = "#252526"
+borders = "#323232"
+
+Myellow = "#4e432f"
 sienna = "#cd853f"
+Mlight-gray = "#636C6e" #grey
 
-
+Mlight = "#1f1e1e" #grey

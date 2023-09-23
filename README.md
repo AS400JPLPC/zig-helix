@@ -7,11 +7,15 @@ _but it does exactly what I ask it to do._
 
 Setting up Helix, I work with Linux, you will find in your distribution how to install it.
 
+To develop, it is better to have an installation of ZIG / ZLS, in your HOME, think about changing the version, this allows you to test more easily
+
 https://helix-editor.com/
 
 a) install Zig https://ziglang.org/download/  
 
 b) install Zls LSP [https://github.com/zigtools/zls](https://github.com/zigtools/zls)
+
+c) install pacman lldb ( lldb-vscode)  Helix cherche le débogueur
 
 c) install lldb (pacman -S lldb) for manjaro or arch    lldb-vscode  recommend for Helix and ZIG
 
@@ -75,6 +79,8 @@ I put the relationship.
 
 theme = "/home/soleil/.config/helix/mytheme"  
 
+copy mytheme to usr/lib/helix/theme/
+
 \-------------------------------------
 
 language.toml
@@ -87,30 +93,69 @@ Now the tools to compile and a console.  
 
 My compilation tools are pretty much the same as VSCODE and task.  
 
-I have a ".Terminal" folder in which the procedures are located
+I have a ".Terminal" folder in which the procedures are located  
+ 
 
-EnvZig.sh
-
-project cleaning
+  
+_**I only use the terminal ex: xfce4-terminal**_
 
 `compile: zig build / doc .... a) debug b) production c) saft d) small d) testing e) doc`
 
-\> compile: zig build / doc ....  
-\> a) debug  
-\> b) production  
-\> c) saft  
-\> d) small  
-\> d) testing  
-\> e) doc
+EnvZig.sh
+
+```plaintext
+compile: zig build / doc ....
+
+ 1. ClearProjet (cache, not source)
+
+ 2. Compile_Debug
+
+ 3. Compile_Prod
+
+ 4. Compile_Safe
+
+ 5. Compile_Small
+
+ 6. Compile_test
+
+ 7. Compile_Doc
+```
 
 EnvZCPP.sh
 
-`compile: gcc... a) debug b) production c) console`
+```plaintext
+compile: gcc... c/c++
 
-\> compile: gcc...  
-\> a) debug  
-\> b) production  
-\> c) console
+1. ClearProjet ( not source )
+
+2. Compile_Debug
+
+3. Compile_Prod
+```
+
+MenuDEV.sh
+
+```plaintext
+Menu Général
+
+1) VTE terminal compile: for ZIG application (secure)
+
+2) BUILD ZIG application
+
+10) execute HELIX >  root directory: PROJECT
+
+55) HELIX launch >  root directory: PROJECT
+
+66) launch HELIX last saved source > root directory: PROJECT
+
+77) clear helix.log
+
+88) console
+
+99) exit
+```
+
+**To retrieve the latest source, you have to record with wbc**
 
 the console option boots into a reworked terminal and releases the menu.
 
@@ -135,7 +180,10 @@ The gain: no more madness in the propagation of caches and various logs and memo
 
 The gain: no more madness in the propagation of caches and various logs and memory extension.  
 
-I've done quite a few tests of neovim by the way, gvim, kakoune, lite-xl, geany, codeblock, sublime, atom, builder, and a few others, I think this one is the right one, it's still missing one or two things, but not vital.  
+I've done quite a few tests of neovim by the way, gvim, kakoune, lite-xl, geany, codeblock, sublime, atom, builder, and a few others, I think this one is the right one, it's still missing one or two things, but not vital.
+
+    
+start informatique 1976 middle systeme  
 
 my big stops on PC since 1985
 
@@ -165,15 +213,12 @@ I'm working with "helix" and restructuring my sources, because I encounter the e
 
 We can't really do without visualizing spaces, and colors can quickly become inconsistent and unpleasant. 
 
-> I think that there, I will stabilize.  
->   
->   
-> helix --health zig  
-> Configured language server: zls  
-> Binary for language server: /home/soleil/.zls/zls  
-> Configured debug adapter: lldb-vscode  
-> Binary for debug adapter: /usr/bin/lldb-vscode  
-> Highlight queries: ✓  
-> Textobject queries: ✓  
-> Indent queries: ✓  
->
+*   I think that there, I will stabilize.  
+    helix --health zig  
+    Configured language server: zls  
+    Binary for language server: /home/soleil/.zls/zls  
+    Configured debug adapter: lldb-vscode  
+    Binary for debug adapter: /usr/bin/lldb-vscode  
+    Highlight queries: ✓  
+    Textobject queries: ✓  
+    Indent queries: ✓

@@ -110,75 +110,95 @@ f_readPos() {	#commande de positionnement	lines + coln + text
 }
 
 # resize 
-printf '\e[8;'25';'80't'
+printf '\e[8;'26';'80't'
 
 
-
+PROJECT="ZTERM"
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 while [ "$choix" != "99" ]
 do
 	cd 
 	f_cls
-	f_dsplyPos  1  24 $faGras$fcJaune 'Langage->'$name_src
+	f_dsplyPos  1  24 $faGras$fcJaune 'Langage->'$name_src$faGras$fcGreen' - Project: '$faGras$fcCyan' Zterm'
 
-	f_dsplyPos  3  24 $faGras$fcJaune '------------Editor---------------------'
-	f_dsplyPos  4  20 $faGras$fcRouge' 1.'; f_dsplyPos  4  24 $faGras$fcGreen 'Terminal-helix'
+	f_dsplyPos  3  24 $faGras$fcJaune '------------compile cpp-----------------'
+	f_dsplyPos  4  20 $faGras$fcRouge' 1.'; f_dsplyPos  4  24 $faGras$fcGreen 'Terminal-Gen'
 
-	f_dsplyPos  6  24 $faGras$fcJaune '------------compile cpp-----------------'
-	f_dsplyPos  7  20 $faGras$fcRouge' 2.'; f_dsplyPos  7  24 $faGras$fcGreen 'Terminal-Gen'
-
-	f_dsplyPos  9  24 $faGras$fcJaune '------------compile Zig-----------------'
-	f_dsplyPos 10  20 $faGras$fcRouge'12.'; f_dsplyPos 10  24 $faGras$fcGreen 'Gencurs'
-
+	f_dsplyPos  6  24 $faGras$fcJaune '------------compile Zig-----------------'
+	f_dsplyPos  7  20 $faGras$fcRouge'11.'; f_dsplyPos  7  24 $faGras$fcGreen 'Gencurs'
+	f_dsplyPos  8  20 $faGras$fcRouge'12.'; f_dsplyPos  8  24 $faGras$fcGreen 'GTerm'
+	f_dsplyPos  9  20 $faGras$fcRouge'13.'; f_dsplyPos  9  24 $faGras$fcGreen 'Tconsole'
 
 
-	f_dsplyPos 16  24 $faGras$fcJaune '----------------------------------------'
-	f_dsplyPos 17  20 $faGras$fcRouge'88.'; f_dsplyPos 17  24 $faGras$fcGreen 'Console'
+	f_dsplyPos 14  24 $faGras$fcJaune '----------------------------------------'
+	
+	f_dsplyPos 15  20 $faGras$fcRouge'55.'; f_dsplyPos 15  24 $faGras$fcCyan  'Edit my project'
 
-	f_dsplyPos 20  20 $faGras$fcRouge'99.'; f_dsplyPos 20 24 $faGras$fcJaune  'Quit'
+	f_dsplyPos 17  20 $faGras$fcRouge'66.'; f_dsplyPos 17  24 $faGras$fcCyan  'Edit last source used'
 
-	f_dsplyPos 23  24 $faGras$fcBleu '----------------------------------------'
-	f_readPos  24 20  'Votre choix  :'; choix=$REPLY;
+	f_dsplyPos 19  20 $faGras$fcRouge'77.'; f_dsplyPos 19  24 $faGras$fcCyan  'clear helix.log'
+
+	f_dsplyPos 21  20 $faGras$fcRouge'88.'; f_dsplyPos 21  24 $faGras$fcGreen 'Console'
+
+
+	f_dsplyPos 23  20 $faGras$fcRouge'99.'; f_dsplyPos 23 24 $faGras$fcRouge  'Exit'
+
+	f_dsplyPos 25  24 $faGras$fcBleu '----------------------------------------'
+	f_readPos  26  20  'Votre choix  :'; choix=$REPLY;
 	
 	# Recherche de caractères non numériques dans les arguments.
 	if echo $choix | tr -d [:blank:] | tr -d [:digit:] | grep . &> /dev/null; then
-		f_readPos 24 90  'erreur de saisie Enter'
+		f_readPos 26 90  'erreur de saisie Enter'
 	else
 		 
  		case "$choix" in
 
-# Helix
-        1)
-            echo -e  "Terminal-helix"
-
-			/home/soleil/.Terminal/EnvCPP.sh  "/home/soleil/Zterm/"   "helix"
-
-		;;
-
 # Gen
-        2)
-            echo -e  "Terminal-Gen"
-
+        1)
 			/home/soleil/.Terminal/EnvCPP.sh  "/home/soleil/Zterm/"   "Gen"			
 
             ;;
 #Gencurs
-        12)
-            echo -e  "Gencurs"
-
+        11)
 			/home/soleil/.Terminal/EnvZig.sh  "/home/soleil/Zterm/"   "Gencurs"			
 
             ;;
 
+#Gterm
+        12)
+			/home/soleil/.Terminal/EnvZig.sh  "/home/soleil/Zsdl/"   "Tconsole"			
 
+            ;;
+
+
+#Tconsole
+        13)
+			/home/soleil/.Terminal/EnvZig.sh  "/home/soleil/Zterm/"   "Gterm"			
+
+            ;;
+
+#project
+		55)
+			/home/soleil/.Terminal/myproject.sh $HOME/Zterm/src-zig/ $PROJECT
+
+            ;;
+
+#?file
+		66)
+			/home/soleil/.Terminal/lastfile.sh $PROJECT
+
+            ;;
+#?clear 
+		77)
+			> $HOME/.cache/helix/helix.log
+
+			;;
 #console
 
 		88)
-
 			exec /home/soleil/.Terminal/console.sh 
-
-			 break
             ;;
+
 # QUIT
         99)
             break

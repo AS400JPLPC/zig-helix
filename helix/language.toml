@@ -13,7 +13,7 @@ scope = "source.zig"
 injection-regex = "zig"
 file-types = ["zig"]
 comment-token = "//"
-indent = { tab-width = 4, unit = "  " }
+indent = { tab-width = 4, unit = " " }
 language-server = { command = "zls-lsp", args = ["--stdio"], environment = { "ENV1" = "value1", "ENV2" = "value2" } }
 #formatter = { command = "zig-formatter" , args = ["--stdin"]}
 

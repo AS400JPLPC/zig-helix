@@ -26,7 +26,7 @@
 /// ex:
 ///------------------------------------------
 
-#define WORKPGM		"/usr/lib/helix/hx"
+#define WORKPGM		"./Gencurs"
 
 bool _DEBUG_  = true; /// ALT_F4 ATVIVE  _DEBUG_ = true
 
@@ -79,7 +79,6 @@ bool ctrlPgm(std::string v_TEXT)
 												case  strswitch("mdlPanel")		: b_pgm =true;		break;
 												case  strswitch("Gencurs")		: b_pgm =true;		break;
                         case  strswitch("Exemple")		: b_pgm =true;		break;
-                        case  strswitch("hx")		: b_pgm =true;		break;
 											}
 	return b_pgm;
 }
@@ -171,8 +170,8 @@ void	init_Terminal()
 		}
 	else if ( s->width > 1920  ) {								          //  ex: 2560 x1600 > 27"  font 13
 		sprintf(font_terminal,"%s %s" , VTEFONT,"15");        //  ex: 3840 x2160 > 32"  font 15
-		COL = 120;
-		ROW = 40;  // for Helix
+		COL = 168;
+		ROW = 44;
 	}
 	//COL = 132;
 	//ROW = 32;
@@ -270,17 +269,27 @@ int main(int argc, char *argv[])
 /// -----------------------------------------------------------------------------
 /// contrôle autorisation traitement --> protection
 
-  if (argc > 1)  return EXIT_FAILURE;
+
 
 	gchar *arg_1[] = { (gchar*)WORKPGM,  NULL};
+	gchar *arg_2[] = { (gchar*) argv[1], NULL};		/// arg[1] P_pgm
+	// exemple P_Pgm (argv[1]) = ./programme
 
 	if (argc == 1 )  {
 		if ( false == ctrlPgm(WORKPGM))					return EXIT_FAILURE;	// contrôle file autorisation
-
-		dir = std::filesystem::path("helix").parent_path().c_str();
+		if ( false == exists_File(WORKPGM) ) 			return EXIT_FAILURE;	// contrôle si programme
+		dir = std::filesystem::path(WORKPGM).parent_path().c_str();
 		command = arg_1;
 	}
-
+	if (argc == 2 )  {
+		if ( false == ctrlPgm((char*)argv[1]))			return EXIT_FAILURE;	// contrôle file autorisation
+		if ( false == extention_File((char*)argv[1]) )	return EXIT_FAILURE;	// contrôle extention
+		if ( false == isDir_File((char*)argv[1]) ) 		return EXIT_FAILURE; 	// contrôle is directorie
+		if ( false == exists_File((char*)argv[1]) )		return EXIT_FAILURE;	// contrôle si programme
+		dir = std::filesystem::path((const char*)(char*)argv[1]).parent_path().c_str();
+		command = arg_2;
+	}
+	if (argc > 2)  return EXIT_FAILURE;
 
 
 
@@ -295,8 +304,8 @@ int main(int argc, char *argv[])
 	gtk_init(&argc,&argv);
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
-	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-	gtk_window_set_resizable (GTK_WINDOW(window),true);               // <--- spécifique helix
+	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
+	gtk_window_set_resizable (GTK_WINDOW(window),false);
 	gtk_window_set_deletable (GTK_WINDOW(window),false);
 
 
