@@ -1,4 +1,6 @@
-**Helix**
+**Helix**  
+  
+**2003-09-25 Updated search for last source saved with "write-buffer-close" or "wbc" sorry**
 
 _After a few problems... & a few scares..._  
 _I switch from VSCode ide to helix-editor_  
@@ -93,10 +95,8 @@ Now the tools to compile and a console.  
 
 My compilation tools are pretty much the same as VSCODE and task.  
 
-I have a ".Terminal" folder in which the procedures are located  
- 
+I have a ".Terminal" folder in which the procedures are located  
 
-  
 _**I only use the terminal ex: xfce4-terminal**_
 
 `compile: zig build / doc .... a) debug b) production c) saft d) small d) testing e) doc`
@@ -208,6 +208,7 @@ Lorenzo Sétale and Rajasegar Chandran thank-you
 *   2023-09-22  **After testing**
 *   update config.toml
 *   new mytheme  :  very close dark\_plus > vscode
+*   2003-09-25 Updated search for last source saved with "write-buffer-close" or "wbc"
 
 I'm working with "helix" and restructuring my sources, because I encounter the end of line positions and spaces are completely inconsistent. 
 
