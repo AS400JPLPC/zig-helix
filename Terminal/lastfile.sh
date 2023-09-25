@@ -44,26 +44,29 @@ f_cls
 		exit 0
 	fi 
 
+
+
  grep  'store'  $HOME/.cache/helix/helix.log | cut  -d" " -f11 >> $HOME/.cache/helix/grepa.txt
 
- tail -n 1  $HOME/.cache/helix/grepa.txt >> $HOME/.cache/helix/grepb.txt
+ grep  "$1"  $HOME/.cache/helix/grepa.txt | cut  -d" " -f11 >> $HOME/.cache/helix/grepb.txt
 
 >$HOME/.cache/helix/grepa.txt
+#retrieve last enrg.
+ tail -n 1  $HOME/.cache/helix/grepb.txt >> $HOME/.cache/helix/grepa.txt
 
- #echo -en "dir: "
- #grep  'file' $HOME/.cache/helix/grepb.txt | cut  -d"/" -f6,7
- 
-rep=$HOME"/"$(grep  'file' $HOME/.cache/helix/grepb.txt | cut  -d"/" -f6,7)
 
- grep  'zig'  $HOME/.cache/helix/grepb.txt | cut  -d"/" -f8 >> $HOME/.cache/helix/grepa.txt
+#retrieve nbr occurence
+nbr=$(grep  -o -i  '/' $HOME/.cache/helix/grepa.txt | wc -l)
 
- #echo -en "\nsource: "
+#retieve directory
+rep="/"$(grep  'file' $HOME/.cache/helix/grepa.txt | cut  -d"/" -f4-$nbr) 
 
- #grep  'zig'  $HOME/.cache/helix/grepa.txt | cut  -d"\\" -f1
+>$HOME/.cache/helix/grepb.txt
+# name source
+let "nbr= $nbr+2"
+grep  'zig' $HOME/.cache/helix/grepa.txt | cut  -d"/" -f"$nbr",10 >> $HOME/.cache/helix/grepb.txt
+name=$(grep  'zig'  $HOME/.cache/helix/grepb.txt | cut  -d"\\" -f1)
 
- name=$(grep  'zig'  $HOME/.cache/helix/grepa.txt | cut  -d"\\" -f1)
- #echo -en "\n"
- #f_pause
  
  rm -f $HOME/.cache/helix/grepa.txt
  rm -f $HOME/.cache/helix/grepb.txt
@@ -72,8 +75,5 @@ rep=$HOME"/"$(grep  'file' $HOME/.cache/helix/grepb.txt | cut  -d"/" -f6,7)
  # call last directory  HELIX
  cd $rep
  exec xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --geometry="129x42"  --font="Noto Sans Mono  Regular 15"  --title="PROJECT : "$1 -x helix $name
-
-
-
 
 exit 0
