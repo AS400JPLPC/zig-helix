@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# install stable  version zig  ->>> 0.11.0
+
 
 fdNoir='\033[40m'
 fdRouge='\033[41m'

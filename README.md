@@ -1,6 +1,7 @@
-**Helix**  
-  
-**2003-09-25 Updated search for last source saved with "write-buffer-close" or "wbc" sorry**
+**Helix**
+
+**2003-09-25 Updated search for last source saved with "write-buffer-close" or "wbc" sorry**  
+**Unable to securely access name and directory I bypassed it, please read below**
 
 _After a few problems... & a few scares..._  
 _I switch from VSCode ide to helix-editor_  
@@ -40,24 +41,11 @@ add matching paths and aliases  
 in .bashrc
 
 add line   
-Allows HELIX to intuitively access either your files or your texts in your files and present you with an exhaustive list of files
+~Allows HELIX to intuitively access either your files or your texts in your files and present you with an exhaustive list of files;~
 
-```plaintext
-  # Helix Search  
-  hxs() {  
-  RG\_PREFIX="rg -i --files-with-matches"  
-  local files  
-  files="$(  
-  &nbsp;FZF\_DEFAULT\_COMMAND\_DEFAULT\_COMMAND="$RG\_PREFIX '$1'" \\  
-  &nbsp; fzf --multi 3 --print0 --sort --preview="\[\[ ! -z {} \]\] &amp;&amp; rg --pretty --ignore-case --context 5 {q} {}" \\  
-  &nbsp; &nbsp;--phony -i -q "$1" \\  
-  &nbsp; &nbsp;--bind "change:reload:$RG\_PREFIX {q}" \\  
-  &nbsp; &nbsp;--preview-window="70%:wrap" \\  
-  &nbsp; &nbsp;--bind 'ctrl-a:select-all'  
-  )"  
-  \[\[ "$files" \]\] &amp;&amp; hx --vsplit $(echo $files | tr \\\\0 " ")  
-  }
-```
+integrated with the latest version
+
+intégrer-------------------------------------
 
 .config/helix/  
 
@@ -69,7 +57,7 @@ I thank the various authors...  
 
 tested and bug-free  
 
-\-------------------------------------
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 mytheme.toml  
 
@@ -83,7 +71,7 @@ theme = "/home/soleil/.config/helix/mytheme"  
 
 copy mytheme to usr/lib/helix/theme/
 
-\-------------------------------------
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 language.toml
 
@@ -98,8 +86,6 @@ My compilation tools are pretty much the same as VSCODE and task.  
 I have a ".Terminal" folder in which the procedures are located  
 
 _**I only use the terminal ex: xfce4-terminal**_
-
-`compile: zig build / doc .... a) debug b) production c) saft d) small d) testing e) doc`
 
 EnvZig.sh
 
@@ -146,16 +132,35 @@ Menu Général
 
 55) HELIX launch >  root directory: PROJECT
 
-66) launch HELIX last saved source > root directory: PROJECT
+66) launch HELIX last registered file-source
 
 77) clear helix.log
 
 88) console
 
-99) exit
+99) e__________________________________________________________xit
 ```
 
-**To retrieve the latest source, you have to record with wbc**
+**To retrieve the latest source, you have to C-s keymap**  
+**please look at the config.toml please**
+
+**ex:**
+
+```plaintext
+        Path :/home/soleil/Zterm/src-zig
+                  q -> exit
+                  Name source : Gencurs.zig
+```
+
+Recording in the “archiveFile.log” f
+
+in the form date time directory name-source "2023-09-25 20:54:12 file:///home/soleil/Zterm/src-zig/Gencurs.zig"
+
+ this allows you to restart from the last processed source and to have follow-up
+
+At the moment we don't have access to filename etc..
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 the console option boots into a reworked terminal and releases the menu.
 
@@ -166,7 +171,7 @@ for use in the base with programs like Gencurs
 
 https://github.com/AS400JPLPC/zig_TermCurs  
 
-\-------------------------------------
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 Coming back to the difference between VSCODE and HELIX  
 is that I had direct action from VSCODE,  
@@ -198,6 +203,8 @@ builder, my sewing machine
 vscode ......... in short, I keep it stanbye. (this was a serious advance on PC as a code editor)
 
 more than 50 years ago IBM was 50 years ahead and the LSP was integrated but proprietary
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 so HELIX is small in size, but does a good job
 

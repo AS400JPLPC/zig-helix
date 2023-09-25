@@ -180,13 +180,13 @@ do
 
 #project
 		55)
-			/home/soleil/.Terminal/myproject.sh $LIBPROJECT"src-zig" $PROJECT
+			/home/soleil/.Terminal/myProject.sh $LIBPROJECT"src-zig" $PROJECT
 
             ;;
 
 #?file
 		66)
-			/home/soleil/.Terminal/lastfile.sh $LIBPROJECT"src-zig"
+			/home/soleil/.Terminal/lastFileZig.sh 
 
             ;;
 #?clear 
