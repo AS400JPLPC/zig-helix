@@ -212,11 +212,6 @@ so HELIX is small in size, but does a good job
 
 Lorenzo Sétale and Rajasegar Chandran thank-you
 
-*   2023-09-22  **After testing**
-*   update config.toml
-*   new mytheme  :  very close dark\_plus > vscode
-*   2003-09-25 Updated search for last source saved with "write-buffer-close" or "wbc"
-
 I'm working with "helix" and restructuring my sources, because I encounter the end of line positions and spaces are completely inconsistent. 
 
 We can't really do without visualizing spaces, and colors can quickly become inconsistent and unpleasant. 
@@ -230,3 +225,16 @@ We can't really do without visualizing spaces, and colors can quickly become inc
     Highlight queries: ✓  
     Textobject queries: ✓  
     Indent queries: ✓
+
+  
+  
+  
+2023-09-22  **After testing**
+
+*   update config.toml
+*   new mytheme  :  very close dark\_plus > vscode
+*   2003-09-25 Updated search for last source saved with "write-buffer-close" or "wbc"
+*   2023-09-26 menu  option 88 console  :   
+    Opening a console independently  
+    config.toml  # select line up  / bufferline = "multiple"  
+    change Ctrl-s  C-s to Alt-q A-q free combination

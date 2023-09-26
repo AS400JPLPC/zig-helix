@@ -197,7 +197,7 @@ do
 #console
 
 		88)
-			exec /home/soleil/.Terminal/console.sh 
+			/home/soleil/.Terminal/console.sh 
             ;;
 
 # QUIT
