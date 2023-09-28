@@ -11,9 +11,6 @@ faGras='\033[1m'
 # function  menu
 #=========================
 
-
-
-
 f_cls() {
 reset > /dev/null
 	echo -en '\033[1;1H'
@@ -53,47 +50,46 @@ f_dsplyPos(){ #commande de positionnement	lines + coln + couleur + text
 }
 
 # resize 
-printf '\e[8;'10';'80't'
+printf '\e[8;'12';'80't'
 
-name=""
+choix=""
 PATH_FILE=""
 
-while [ "$name" != "q" ]
+while [ "$choix" != "q" ]
 do
 
 f_cls
 	f_dsplyPos  1  24 $faGras$fcBleu '----------------------------------------'
 	
-	f_dsplyPos  3  20 $faGras$fcGreen 'Path :'$PWD
+	f_dsplyPos  3  20 $faGras$fcGreen 'Path :'$1
 
 
 	f_dsplyPos  5  20 $faGras$fcRouge 'q -> exit'
 
-	f_readPos   7  20 'Name source  :'; name=$REPLY;
 
-	if [ "$name" == "q" ] ; then 
+	f_readPos   7  20 'Path source  :'; path=$REPLY;
+
+	f_readPos   8  20 'Name source  :'; name=$REPLY;
+
+	if [ "$path" == "q" -o "name" == "q" ] ; then 
 		break;
 	fi
 
-	if [ "$name" == "" ] ; then  
-		f_readPos 9 50  'erreur de saisie Enter'
+	if [ "$path" == "" -o  "$name" == "" ] ; then 
+		f_readPos 10 50  'erreur de saisie Enter'
 	else
 
-		PATH_FILE=$PWD"/"$name
+		PATH_FILE=$1"/"$path"/"$name
 
 		if test -f $PATH_FILE; then
 
-			f_dsplyPos  9  1 "enrg.: "$faGras$fcJaune$PATH_FILE"\n";
-
-			CURRENT_DATE=`date +"%Y-%m-%d %T file://"`
-
-			echo -en $CURRENT_DATE$PATH_FILE>> $HOME/.cache/helix/archiveFile.log ;
-
+			f_dsplyPos  10  1 "Print.: "$faGras$fcJaune$PATH_FILE"\n";
+ 			enscript -1rG --line-numbers -p $1/print/$name.ps --highlight=zig --color=1 -c  $PATH_FILE  --borders --highlight-bar-gray=gray --word-wrap 
 			f_pause
 	
 			break;
 		else
-			f_dsplyPos 9 1  'the file is invalid >'$faGras$fcJaune$PATH_FILE"\n"
+			f_dsplyPos 10 1  'the file is invalid >'$faGras$fcJaune$PATH_FILE"\n"
 			f_pause
 		fi
 

@@ -66,6 +66,6 @@ name=$(grep  'zig'  $HOME/.cache/helix/grepa.txt | cut  -d"/" -f1)
  rm -f $HOME/.cache/helix/grepb.txt
 
  # call last directory  HELIX
- cd $rep
- exec xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --geometry="129x42"  --font="Noto Sans Mono  Regular 15"  --title="PROJECT : "$1 -x helix $name 
+
+ exec xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --geometry="129x42"  --font="Noto Sans Mono  Regular 15" --default-working-directory=$rep   --title="PROJECT : "$1 -x helix $name 
 exit 0

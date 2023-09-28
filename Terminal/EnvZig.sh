@@ -14,9 +14,6 @@ faGras='\033[1m'
 
 
 
-
-
-
 projet_lib=$1
 
 name_src=$2".zig"
@@ -137,11 +134,10 @@ f_readPos() {	#commande de positionnement	lines + coln + text
 printf '\e[8;'24';'120't'
 
 
-
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 while [ "$choix" != "99" ]
 do
-	cd 
+ 
 	f_cls
 	f_dsplyPos 1  24 $faGras$fcJaune 'COMPILE ->'$name_src
 	f_dsplyPos 2  24 $faGras$fcJaune '----------------------------------------'
@@ -156,7 +152,7 @@ do
 
 	f_dsplyPos 20 24 $faGras$fcBleu '----------------------------------------'
 	f_readPos  22 20  'Votre choix  :'; choix=$REPLY;
-	
+
 	# Recherche de caractères non numériques dans les arguments.
 	if echo $choix | tr -d [:blank:] | tr -d [:digit:] | grep . &> /dev/null; then
 		f_readPos 22 90  'erreur de saisie Enter'
@@ -294,6 +290,7 @@ do
 
 # QUIT
         99)
+
             break
             ;;
 	esac 

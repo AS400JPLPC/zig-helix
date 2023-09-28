@@ -1,0 +1,8120 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 24 24 571 818
+%%Title: Enscript Output
+%%For: SOLEIL
+%%Creator: GNU Enscript 1.6.6
+%%CreationDate: Wed Sep 27 23:24:12 2023
+%%Orientation: Landscape
+%%Pages: (atend)
+%%DocumentMedia: A4 595 842 0 () ()
+%%DocumentNeededResources: (atend)
+%%EndComments
+%%BeginProlog
+%%BeginResource: procset Enscript-Prolog 1.6 6
+%
+% Procedures.
+%
+
+/_S {	% save current state
+  /_s save def
+} def
+/_R {	% restore from saved state
+  _s restore
+} def
+
+/S {	% showpage protecting gstate
+  gsave
+  showpage
+  grestore
+} bind def
+
+/MF {	% fontname newfontname -> -	make a new encoded font
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  % insert only valid encoding vectors
+  encoding_vector length 256 eq {
+    newfont /Encoding encoding_vector put
+  } if
+
+  newfontname newfont definefont pop
+} def
+
+/MF_PS { % fontname newfontname -> -	make a new font preserving its enc
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  newfontname newfont definefont pop
+} def
+
+/SF { % fontname width height -> -	set a new font
+  /height exch def
+  /width exch def
+
+  findfont
+  [width 0 0 height 0 0] makefont setfont
+} def
+
+/SUF { % fontname width height -> -	set a new user font
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF
+  /F-gs-user-font width height SF
+} def
+
+/SUF_PS { % fontname width height -> -	set a new user font preserving its enc
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF_PS
+  /F-gs-user-font width height SF
+} def
+
+/M {moveto} bind def
+/s {show} bind def
+
+/Box {	% x y w h -> -			define box path
+  /d_h exch def /d_w exch def /d_y exch def /d_x exch def
+  d_x d_y  moveto
+  d_w 0 rlineto
+  0 d_h rlineto
+  d_w neg 0 rlineto
+  closepath
+} def
+
+/bgs {	% x y height blskip gray str -> -	show string with bg color
+  /str exch def
+  /gray exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    gray setgray
+    fill
+  grestore
+  x y M str s
+} def
+
+/bgcs { % x y height blskip red green blue str -> -  show string with bg color
+  /str exch def
+  /blue exch def
+  /green exch def
+  /red exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    red green blue setrgbcolor
+    fill
+  grestore
+  x y M str s
+} def
+
+% Highlight bars.
+/highlight_bars {	% nlines lineheight output_y_margin gray -> -
+  gsave
+    setgray
+    /ymarg exch def
+    /lineheight exch def
+    /nlines exch def
+
+    % This 2 is just a magic number to sync highlight lines to text.
+    0 d_header_y ymarg sub 2 sub translate
+
+    /cw d_output_w cols div def
+    /nrows d_output_h ymarg 2 mul sub lineheight div cvi def
+
+    % for each column
+    0 1 cols 1 sub {
+      cw mul /xp exch def
+
+      % for each rows
+      0 1 nrows 1 sub {
+        /rn exch def
+        rn lineheight mul neg /yp exch def
+        rn nlines idiv 2 mod 0 eq {
+	  % Draw highlight bar.  4 is just a magic indentation.
+	  xp 4 add yp cw 8 sub lineheight neg Box fill
+	} if
+      } for
+    } for
+
+  grestore
+} def
+
+% Line highlight bar.
+/line_highlight {	% x y width height gray -> -
+  gsave
+    /gray exch def
+    Box gray setgray fill
+  grestore
+} def
+
+% Column separator lines.
+/column_lines {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h translate
+    /cw d_output_w cols div def
+    1 1 cols 1 sub {
+      cw mul 0 moveto
+      0 d_output_h rlineto stroke
+    } for
+  grestore
+} def
+
+% Column borders.
+/column_borders {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h moveto
+    0 d_output_h rlineto
+    d_output_w 0 rlineto
+    0 d_output_h neg rlineto
+    closepath stroke
+  grestore
+} def
+
+% Do the actual underlay drawing
+/draw_underlay {
+  ul_style 0 eq {
+    ul_str true charpath stroke
+  } {
+    ul_str show
+  } ifelse
+} def
+
+% Underlay
+/underlay {	% - -> -
+  gsave
+    0 d_page_h translate
+    d_page_h neg d_page_w atan rotate
+
+    ul_gray setgray
+    ul_font setfont
+    /dw d_page_h dup mul d_page_w dup mul add sqrt def
+    ul_str stringwidth pop dw exch sub 2 div ul_h_ptsize -2 div moveto
+    draw_underlay
+  grestore
+} def
+
+/user_underlay {	% - -> -
+  gsave
+    ul_x ul_y translate
+    ul_angle rotate
+    ul_gray setgray
+    ul_font setfont
+    0 0 ul_h_ptsize 2 div sub moveto
+    draw_underlay
+  grestore
+} def
+
+% Page prefeed
+/page_prefeed {		% bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} def
+
+% Wrapped line markers
+/wrapped_line_mark {	% x y charwith charheight type -> -
+  /type exch def
+  /h exch def
+  /w exch def
+  /y exch def
+  /x exch def
+
+  type 2 eq {
+    % Black boxes (like TeX does)
+    gsave
+      0 setlinewidth
+      x w 4 div add y M
+      0 h rlineto w 2 div 0 rlineto 0 h neg rlineto
+      closepath fill
+    grestore
+  } {
+    type 3 eq {
+      % Small arrows
+      gsave
+        .2 setlinewidth
+        x w 2 div add y h 2 div add M
+        w 4 div 0 rlineto
+        x w 4 div add y lineto stroke
+
+        x w 4 div add w 8 div add y h 4 div add M
+        x w 4 div add y lineto
+	w 4 div h 8 div rlineto stroke
+      grestore
+    } {
+      % do nothing
+    } ifelse
+  } ifelse
+} def
+
+% EPSF import.
+
+/BeginEPSF {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack
+  userdict begin
+  /showpage { } def
+  0 setgray 0 setlinecap
+  1 setlinewidth 0 setlinejoin
+  10 setmiterlimit [ ] 0 setdash newpath
+  /languagelevel where {
+    pop languagelevel
+    1 ne {
+      false setstrokeadjust false setoverprint
+    } if
+  } if
+} bind def
+
+/EndEPSF {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+%%EndResource
+%%BeginResource: procset Enscript-Encoding-88591 1.6 6
+/encoding_vector [
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclam       	/quotedbl     	/numbersign   	
+/dollar       	/percent      	/ampersand    	/quoteright   	
+/parenleft    	/parenright   	/asterisk     	/plus         	
+/comma        	/hyphen       	/period       	/slash        	
+/zero         	/one          	/two          	/three        	
+/four         	/five         	/six          	/seven        	
+/eight        	/nine         	/colon        	/semicolon    	
+/less         	/equal        	/greater      	/question     	
+/at           	/A            	/B            	/C            	
+/D            	/E            	/F            	/G            	
+/H            	/I            	/J            	/K            	
+/L            	/M            	/N            	/O            	
+/P            	/Q            	/R            	/S            	
+/T            	/U            	/V            	/W            	
+/X            	/Y            	/Z            	/bracketleft  	
+/backslash    	/bracketright 	/asciicircum  	/underscore   	
+/quoteleft    	/a            	/b            	/c            	
+/d            	/e            	/f            	/g            	
+/h            	/i            	/j            	/k            	
+/l            	/m            	/n            	/o            	
+/p            	/q            	/r            	/s            	
+/t            	/u            	/v            	/w            	
+/x            	/y            	/z            	/braceleft    	
+/bar          	/braceright   	/tilde        	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclamdown   	/cent         	/sterling     	
+/currency     	/yen          	/brokenbar    	/section      	
+/dieresis     	/copyright    	/ordfeminine  	/guillemotleft	
+/logicalnot   	/hyphen       	/registered   	/macron       	
+/degree       	/plusminus    	/twosuperior  	/threesuperior	
+/acute        	/mu           	/paragraph    	/bullet       	
+/cedilla      	/onesuperior  	/ordmasculine 	/guillemotright	
+/onequarter   	/onehalf      	/threequarters	/questiondown 	
+/Agrave       	/Aacute       	/Acircumflex  	/Atilde       	
+/Adieresis    	/Aring        	/AE           	/Ccedilla     	
+/Egrave       	/Eacute       	/Ecircumflex  	/Edieresis    	
+/Igrave       	/Iacute       	/Icircumflex  	/Idieresis    	
+/Eth          	/Ntilde       	/Ograve       	/Oacute       	
+/Ocircumflex  	/Otilde       	/Odieresis    	/multiply     	
+/Oslash       	/Ugrave       	/Uacute       	/Ucircumflex  	
+/Udieresis    	/Yacute       	/Thorn        	/germandbls   	
+/agrave       	/aacute       	/acircumflex  	/atilde       	
+/adieresis    	/aring        	/ae           	/ccedilla     	
+/egrave       	/eacute       	/ecircumflex  	/edieresis    	
+/igrave       	/iacute       	/icircumflex  	/idieresis    	
+/eth          	/ntilde       	/ograve       	/oacute       	
+/ocircumflex  	/otilde       	/odieresis    	/divide       	
+/oslash       	/ugrave       	/uacute       	/ucircumflex  	
+/udieresis    	/yacute       	/thorn        	/ydieresis    	
+] def
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier-Bold
+%%IncludeResource: font Courier
+/HFpt_w 10 def
+/HFpt_h 10 def
+/Courier-Bold /HF-gs-font MF
+/HF /HF-gs-font findfont [HFpt_w 0 0 HFpt_h 0 0] makefont def
+/Courier /F-gs-font MF
+/F-gs-font 10 10 SF
+/#copies 1 def
+% Pagedevice definitions:
+gs_languagelevel 1 gt {
+  <<
+    /PageSize [595 842] 
+  >> setpagedevice
+} if
+%%BeginResource: procset Enscript-Header-enscript 1.6 6
+%%IncludeResource: font Times-Bold
+%%IncludeResource: font Times-Roman
+
+% Fonts.
+/Times-Bold /HeaderFont-Bold MF
+/HeaderDateF /HeaderFont-Bold findfont 12 scalefont def
+
+/Times-Roman /HeaderFont-Times MF
+/HeaderHDRF /HeaderFont-Times findfont 14 scalefont def
+
+/HeaderPageNumF /Helvetica-Bold findfont 28.8 scalefont def
+
+/do_header {	% print enscript header
+  gsave
+    d_header_x d_header_y translate
+
+    % light bar
+    0 0 d_header_w d_header_h 2 div Box
+    .95 setgray fill
+
+    % dark gray boxes
+    /dbw d_header_h 2 mul def	% dark box width
+    /dbc .7 def			% dark box color
+
+    % left dark box.
+    0 0 dbw d_header_h Box
+    dbc setgray fill
+
+    0 setgray 
+    HeaderDateF setfont
+    moddatestr dup stringwidth pop dbw exch sub 2 div 
+    d_header_h 2 div 2 add moveto show
+    modtimestr dup stringwidth pop dbw exch sub 2 div 
+    d_header_h 5 div moveto show
+
+    % right dark box
+    d_header_w dbw sub 0 dbw d_header_h Box
+    dbc setgray fill
+
+    HeaderPageNumF setfont
+    1 setgray
+    pagenumstr dup
+    stringwidth pop dbw exch sub 2 div d_header_w dbw sub add
+    d_header_h .2 mul moveto show
+
+    % filename
+    0 setgray 
+    HeaderHDRF setfont
+    d_header_w fname stringwidth pop sub 2 div d_header_h 8 div moveto
+    fname show
+
+    % user supplied header string.
+    user_header_p {
+      /h d_header_h 8 div 5 mul def
+
+      % Implement strict enscript compatibility.
+      user_header_center_str () eq user_header_right_str () eq and {
+        d_header_w user_header_left_str stringwidth pop sub 2 div 
+        h moveto user_header_left_str show
+      } {
+        dbw 5 add h moveto user_header_left_str show
+
+        d_header_w user_header_center_str stringwidth pop sub 2 div 
+        h moveto user_header_center_str show
+
+	d_header_w dbw sub 5 sub user_header_right_str stringwidth pop
+	sub h moveto user_header_right_str show
+      } ifelse
+    } if
+
+  grestore
+} def
+%%EndResource
+/d_page_w 794 def
+/d_page_h 547 def
+/d_header_x 0 def
+/d_header_y 511 def
+/d_header_w 794 def
+/d_header_h 36 def
+/d_footer_x 0 def
+/d_footer_y 0 def
+/d_footer_w 794 def
+/d_footer_h 0 def
+/d_output_w 794 def
+/d_output_h 511 def
+/cols 1 def
+%%EndSetup
+%%Page: (1) 1
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 1 def
+/fname (/home/soleil/Zterm/src-zig/mdlRjson.zig) def
+/fdir (/home/soleil/Zterm/src-zig) def
+/ftail (mdlRjson.zig) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (09/27/23) def
+/modtimestr (00:11:58) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+30 498 M (1:) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 498 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 498 M
+( std = @) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 498 M
+(import) s
+/F-gs-font 10 10 SF
+0 setgray
+162 498 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+168 498 M
+("std") s
+/F-gs-font 10 10 SF
+0 setgray
+198 498 M
+(\);) s
+30 487 M (2:) s
+30 476 M (3:) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 476 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 476 M
+( dds = @) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 476 M
+(import) s
+/F-gs-font 10 10 SF
+0 setgray
+162 476 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+168 476 M
+("dds") s
+/F-gs-font 10 10 SF
+0 setgray
+198 476 M
+(\);) s
+30 465 M (4:) s
+30 454 M (5:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 454 M
+(// keyboard) s
+/F-gs-font 10 10 SF
+30 443 M (6:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 443 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 443 M
+( kbd = @) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 443 M
+(import) s
+/F-gs-font 10 10 SF
+0 setgray
+162 443 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+168 443 M
+("cursed") s
+/F-gs-font 10 10 SF
+0 setgray
+216 443 M
+(\).kbd;) s
+30 432 M (7:) s
+30 421 M (8:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 421 M
+(// panel) s
+/F-gs-font 10 10 SF
+30 410 M (9:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 410 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 410 M
+( pnl = @) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 410 M
+(import) s
+/F-gs-font 10 10 SF
+0 setgray
+162 410 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+168 410 M
+("forms") s
+/F-gs-font 10 10 SF
+0 setgray
+210 410 M
+(\).pnl;) s
+24 399 M (10:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 399 M
+(// button) s
+/F-gs-font 10 10 SF
+24 388 M (11:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 388 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 388 M
+( btn = @) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 388 M
+(import) s
+/F-gs-font 10 10 SF
+0 setgray
+162 388 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+168 388 M
+("forms") s
+/F-gs-font 10 10 SF
+0 setgray
+210 388 M
+(\).btn;) s
+24 377 M (12:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 377 M
+(// label) s
+/F-gs-font 10 10 SF
+24 366 M (13:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 366 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 366 M
+( lbl = @) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 366 M
+(import) s
+/F-gs-font 10 10 SF
+0 setgray
+162 366 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+168 366 M
+("forms") s
+/F-gs-font 10 10 SF
+0 setgray
+210 366 M
+(\).lbl;) s
+24 355 M (14:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 355 M
+(// menu) s
+/F-gs-font 10 10 SF
+24 344 M (15:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 344 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 344 M
+( mnu = @) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 344 M
+(import) s
+/F-gs-font 10 10 SF
+0 setgray
+162 344 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+168 344 M
+("forms") s
+/F-gs-font 10 10 SF
+0 setgray
+210 344 M
+(\).mnu;) s
+24 333 M (16:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 333 M
+(// flied) s
+/F-gs-font 10 10 SF
+24 322 M (17:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 322 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 322 M
+( fld = @) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 322 M
+(import) s
+/F-gs-font 10 10 SF
+0 setgray
+162 322 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+168 322 M
+("forms") s
+/F-gs-font 10 10 SF
+0 setgray
+210 322 M
+(\).fld;) s
+24 311 M (18:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 311 M
+(// line horizontal) s
+/F-gs-font 10 10 SF
+24 300 M (19:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 300 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 300 M
+( lnh = @) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 300 M
+(import) s
+/F-gs-font 10 10 SF
+0 setgray
+162 300 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+168 300 M
+("forms") s
+/F-gs-font 10 10 SF
+0 setgray
+210 300 M
+(\).lnh;) s
+24 289 M (20:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 289 M
+(// line vertival) s
+/F-gs-font 10 10 SF
+24 278 M (21:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 278 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 278 M
+( lnv = @) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 278 M
+(import) s
+/F-gs-font 10 10 SF
+0 setgray
+162 278 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+168 278 M
+("forms") s
+/F-gs-font 10 10 SF
+0 setgray
+210 278 M
+(\).lnv;) s
+24 267 M (22:) s
+24 256 M (23:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 256 M
+(// grid) s
+/F-gs-font 10 10 SF
+24 245 M (24:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 245 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 245 M
+( grd = @) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 245 M
+(import) s
+/F-gs-font 10 10 SF
+0 setgray
+162 245 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+168 245 M
+("grid") s
+/F-gs-font 10 10 SF
+0 setgray
+204 245 M
+(\).grd;) s
+24 234 M (25:) s
+24 223 M (26:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 223 M
+(// full delete for produc) s
+/F-gs-font 10 10 SF
+24 212 M (27:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 212 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 212 M
+( forms = @) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+138 212 M
+(import) s
+/F-gs-font 10 10 SF
+0 setgray
+174 212 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+180 212 M
+("forms") s
+/F-gs-font 10 10 SF
+0 setgray
+222 212 M
+(\);) s
+24 201 M (28:) s
+24 190 M (29:) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 190 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 190 M
+( allocator = std.heap.page_allocator;) s
+24 179 M (30:) s
+24 168 M (31:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 168 M
+(// tools utility) s
+/F-gs-font 10 10 SF
+24 157 M (32:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 157 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 157 M
+( utl = @) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 157 M
+(import) s
+/F-gs-font 10 10 SF
+0 setgray
+162 157 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+168 157 M
+("utils") s
+/F-gs-font 10 10 SF
+0 setgray
+210 157 M
+(\);) s
+24 146 M (33:) s
+24 135 M (34:) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 135 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 135 M
+( deb_Log = @) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+150 135 M
+(import) s
+/F-gs-font 10 10 SF
+0 setgray
+186 135 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+192 135 M
+("logger") s
+/F-gs-font 10 10 SF
+0 setgray
+240 135 M
+(\).openFile; ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+312 135 M
+(// open  file) s
+/F-gs-font 10 10 SF
+24 124 M (35:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 124 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 124 M
+( end_Log = @) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+150 124 M
+(import) s
+/F-gs-font 10 10 SF
+0 setgray
+186 124 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+192 124 M
+("logger") s
+/F-gs-font 10 10 SF
+0 setgray
+240 124 M
+(\).closeFile; ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+318 124 M
+(// close file) s
+/F-gs-font 10 10 SF
+24 113 M (36:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 113 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 113 M
+( plog = @) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+132 113 M
+(import) s
+/F-gs-font 10 10 SF
+0 setgray
+168 113 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+174 113 M
+("logger") s
+/F-gs-font 10 10 SF
+0 setgray
+222 113 M
+(\).scoped; ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+282 113 M
+(// print file) s
+/F-gs-font 10 10 SF
+24 102 M (37:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+24 91 M (38:) s
+24 80 M (39:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 80 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+24 69 M (40:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 69 M
+(// define Ctype JSON) s
+/F-gs-font 10 10 SF
+24 58 M (41:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 58 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 58 M
+( Ctype = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+132 58 M
+(enum) s
+/F-gs-font 10 10 SF
+0 setgray
+156 58 M
+( { null, ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+210 58 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+234 58 M
+(, integer, ) s
+/Courier-Bold 10 10 SUF
+0.133333 0.545098 0.133333 setrgbcolor
+300 58 M
+(float) s
+/F-gs-font 10 10 SF
+0 setgray
+330 58 M
+(, number_string, string, array, object, decimal_string };) s
+24 47 M (42:) s
+24 36 M (43:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 36 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+24 25 M (44:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 25 M
+(// define BUTTON JSON) s
+/F-gs-font 10 10 SF
+24 14 M (45:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 14 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+24 3 M (46:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+_R
+S
+%%Page: (2) 2
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 2 def
+/fname (/home/soleil/Zterm/src-zig/mdlRjson.zig) def
+/fdir (/home/soleil/Zterm/src-zig) def
+/ftail (mdlRjson.zig) def
+% User defined strings:
+/pagenumstr (2) def
+/moddatestr (09/27/23) def
+/modtimestr (00:11:58) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+24 498 M (47:) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 498 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 498 M
+( DEFBUTTON = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+156 498 M
+(struct) s
+/F-gs-font 10 10 SF
+0 setgray
+192 498 M
+( { name: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+258 498 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+288 498 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+294 498 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+306 498 M
+(, key: kbd, show: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+414 498 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+438 498 M
+(, check: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+492 498 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+516 498 M
+(, title: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+582 498 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+612 498 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+618 498 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+630 498 M
+( };) s
+24 487 M (48:) s
+24 476 M (49:) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 476 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 476 M
+( Jbutton = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+144 476 M
+(enum) s
+/F-gs-font 10 10 SF
+0 setgray
+168 476 M
+( { name, key, show, check, title };) s
+24 465 M (50:) s
+24 454 M (51:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 454 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+24 443 M (52:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 443 M
+(// define LABEL JSON) s
+/F-gs-font 10 10 SF
+24 432 M (53:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 432 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+24 421 M (54:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+24 410 M (55:) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 410 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 410 M
+( DEFLABEL = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+150 410 M
+(struct) s
+/F-gs-font 10 10 SF
+0 setgray
+186 410 M
+( { name: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+252 410 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+282 410 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+288 410 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+300 410 M
+(, posx: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 410 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+378 410 M
+(, posy: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+426 410 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+456 410 M
+(, text: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+516 410 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+546 410 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+552 410 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+564 410 M
+(, title: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+618 410 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+642 410 M
+( };) s
+24 399 M (56:) s
+24 388 M (57:) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 388 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 388 M
+( Jlabel = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+138 388 M
+(enum) s
+/F-gs-font 10 10 SF
+0 setgray
+162 388 M
+( { name, posx, posy, text, title };) s
+24 377 M (58:) s
+24 366 M (59:) s
+24 355 M (60:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 355 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+24 344 M (61:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 344 M
+(// define FIELD JSON) s
+/F-gs-font 10 10 SF
+24 333 M (62:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 333 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+24 322 M (63:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+24 311 M (64:) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 311 M
+(pub) s
+/F-gs-font 10 10 SF
+0 setgray
+66 311 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 311 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+102 311 M
+( DEFFIELD = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+174 311 M
+(struct) s
+/F-gs-font 10 10 SF
+0 setgray
+210 311 M
+( {) s
+24 300 M (65:) s
+48 300 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 300 M
+(name) s
+/F-gs-font 10 10 SF
+0 setgray
+96 300 M
+(: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+120 300 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+150 300 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+156 300 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+168 300 M
+(,) s
+24 289 M (66:) s
+48 289 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 289 M
+(posx) s
+/F-gs-font 10 10 SF
+0 setgray
+96 289 M
+(: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+108 289 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+138 289 M
+(,) s
+24 278 M (67:) s
+48 278 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 278 M
+(posy) s
+/F-gs-font 10 10 SF
+0 setgray
+96 278 M
+(: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+108 278 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+138 278 M
+(,) s
+24 267 M (68:) s
+48 267 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 267 M
+(reftyp) s
+/F-gs-font 10 10 SF
+0 setgray
+108 267 M
+(: dds.REFTYP,) s
+24 256 M (69:) s
+48 256 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 256 M
+(width) s
+/F-gs-font 10 10 SF
+0 setgray
+102 256 M
+(: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+114 256 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+144 256 M
+(,) s
+24 245 M (70:) s
+48 245 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 245 M
+(scal) s
+/F-gs-font 10 10 SF
+0 setgray
+96 245 M
+(: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+108 245 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+138 245 M
+(,) s
+24 234 M (71:) s
+48 234 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 234 M
+(requier) s
+/F-gs-font 10 10 SF
+0 setgray
+114 234 M
+(: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 234 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+150 234 M
+(, ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+162 234 M
+(// requier or FULL) s
+/F-gs-font 10 10 SF
+24 223 M (72:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 223 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 223 M
+(protect) s
+/F-gs-font 10 10 SF
+0 setgray
+114 223 M
+(: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 223 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+150 223 M
+(, ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+162 223 M
+(// only display) s
+/F-gs-font 10 10 SF
+24 212 M (73:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 212 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 212 M
+(edtcar) s
+/F-gs-font 10 10 SF
+0 setgray
+108 212 M
+(: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+132 212 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+162 212 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 212 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+180 212 M
+(, ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+192 212 M
+(// edtcar ex: monnaie           ) s
+/F-gs-font 10 10 SF
+24 201 M (74:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+24 190 M (75:) s
+48 190 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 190 M
+(regex) s
+/F-gs-font 10 10 SF
+0 setgray
+102 190 M
+(: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 190 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+156 190 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+162 190 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+174 190 M
+(, ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+186 190 M
+(//contr\303\264le regex) s
+/F-gs-font 10 10 SF
+24 179 M (76:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 179 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 179 M
+(errmsg) s
+/F-gs-font 10 10 SF
+0 setgray
+108 179 M
+(: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+132 179 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+162 179 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 179 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+180 179 M
+(, ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+192 179 M
+(//message this field) s
+/F-gs-font 10 10 SF
+24 168 M (77:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+24 157 M (78:) s
+48 157 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 157 M
+(help) s
+/F-gs-font 10 10 SF
+0 setgray
+96 157 M
+(: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+120 157 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+150 157 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+156 157 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+168 157 M
+(, ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+180 157 M
+(//help this field) s
+/F-gs-font 10 10 SF
+24 146 M (79:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+24 135 M (80:) s
+48 135 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 135 M
+(text) s
+/F-gs-font 10 10 SF
+0 setgray
+96 135 M
+(: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+120 135 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+150 135 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+156 135 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+168 135 M
+(,) s
+24 124 M (81:) s
+48 124 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 124 M
+(zwitch) s
+/F-gs-font 10 10 SF
+0 setgray
+108 124 M
+(: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+120 124 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+144 124 M
+(, ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+156 124 M
+(// CTRUE CFALSE) s
+/F-gs-font 10 10 SF
+24 113 M (82:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+24 102 M (83:) s
+48 102 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 102 M
+(procfunc) s
+/F-gs-font 10 10 SF
+0 setgray
+120 102 M
+(: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+144 102 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+174 102 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+180 102 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+192 102 M
+(, ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+204 102 M
+(//name proc) s
+/F-gs-font 10 10 SF
+24 91 M (84:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+24 80 M (85:) s
+48 80 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 80 M
+(proctask) s
+/F-gs-font 10 10 SF
+0 setgray
+120 80 M
+(: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+144 80 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+174 80 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+180 80 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+192 80 M
+(, ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+204 80 M
+(//name proc) s
+/F-gs-font 10 10 SF
+24 69 M (86:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+24 58 M (87:) s
+48 58 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 58 M
+(actif) s
+/F-gs-font 10 10 SF
+0 setgray
+102 58 M
+(: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+114 58 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+138 58 M
+(,) s
+24 47 M (88:) s
+48 47 M
+(};) s
+24 36 M (89:) s
+24 25 M (90:) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 25 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 25 M
+( Jfield = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+138 25 M
+(enum) s
+/F-gs-font 10 10 SF
+0 setgray
+162 25 M
+( {) s
+24 14 M (91:) s
+48 14 M
+(    name,) s
+24 3 M (92:) s
+48 3 M
+(    posx,) s
+_R
+S
+%%Page: (3) 3
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 3 def
+/fname (/home/soleil/Zterm/src-zig/mdlRjson.zig) def
+/fdir (/home/soleil/Zterm/src-zig) def
+/ftail (mdlRjson.zig) def
+% User defined strings:
+/pagenumstr (3) def
+/moddatestr (09/27/23) def
+/modtimestr (00:11:58) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+24 498 M (93:) s
+48 498 M
+(    posy,) s
+24 487 M (94:) s
+48 487 M
+(    reftype,) s
+24 476 M (95:) s
+48 476 M
+(    width,) s
+24 465 M (96:) s
+48 465 M
+(    scal,) s
+24 454 M (97:) s
+48 454 M
+(    text,) s
+24 443 M (98:) s
+48 443 M
+(    requier,) s
+24 432 M (99:) s
+48 432 M
+(    protect,) s
+18 421 M (100:) s
+48 421 M
+(        edtcar,) s
+18 410 M (101:) s
+48 410 M
+(    errmsg,) s
+18 399 M (102:) s
+48 399 M
+(    help,) s
+18 388 M (103:) s
+48 388 M
+(    procfunc,) s
+18 377 M (104:) s
+48 377 M
+(    proctask) s
+18 366 M (105:) s
+48 366 M
+(};) s
+18 355 M (106:) s
+18 344 M (107:) s
+18 333 M (108:) s
+18 322 M (109:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 322 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+18 311 M (110:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 311 M
+(// define PANEL JSON) s
+/F-gs-font 10 10 SF
+18 300 M (111:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 300 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+18 289 M (112:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 289 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 289 M
+( RPANEL = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+138 289 M
+(struct) s
+/F-gs-font 10 10 SF
+0 setgray
+174 289 M
+( { ) s
+18 278 M (113:) s
+48 278 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 278 M
+(name) s
+/F-gs-font 10 10 SF
+0 setgray
+96 278 M
+(: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+120 278 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+150 278 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+156 278 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+168 278 M
+(,) s
+18 267 M (114:) s
+48 267 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 267 M
+(posx) s
+/F-gs-font 10 10 SF
+0 setgray
+96 267 M
+(: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+108 267 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+138 267 M
+(,) s
+18 256 M (115:) s
+48 256 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 256 M
+(posy) s
+/F-gs-font 10 10 SF
+0 setgray
+96 256 M
+(: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+108 256 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+138 256 M
+(,) s
+18 245 M (116:) s
+48 245 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 245 M
+(lines) s
+/F-gs-font 10 10 SF
+0 setgray
+102 245 M
+(: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+114 245 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+144 245 M
+(,) s
+18 234 M (117:) s
+48 234 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 234 M
+(cols) s
+/F-gs-font 10 10 SF
+0 setgray
+96 234 M
+(: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+108 234 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+138 234 M
+(,) s
+18 223 M (118:) s
+48 223 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 223 M
+(cadre) s
+/F-gs-font 10 10 SF
+0 setgray
+102 223 M
+(: dds.CADRE,) s
+18 212 M (119:) s
+48 212 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 212 M
+(title) s
+/F-gs-font 10 10 SF
+0 setgray
+102 212 M
+(: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 212 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+156 212 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+162 212 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+174 212 M
+(,) s
+18 201 M (120:) s
+48 201 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 201 M
+(button) s
+/F-gs-font 10 10 SF
+0 setgray
+108 201 M
+(: std.ArrayList\(DEFBUTTON\),) s
+18 190 M (121:) s
+48 190 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 190 M
+(label) s
+/F-gs-font 10 10 SF
+0 setgray
+102 190 M
+(: std.ArrayList\(DEFLABEL\),) s
+18 179 M (122:) s
+48 179 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 179 M
+(field) s
+/F-gs-font 10 10 SF
+0 setgray
+102 179 M
+(: std.ArrayList\(DEFFIELD\)) s
+18 168 M (123:) s
+48 168 M
+(};) s
+18 157 M (124:) s
+18 146 M (125:) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 146 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 146 M
+( Jpanel = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+138 146 M
+(enum) s
+/F-gs-font 10 10 SF
+0 setgray
+162 146 M
+( {) s
+18 135 M (126:) s
+48 135 M
+(    name,) s
+18 124 M (127:) s
+48 124 M
+(    posx,) s
+18 113 M (128:) s
+48 113 M
+(    posy,) s
+18 102 M (129:) s
+48 102 M
+(    lines,) s
+18 91 M (130:) s
+48 91 M
+(    cols,) s
+18 80 M (131:) s
+48 80 M
+(    cadre,) s
+18 69 M (132:) s
+48 69 M
+(    title,) s
+18 58 M (133:) s
+48 58 M
+(    button,) s
+18 47 M (134:) s
+48 47 M
+(    label,) s
+18 36 M (135:) s
+48 36 M
+(    field) s
+18 25 M (136:) s
+48 25 M
+(};) s
+18 14 M (137:) s
+18 3 M (138:) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 3 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+66 3 M
+( ENRG: RPANEL = undefined;) s
+_R
+S
+%%Page: (4) 4
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 4 def
+/fname (/home/soleil/Zterm/src-zig/mdlRjson.zig) def
+/fdir (/home/soleil/Zterm/src-zig) def
+/ftail (mdlRjson.zig) def
+% User defined strings:
+/pagenumstr (4) def
+/moddatestr (09/27/23) def
+/modtimestr (00:11:58) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+18 498 M (139:) s
+18 487 M (140:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 487 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+18 476 M (141:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 476 M
+(//  string return enum) s
+/F-gs-font 10 10 SF
+18 465 M (142:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 465 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+18 454 M (143:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+18 443 M (144:) s
+48 443 M
+(fn ) s
+/Courier-Bold 10 10 SUF
+0 0 1 setrgbcolor
+66 443 M
+(strToEnum) s
+/F-gs-font 10 10 SF
+0 setgray
+120 443 M
+(\(comptime EnumTag: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+234 443 M
+(type) s
+/F-gs-font 10 10 SF
+0 setgray
+258 443 M
+(, vtext: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+324 443 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+354 443 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+360 443 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+372 443 M
+(\) EnumTag {) s
+18 432 M (145:) s
+48 432 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 432 M
+(inline) s
+/F-gs-font 10 10 SF
+0 setgray
+108 432 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+114 432 M
+(for) s
+/F-gs-font 10 10 SF
+0 setgray
+132 432 M
+( \(@typeInfo\(EnumTag\).Enum.fields\) |f| {) s
+18 421 M (146:) s
+48 421 M
+(        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 421 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+108 421 M
+( \(std.mem.eql\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+192 421 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+204 421 M
+(, f.name, vtext\)\) ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+312 421 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+348 421 M
+( @field\(EnumTag, f.name\);) s
+18 410 M (147:) s
+48 410 M
+(    }) s
+18 399 M (148:) s
+18 388 M (149:) s
+48 388 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 388 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+90 388 M
+( buffer: [128]) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+174 388 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+186 388 M
+( = [_]) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+222 388 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+234 388 M
+({0} ** 128;) s
+18 377 M (150:) s
+48 377 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 377 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+90 377 M
+( result = std.fmt.bufPrintZ\(buffer[0..], ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+336 377 M
+("invalid Text {s} for strToEnum ") s
+/F-gs-font 10 10 SF
+0 setgray
+534 377 M
+(, .{vtext}\) catch ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+642 377 M
+(unreachable) s
+/F-gs-font 10 10 SF
+0 setgray
+708 377 M
+(;) s
+18 366 M (151:) s
+48 366 M
+(    @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+78 366 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+108 366 M
+(\(result\);) s
+18 355 M (152:) s
+48 355 M
+(}) s
+18 344 M (153:) s
+18 333 M (154:) s
+18 322 M (155:) s
+18 311 M (156:) s
+18 300 M (157:) s
+18 289 M (158:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 289 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+18 278 M (159:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 278 M
+(// JSON) s
+/F-gs-font 10 10 SF
+18 267 M (160:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 267 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+18 256 M (161:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+18 245 M (162:) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+48 245 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+78 245 M
+( T = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+108 245 M
+(struct) s
+/F-gs-font 10 10 SF
+0 setgray
+144 245 M
+( {) s
+18 234 M (163:) s
+48 234 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+72 234 M
+(x) s
+/F-gs-font 10 10 SF
+0 setgray
+78 234 M
+(: ?std.json.Value,) s
+18 223 M (164:) s
+18 212 M (165:) s
+48 212 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 212 M
+(pub) s
+/F-gs-font 10 10 SF
+0 setgray
+90 212 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 212 M
+(fn) s
+/F-gs-font 10 10 SF
+0 setgray
+108 212 M
+( init\(self: std.json.Value\) T {) s
+18 201 M (166:) s
+48 201 M
+(        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 201 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+132 201 M
+( T{ .x = self };) s
+18 190 M (167:) s
+48 190 M
+(    }) s
+18 179 M (168:) s
+18 168 M (169:) s
+48 168 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 168 M
+(pub) s
+/F-gs-font 10 10 SF
+0 setgray
+90 168 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 168 M
+(fn) s
+/F-gs-font 10 10 SF
+0 setgray
+108 168 M
+( get\(self: T, query: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+246 168 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+276 168 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+282 168 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+294 168 M
+(\) T {) s
+18 157 M (170:) s
+48 157 M
+(        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 157 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+108 157 M
+( \(self.x.?.object.get\(query\) == null\) {) s
+18 146 M (171:) s
+48 146 M
+(            std.debug.print\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+216 146 M
+("ERROR::{s}::") s
+/F-gs-font 10 10 SF
+0 setgray
+300 146 M
+(, .{) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+324 146 M
+("invalid") s
+/F-gs-font 10 10 SF
+0 setgray
+378 146 M
+(}\);) s
+18 135 M (172:) s
+48 135 M
+(            ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+120 135 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+156 135 M
+( T.init\(self.x.?\);) s
+18 124 M (173:) s
+48 124 M
+(        }) s
+18 113 M (174:) s
+18 102 M (175:) s
+48 102 M
+(        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 102 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+132 102 M
+( T.init\(self.x.?.object.get\(query\).?\);) s
+18 91 M (176:) s
+48 91 M
+(    }) s
+18 80 M (177:) s
+18 69 M (178:) s
+48 69 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 69 M
+(pub) s
+/F-gs-font 10 10 SF
+0 setgray
+90 69 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 69 M
+(fn) s
+/F-gs-font 10 10 SF
+0 setgray
+108 69 M
+( ctrlPack\(self: T, Xtype: Ctype\) !) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+312 69 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+336 69 M
+( {) s
+18 58 M (179:) s
+48 58 M
+(        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 58 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+114 58 M
+( out = std.ArrayList\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+240 58 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+252 58 M
+(\).init\(allocator\);) s
+18 47 M (180:) s
+48 47 M
+(        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 47 M
+(defer) s
+/F-gs-font 10 10 SF
+0 setgray
+126 47 M
+( out.deinit\(\);) s
+18 36 M (181:) s
+18 25 M (182:) s
+48 25 M
+(        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 25 M
+(switch) s
+/F-gs-font 10 10 SF
+0 setgray
+132 25 M
+( \(self.x.?\) {) s
+18 14 M (183:) s
+48 14 M
+(            .null => {) s
+18 3 M (184:) s
+48 3 M
+(                ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+144 3 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+156 3 M
+( \(Xtype != .null\) ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 3 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+300 3 M
+( false;) s
+_R
+S
+%%Page: (5) 5
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 5 def
+/fname (/home/soleil/Zterm/src-zig/mdlRjson.zig) def
+/fdir (/home/soleil/Zterm/src-zig) def
+/ftail (mdlRjson.zig) def
+% User defined strings:
+/pagenumstr (5) def
+/moddatestr (09/27/23) def
+/modtimestr (00:11:58) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+18 498 M (185:) s
+48 498 M
+(            },) s
+18 487 M (186:) s
+18 476 M (187:) s
+48 476 M
+(            .) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+126 476 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+150 476 M
+( => {) s
+18 465 M (188:) s
+48 465 M
+(                ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+144 465 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+156 465 M
+( \(Xtype != Ctype.) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+258 465 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+282 465 M
+(\) ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+294 465 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+330 465 M
+( false;) s
+18 454 M (189:) s
+48 454 M
+(            },) s
+18 443 M (190:) s
+18 432 M (191:) s
+48 432 M
+(            .integer => {) s
+18 421 M (192:) s
+48 421 M
+(                ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+144 421 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+156 421 M
+( \(Xtype != Ctype.integer\) ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+312 421 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+348 421 M
+( false;) s
+18 410 M (193:) s
+48 410 M
+(            },) s
+18 399 M (194:) s
+18 388 M (195:) s
+48 388 M
+(            .) s
+/Courier-Bold 10 10 SUF
+0.133333 0.545098 0.133333 setrgbcolor
+126 388 M
+(float) s
+/F-gs-font 10 10 SF
+0 setgray
+156 388 M
+( => {) s
+18 377 M (196:) s
+48 377 M
+(                ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+144 377 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+156 377 M
+( \(Xtype != Ctype.) s
+/Courier-Bold 10 10 SUF
+0.133333 0.545098 0.133333 setrgbcolor
+258 377 M
+(float) s
+/F-gs-font 10 10 SF
+0 setgray
+288 377 M
+(\) ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+300 377 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+336 377 M
+( false;) s
+18 366 M (197:) s
+48 366 M
+(            },) s
+18 355 M (198:) s
+18 344 M (199:) s
+48 344 M
+(            .number_string => {) s
+18 333 M (200:) s
+48 333 M
+(                ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+144 333 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+156 333 M
+( \(Xtype != Ctype.number_string\) ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 333 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+384 333 M
+( false;) s
+18 322 M (201:) s
+48 322 M
+(            },) s
+18 311 M (202:) s
+18 300 M (203:) s
+48 300 M
+(            .string => {) s
+18 289 M (204:) s
+48 289 M
+(                ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+144 289 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+156 289 M
+( \(Xtype != Ctype.string\) ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+306 289 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+342 289 M
+( false;) s
+18 278 M (205:) s
+48 278 M
+(                ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+144 278 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+156 278 M
+( \(Xtype == Ctype.decimal_string\)) s
+18 267 M (206:) s
+48 267 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 267 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+204 267 M
+( utl.isDecimalStr\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+312 267 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+330 267 M
+( std.fmt.allocPrint\(allocator, ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+516 267 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+546 267 M
+(, .{self.x.?.string}\)\);) s
+18 256 M (207:) s
+48 256 M
+(            },) s
+18 245 M (208:) s
+18 234 M (209:) s
+48 234 M
+(            .array => {) s
+18 223 M (210:) s
+48 223 M
+(                ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+144 223 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+156 223 M
+( \(Xtype != Ctype.array\) ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+300 223 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+336 223 M
+( false;) s
+18 212 M (211:) s
+48 212 M
+(            },) s
+18 201 M (212:) s
+18 190 M (213:) s
+48 190 M
+(            .object => {) s
+18 179 M (214:) s
+48 179 M
+(                ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+144 179 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+156 179 M
+( \(Xtype != Ctype.object\) ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+306 179 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+342 179 M
+( false;) s
+18 168 M (215:) s
+48 168 M
+(                ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+144 168 M
+(//try printPack\(self,Xtype\);) s
+/F-gs-font 10 10 SF
+18 157 M (216:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 157 M
+(            },) s
+18 146 M (217:) s
+48 146 M
+(        }) s
+18 135 M (218:) s
+18 124 M (219:) s
+48 124 M
+(        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 124 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+132 124 M
+( true;) s
+18 113 M (220:) s
+48 113 M
+(    }) s
+18 102 M (221:) s
+18 91 M (222:) s
+48 91 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 91 M
+(pub) s
+/F-gs-font 10 10 SF
+0 setgray
+90 91 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 91 M
+(fn) s
+/F-gs-font 10 10 SF
+0 setgray
+108 91 M
+( index\(self: T, i: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+222 91 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+252 91 M
+(\) T {) s
+18 80 M (223:) s
+48 80 M
+(        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 80 M
+(switch) s
+/F-gs-font 10 10 SF
+0 setgray
+132 80 M
+( \(self.x.?\) {) s
+18 69 M (224:) s
+48 69 M
+(            .array => {) s
+18 58 M (225:) s
+48 58 M
+(                ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+144 58 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+156 58 M
+( \(i > self.x.?.array.items.len\) {) s
+18 47 M (226:) s
+48 47 M
+(                    std.debug.print\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+264 47 M
+("ERROR::{s}::\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+360 47 M
+(, .{) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+384 47 M
+("index out of bounds") s
+/F-gs-font 10 10 SF
+0 setgray
+510 47 M
+(}\);) s
+18 36 M (227:) s
+48 36 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 36 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+204 36 M
+( T.init\(self.x.?\);) s
+18 25 M (228:) s
+48 25 M
+(                }) s
+18 14 M (229:) s
+48 14 M
+(            },) s
+18 3 M (230:) s
+48 3 M
+(            ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+120 3 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+144 3 M
+( => {) s
+_R
+S
+%%Page: (6) 6
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 6 def
+/fname (/home/soleil/Zterm/src-zig/mdlRjson.zig) def
+/fdir (/home/soleil/Zterm/src-zig) def
+/ftail (mdlRjson.zig) def
+% User defined strings:
+/pagenumstr (6) def
+/moddatestr (09/27/23) def
+/modtimestr (00:11:58) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+18 498 M (231:) s
+48 498 M
+(                std.debug.print\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+240 498 M
+("ERROR::{s}:: {s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+360 498 M
+(, .{ ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+390 498 M
+("Not array") s
+/F-gs-font 10 10 SF
+0 setgray
+456 498 M
+(, @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+474 498 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+516 498 M
+(\(self.x.?\) }\);) s
+18 487 M (232:) s
+48 487 M
+(                ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+144 487 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+180 487 M
+( T.init\(self.x.?\);) s
+18 476 M (233:) s
+48 476 M
+(            },) s
+18 465 M (234:) s
+48 465 M
+(        }) s
+18 454 M (235:) s
+48 454 M
+(        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 454 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+132 454 M
+( T.init\(self.x.?.array.items[i]\);) s
+18 443 M (236:) s
+48 443 M
+(    }) s
+18 432 M (237:) s
+48 432 M
+(};) s
+18 421 M (238:) s
+18 410 M (239:) s
+18 399 M (240:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 399 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+18 388 M (241:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 388 M
+(// DECODEUR) s
+/F-gs-font 10 10 SF
+18 377 M (242:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 377 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+18 366 M (243:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+18 355 M (244:) s
+48 355 M
+(pub fn ) s
+/Courier-Bold 10 10 SUF
+0 0 1 setrgbcolor
+90 355 M
+(jsonDecode) s
+/F-gs-font 10 10 SF
+0 setgray
+150 355 M
+(\(my_json: []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+222 355 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+252 355 M
+( ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+258 355 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+270 355 M
+(\) !) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+288 355 M
+(void) s
+/F-gs-font 10 10 SF
+0 setgray
+312 355 M
+( {) s
+18 344 M (245:) s
+48 344 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 344 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+90 344 M
+( val: T = undefined;) s
+18 333 M (246:) s
+18 322 M (247:) s
+48 322 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 322 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+102 322 M
+( parsed = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+162 322 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+180 322 M
+( std.json.parseFromSlice\(std.json.Value, allocator, my_json, .{}\);) s
+18 311 M (248:) s
+48 311 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 311 M
+(defer) s
+/F-gs-font 10 10 SF
+0 setgray
+102 311 M
+( parsed.deinit\(\);) s
+18 300 M (249:) s
+18 289 M (250:) s
+48 289 M
+(    std.debug.print\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+168 289 M
+("\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+192 289 M
+(, .{}\);) s
+18 278 M (251:) s
+18 267 M (252:) s
+48 267 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 267 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+102 267 M
+( json = T.init\(parsed.value\);) s
+18 256 M (253:) s
+18 245 M (254:) s
+48 245 M
+(    _ = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 245 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+114 245 M
+( json.ctrlPack\(Ctype.object\);) s
+18 234 M (255:) s
+18 223 M (256:) s
+48 223 M
+(    val = json.get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+162 223 M
+("PANEL") s
+/F-gs-font 10 10 SF
+0 setgray
+204 223 M
+(\);) s
+18 212 M (257:) s
+18 201 M (258:) s
+48 201 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 201 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+90 201 M
+( nbrPanel = val.x.?.array.items.len;) s
+18 190 M (259:) s
+18 179 M (260:) s
+48 179 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 179 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+90 179 M
+( p: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+114 179 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+144 179 M
+(= 0;) s
+18 168 M (261:) s
+18 157 M (262:) s
+48 157 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 157 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+102 157 M
+( Rpanel = std.enums.EnumIndexer\(Jpanel\);) s
+18 146 M (263:) s
+18 135 M (264:) s
+48 135 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 135 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+102 135 M
+( Rbutton = std.enums.EnumIndexer\(Jbutton\);) s
+18 124 M (265:) s
+18 113 M (266:) s
+48 113 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 113 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+102 113 M
+( Rlabel = std.enums.EnumIndexer\(Jlabel\);) s
+18 102 M (267:) s
+18 91 M (268:) s
+48 91 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 91 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+102 91 M
+( Rfield = std.enums.EnumIndexer\(Jfield\);) s
+18 80 M (269:) s
+18 69 M (270:) s
+48 69 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 69 M
+(while) s
+/F-gs-font 10 10 SF
+0 setgray
+102 69 M
+( \(p < nbrPanel\) : \(p += 1\) {) s
+18 58 M (271:) s
+48 58 M
+(        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 58 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+114 58 M
+( n: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+138 58 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+168 58 M
+( = 0; ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+204 58 M
+(// index) s
+/F-gs-font 10 10 SF
+18 47 M (272:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+18 36 M (273:) s
+48 36 M
+(        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 36 M
+(while) s
+/F-gs-font 10 10 SF
+0 setgray
+126 36 M
+( \(n < Rpanel.count\) : \(n += 1\) {) s
+18 25 M (274:) s
+48 25 M
+(            ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+120 25 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+138 25 M
+( v: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+162 25 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+192 25 M
+( = 0; ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+228 25 M
+(// index) s
+/F-gs-font 10 10 SF
+18 14 M (275:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 14 M
+(            ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+120 14 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+138 14 M
+( y: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+162 14 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+192 14 M
+( = 0; ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+228 14 M
+(// array len) s
+/F-gs-font 10 10 SF
+18 3 M (276:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 3 M
+(            ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+120 3 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+138 3 M
+( z: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+162 3 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+192 3 M
+( = 0; ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+228 3 M
+(// compteur) s
+_R
+S
+%%Page: (7) 7
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 7 def
+/fname (/home/soleil/Zterm/src-zig/mdlRjson.zig) def
+/fdir (/home/soleil/Zterm/src-zig) def
+/ftail (mdlRjson.zig) def
+/Courier-Oblique 10 10 SUF
+% User defined strings:
+/pagenumstr (7) def
+/moddatestr (09/27/23) def
+/modtimestr (00:11:58) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+0.698039 0.133333 0.133333 setrgbcolor
+/F-gs-font 10 10 SF
+18 498 M (277:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 498 M
+(            ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+120 498 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+138 498 M
+( b: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+162 498 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+192 498 M
+( = 0; ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+228 498 M
+(// button) s
+/F-gs-font 10 10 SF
+18 487 M (278:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 487 M
+(            ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+120 487 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+138 487 M
+( l: ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+162 487 M
+(usize) s
+/F-gs-font 10 10 SF
+0 setgray
+192 487 M
+( = 0; ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+228 487 M
+(// label) s
+/F-gs-font 10 10 SF
+18 476 M (279:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 476 M
+(            ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+120 476 M
+(switch) s
+/F-gs-font 10 10 SF
+0 setgray
+156 476 M
+( \(Rpanel.keyForIndex\(n\)\) {) s
+18 465 M (280:) s
+48 465 M
+(                Jpanel.name => {) s
+18 454 M (281:) s
+48 454 M
+(                    val = json.get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+258 454 M
+("PANEL") s
+/F-gs-font 10 10 SF
+0 setgray
+300 454 M
+(\).index\(p\).get\(@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+396 454 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+438 454 M
+(\(Rpanel.keyForIndex\(n\)\)\);) s
+18 443 M (282:) s
+18 432 M (283:) s
+48 432 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 432 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+180 432 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+192 432 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+210 432 M
+( val.ctrlPack\(Ctype.string\)\)) s
+18 421 M (284:) s
+48 421 M
+(                        ENRG.name = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 421 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+282 421 M
+( std.fmt.allocPrint\(allocator, ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+468 421 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+498 421 M
+(, .{val.x.?.string}\)) s
+18 410 M (285:) s
+48 410 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 410 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+18 399 M (286:) s
+48 399 M
+(                        @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+198 399 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+228 399 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+234 399 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+252 399 M
+( std.fmt.allocPrint\(allocator,) s
+18 388 M (287:) s
+48 388 M
+(                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+192 388 M
+("Json  Panel err_Field :{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+372 388 M
+(, .{@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+402 388 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+444 388 M
+(\(Rpanel.keyForIndex\(n\)\)}\)\);) s
+18 377 M (288:) s
+48 377 M
+(                },) s
+18 366 M (289:) s
+48 366 M
+(                Jpanel.posx => {) s
+18 355 M (290:) s
+48 355 M
+(                    val = json.get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+258 355 M
+("PANEL") s
+/F-gs-font 10 10 SF
+0 setgray
+300 355 M
+(\).index\(p\).get\(@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+396 355 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+438 355 M
+(\(Rpanel.keyForIndex\(n\)\)\);) s
+18 344 M (291:) s
+18 333 M (292:) s
+48 333 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 333 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+180 333 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+192 333 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+210 333 M
+( val.ctrlPack\(Ctype.integer\)\)) s
+18 322 M (293:) s
+48 322 M
+(                        ENRG.posx = @intCast\(val.x.?.integer\)) s
+18 311 M (294:) s
+48 311 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 311 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+18 300 M (295:) s
+48 300 M
+(                        @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+198 300 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+228 300 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+234 300 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+252 300 M
+( std.fmt.allocPrint\(allocator,) s
+18 289 M (296:) s
+48 289 M
+(                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+192 289 M
+("Json  err_Field :{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+336 289 M
+(, .{@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+366 289 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+408 289 M
+(\(Rpanel.keyForIndex\(n\)\)}\)\);) s
+18 278 M (297:) s
+48 278 M
+(                },) s
+18 267 M (298:) s
+48 267 M
+(                Jpanel.posy => {) s
+18 256 M (299:) s
+48 256 M
+(                    val = json.get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+258 256 M
+("PANEL") s
+/F-gs-font 10 10 SF
+0 setgray
+300 256 M
+(\).index\(p\).get\(@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+396 256 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+438 256 M
+(\(Rpanel.keyForIndex\(n\)\)\);) s
+18 245 M (300:) s
+18 234 M (301:) s
+48 234 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 234 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+180 234 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+192 234 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+210 234 M
+( val.ctrlPack\(Ctype.integer\)\)) s
+18 223 M (302:) s
+48 223 M
+(                        ENRG.posy = @intCast\(val.x.?.integer\)) s
+18 212 M (303:) s
+48 212 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 212 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+18 201 M (304:) s
+48 201 M
+(                        @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+198 201 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+228 201 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+234 201 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+252 201 M
+( std.fmt.allocPrint\(allocator,) s
+18 190 M (305:) s
+48 190 M
+(                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+192 190 M
+("Json  err_Field :{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+336 190 M
+(, .{@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+366 190 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+408 190 M
+(\(Rpanel.keyForIndex\(n\)\)}\)\);) s
+18 179 M (306:) s
+48 179 M
+(                },) s
+18 168 M (307:) s
+48 168 M
+(                Jpanel.lines => {) s
+18 157 M (308:) s
+48 157 M
+(                    val = json.get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+258 157 M
+("PANEL") s
+/F-gs-font 10 10 SF
+0 setgray
+300 157 M
+(\).index\(p\).get\(@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+396 157 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+438 157 M
+(\(Rpanel.keyForIndex\(n\)\)\);) s
+18 146 M (309:) s
+18 135 M (310:) s
+48 135 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 135 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+180 135 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+192 135 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+210 135 M
+( val.ctrlPack\(Ctype.integer\)\)) s
+18 124 M (311:) s
+48 124 M
+(                        ENRG.lines = @intCast\(val.x.?.integer\)) s
+18 113 M (312:) s
+48 113 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 113 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+18 102 M (313:) s
+48 102 M
+(                        @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+198 102 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+228 102 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+234 102 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+252 102 M
+( std.fmt.allocPrint\(allocator,) s
+18 91 M (314:) s
+48 91 M
+(                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+192 91 M
+("Json  err_Field :{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+336 91 M
+(, .{@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+366 91 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+408 91 M
+(\(Rpanel.keyForIndex\(n\)\)}\)\);) s
+18 80 M (315:) s
+48 80 M
+(                },) s
+18 69 M (316:) s
+48 69 M
+(                Jpanel.cols => {) s
+18 58 M (317:) s
+48 58 M
+(                    val = json.get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+258 58 M
+("PANEL") s
+/F-gs-font 10 10 SF
+0 setgray
+300 58 M
+(\).index\(p\).get\(@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+396 58 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+438 58 M
+(\(Rpanel.keyForIndex\(n\)\)\);) s
+18 47 M (318:) s
+18 36 M (319:) s
+48 36 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 36 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+180 36 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+192 36 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+210 36 M
+( val.ctrlPack\(Ctype.integer\)\)) s
+18 25 M (320:) s
+48 25 M
+(                        ENRG.cols = @intCast\(val.x.?.integer\)) s
+18 14 M (321:) s
+48 14 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 14 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+18 3 M (322:) s
+48 3 M
+(                        @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+198 3 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+228 3 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+234 3 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+252 3 M
+( std.fmt.allocPrint\(allocator,) s
+_R
+S
+%%Page: (8) 8
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 8 def
+/fname (/home/soleil/Zterm/src-zig/mdlRjson.zig) def
+/fdir (/home/soleil/Zterm/src-zig) def
+/ftail (mdlRjson.zig) def
+% User defined strings:
+/pagenumstr (8) def
+/moddatestr (09/27/23) def
+/modtimestr (00:11:58) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+18 498 M (323:) s
+48 498 M
+(                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+192 498 M
+("Json  err_Field :{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+336 498 M
+(, .{@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+366 498 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+408 498 M
+(\(Rpanel.keyForIndex\(n\)\)}\)\);) s
+18 487 M (324:) s
+48 487 M
+(                },) s
+18 476 M (325:) s
+48 476 M
+(                Jpanel.cadre => {) s
+18 465 M (326:) s
+48 465 M
+(                    val = json.get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+258 465 M
+("PANEL") s
+/F-gs-font 10 10 SF
+0 setgray
+300 465 M
+(\).index\(p\).get\(@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+396 465 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+438 465 M
+(\(Rpanel.keyForIndex\(n\)\)\);) s
+18 454 M (327:) s
+18 443 M (328:) s
+48 443 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 443 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+180 443 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+192 443 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+210 443 M
+( val.ctrlPack\(Ctype.string\)\) {) s
+18 432 M (329:) s
+48 432 M
+(                        ENRG.cadre = strToEnum\(dds.CADRE, val.x.?.string\);) s
+18 421 M (330:) s
+48 421 M
+(                    } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+180 421 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+204 421 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+216 421 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+246 421 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+252 421 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+270 421 M
+( std.fmt.allocPrint\(allocator,) s
+18 410 M (331:) s
+48 410 M
+(                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+192 410 M
+("Json  err_Field :{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+336 410 M
+(, .{@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+366 410 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+408 410 M
+(\(Rpanel.keyForIndex\(n\)\)}\)\);) s
+18 399 M (332:) s
+48 399 M
+(                },) s
+18 388 M (333:) s
+48 388 M
+(                Jpanel.title => {) s
+18 377 M (334:) s
+48 377 M
+(                    val = json.get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+258 377 M
+("PANEL") s
+/F-gs-font 10 10 SF
+0 setgray
+300 377 M
+(\).index\(p\).get\(@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+396 377 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+438 377 M
+(\(Rpanel.keyForIndex\(n\)\)\);) s
+18 366 M (335:) s
+18 355 M (336:) s
+48 355 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 355 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+180 355 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+192 355 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+210 355 M
+( val.ctrlPack\(Ctype.string\)\)) s
+18 344 M (337:) s
+48 344 M
+(                        ENRG.title = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+270 344 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+288 344 M
+( std.fmt.allocPrint\(allocator, ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+474 344 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+504 344 M
+(, .{val.x.?.string}\)) s
+18 333 M (338:) s
+48 333 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 333 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+18 322 M (339:) s
+48 322 M
+(                        @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+198 322 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+228 322 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+234 322 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+252 322 M
+( std.fmt.allocPrint\(allocator,) s
+18 311 M (340:) s
+48 311 M
+(                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+192 311 M
+("Json  err_Field :{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+336 311 M
+(, .{@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+366 311 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+408 311 M
+(\(Rpanel.keyForIndex\(n\)\)}\)\);) s
+18 300 M (341:) s
+48 300 M
+(                },) s
+18 289 M (342:) s
+48 289 M
+(                ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+144 289 M
+(//===============================================================================) s
+/F-gs-font 10 10 SF
+18 278 M (343:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 278 M
+(                ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+144 278 M
+(// BUTTON) s
+/F-gs-font 10 10 SF
+18 267 M (344:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 267 M
+(                ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+144 267 M
+(//===============================================================================) s
+/F-gs-font 10 10 SF
+18 256 M (345:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 256 M
+(                Jpanel.button => {) s
+18 245 M (346:) s
+48 245 M
+(                    val = json.get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+258 245 M
+("PANEL") s
+/F-gs-font 10 10 SF
+0 setgray
+300 245 M
+(\).index\(p\).get\(@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+396 245 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+438 245 M
+(\(Rpanel.keyForIndex\(n\)\)\);) s
+18 234 M (347:) s
+18 223 M (348:) s
+48 223 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 223 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+186 223 M
+( bt: DEFBUTTON = undefined;) s
+18 212 M (349:) s
+48 212 M
+(                    y = val.x.?.array.items.len;) s
+18 201 M (350:) s
+48 201 M
+(                    z = 0;) s
+18 190 M (351:) s
+48 190 M
+(                    b = 0;) s
+18 179 M (352:) s
+18 168 M (353:) s
+48 168 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 168 M
+(while) s
+/F-gs-font 10 10 SF
+0 setgray
+198 168 M
+( \(z < y\) : \(z += 1\) {) s
+18 157 M (354:) s
+48 157 M
+(                        v = 0;) s
+18 146 M (355:) s
+48 146 M
+(                        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+192 146 M
+(while) s
+/F-gs-font 10 10 SF
+0 setgray
+222 146 M
+( \(v < Rbutton.count\) : \(v += 1\) {) s
+18 135 M (356:) s
+48 135 M
+(                            val = json.get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+306 135 M
+("PANEL") s
+/F-gs-font 10 10 SF
+0 setgray
+348 135 M
+(\).index\(p\).get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+438 135 M
+("button") s
+/F-gs-font 10 10 SF
+0 setgray
+486 135 M
+(\).index\(b\)) s
+18 124 M (357:) s
+48 124 M
+(                                .get\(@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+276 124 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+318 124 M
+(\(Rbutton.keyForIndex\(v\)\)) s
+18 113 M (358:) s
+48 113 M
+(                            \);) s
+18 102 M (359:) s
+18 91 M (360:) s
+48 91 M
+(                            ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+216 91 M
+(switch) s
+/F-gs-font 10 10 SF
+0 setgray
+252 91 M
+( \(Rbutton.keyForIndex\(v\)\) {) s
+18 80 M (361:) s
+48 80 M
+(                                Jbutton.name => {) s
+18 69 M (362:) s
+48 69 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 69 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+276 69 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+288 69 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+306 69 M
+( val.ctrlPack\(Ctype.string\)\)) s
+18 58 M (363:) s
+48 58 M
+(                                        bt.name = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 58 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 58 M
+( std.fmt.allocPrint\(allocator, ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+552 58 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+582 58 M
+(, .{val.x.?.string}\)) s
+18 47 M (364:) s
+48 47 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 47 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+18 36 M (365:) s
+48 36 M
+(                                        @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+294 36 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+324 36 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+330 36 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+348 36 M
+( std.fmt.allocPrint\(allocator,) s
+18 25 M (366:) s
+48 25 M
+(                                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+288 25 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+456 25 M
+(, .{) s
+18 14 M (367:) s
+48 14 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 14 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 14 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 14 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 14 M
+(\(Rbutton.keyForIndex\(v\)\)) s
+18 3 M (368:) s
+48 3 M
+(                                        }\)\);) s
+_R
+S
+%%Page: (9) 9
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 9 def
+/fname (/home/soleil/Zterm/src-zig/mdlRjson.zig) def
+/fdir (/home/soleil/Zterm/src-zig) def
+/ftail (mdlRjson.zig) def
+% User defined strings:
+/pagenumstr (9) def
+/moddatestr (09/27/23) def
+/modtimestr (00:11:58) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+18 498 M (369:) s
+48 498 M
+(                                },) s
+18 487 M (370:) s
+48 487 M
+(                                Jbutton.key => {) s
+18 476 M (371:) s
+48 476 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 476 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+276 476 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+288 476 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+306 476 M
+( val.ctrlPack\(Ctype.string\)\) {) s
+18 465 M (372:) s
+48 465 M
+(                                        bt.key = strToEnum\(kbd, val.x.?.string\);) s
+18 454 M (373:) s
+48 454 M
+(                                    } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+276 454 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+300 454 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+312 454 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+342 454 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 454 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 454 M
+( std.fmt.allocPrint\(allocator,) s
+18 443 M (374:) s
+48 443 M
+(                                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+288 443 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+456 443 M
+(, .{) s
+18 432 M (375:) s
+48 432 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 432 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 432 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 432 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 432 M
+(\(Rbutton.keyForIndex\(v\)\)) s
+18 421 M (376:) s
+48 421 M
+(                                        }\)\);) s
+18 410 M (377:) s
+48 410 M
+(                                },) s
+18 399 M (378:) s
+48 399 M
+(                                Jbutton.show => {) s
+18 388 M (379:) s
+48 388 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 388 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+276 388 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+288 388 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+306 388 M
+( val.ctrlPack\(Ctype.) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+426 388 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+450 388 M
+(\)\)) s
+18 377 M (380:) s
+48 377 M
+(                                        bt.show = val.x.?.) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+396 377 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+18 366 M (381:) s
+48 366 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 366 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+18 355 M (382:) s
+48 355 M
+(                                        @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+294 355 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+324 355 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+330 355 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+348 355 M
+( std.fmt.allocPrint\(allocator,) s
+18 344 M (383:) s
+48 344 M
+(                                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+288 344 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+456 344 M
+(, .{) s
+18 333 M (384:) s
+48 333 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 333 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 333 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 333 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 333 M
+(\(Rbutton.keyForIndex\(v\)\)) s
+18 322 M (385:) s
+48 322 M
+(                                        }\)\);) s
+18 311 M (386:) s
+48 311 M
+(                                },) s
+18 300 M (387:) s
+48 300 M
+(                                Jbutton.check => {) s
+18 289 M (388:) s
+48 289 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 289 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+276 289 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+288 289 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+306 289 M
+( val.ctrlPack\(Ctype.) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+426 289 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+450 289 M
+(\)\)) s
+18 278 M (389:) s
+48 278 M
+(                                        bt.check = val.x.?.) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+402 278 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+18 267 M (390:) s
+48 267 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 267 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+18 256 M (391:) s
+48 256 M
+(                                        @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+294 256 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+324 256 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+330 256 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+348 256 M
+( std.fmt.allocPrint\(allocator,) s
+18 245 M (392:) s
+48 245 M
+(                                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+288 245 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+456 245 M
+(, .{) s
+18 234 M (393:) s
+48 234 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 234 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 234 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 234 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 234 M
+(\(Rbutton.keyForIndex\(v\)\)) s
+18 223 M (394:) s
+48 223 M
+(                                        }\)\);) s
+18 212 M (395:) s
+48 212 M
+(                                },) s
+18 201 M (396:) s
+48 201 M
+(                                Jbutton.title => {) s
+18 190 M (397:) s
+48 190 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 190 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+276 190 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+288 190 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+306 190 M
+( val.ctrlPack\(Ctype.string\)\)) s
+18 179 M (398:) s
+48 179 M
+(                                        bt.title = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+354 179 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+372 179 M
+( std.fmt.allocPrint\(allocator, ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+558 179 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+588 179 M
+(, .{val.x.?.string}\)) s
+18 168 M (399:) s
+48 168 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 168 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+18 157 M (400:) s
+48 157 M
+(                                        @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+294 157 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+324 157 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+330 157 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+348 157 M
+( std.fmt.allocPrint\(allocator,) s
+18 146 M (401:) s
+48 146 M
+(                                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+288 146 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+456 146 M
+(, .{) s
+18 135 M (402:) s
+48 135 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 135 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 135 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 135 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 135 M
+(\(Rbutton.keyForIndex\(v\)\)) s
+18 124 M (403:) s
+48 124 M
+(                                        }\)\);) s
+18 113 M (404:) s
+18 102 M (405:) s
+48 102 M
+(                                    ENRG.button.append\(bt\) catch ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+438 102 M
+(unreachable) s
+/F-gs-font 10 10 SF
+0 setgray
+504 102 M
+(;) s
+18 91 M (406:) s
+48 91 M
+(                                },) s
+18 80 M (407:) s
+48 80 M
+(                            }) s
+18 69 M (408:) s
+48 69 M
+(                        }) s
+18 58 M (409:) s
+48 58 M
+(                        b += 1;) s
+18 47 M (410:) s
+48 47 M
+(                    }) s
+18 36 M (411:) s
+48 36 M
+(                },) s
+18 25 M (412:) s
+48 25 M
+(                ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+144 25 M
+(//===============================================================================) s
+/F-gs-font 10 10 SF
+18 14 M (413:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 14 M
+(                ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+144 14 M
+(// LABEL) s
+/F-gs-font 10 10 SF
+18 3 M (414:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 3 M
+(                ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+144 3 M
+(//===============================================================================) s
+_R
+S
+%%Page: (10) 10
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 10 def
+/fname (/home/soleil/Zterm/src-zig/mdlRjson.zig) def
+/fdir (/home/soleil/Zterm/src-zig) def
+/ftail (mdlRjson.zig) def
+/Courier-Oblique 10 10 SUF
+% User defined strings:
+/pagenumstr (10) def
+/moddatestr (09/27/23) def
+/modtimestr (00:11:58) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+0.698039 0.133333 0.133333 setrgbcolor
+/F-gs-font 10 10 SF
+18 498 M (415:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+18 487 M (416:) s
+48 487 M
+(                Jpanel.label => {) s
+18 476 M (417:) s
+48 476 M
+(                    val = json.get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+258 476 M
+("PANEL") s
+/F-gs-font 10 10 SF
+0 setgray
+300 476 M
+(\).index\(p\).get\(@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+396 476 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+438 476 M
+(\(Rpanel.keyForIndex\(n\)\)\);) s
+18 465 M (418:) s
+18 454 M (419:) s
+48 454 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 454 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+186 454 M
+( lb: DEFLABEL = undefined;) s
+18 443 M (420:) s
+48 443 M
+(                    y = val.x.?.array.items.len;) s
+18 432 M (421:) s
+48 432 M
+(                    z = 0;) s
+18 421 M (422:) s
+48 421 M
+(                    l = 0;) s
+18 410 M (423:) s
+48 410 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 410 M
+(while) s
+/F-gs-font 10 10 SF
+0 setgray
+198 410 M
+( \(z < y\) : \(z += 1\) {) s
+18 399 M (424:) s
+48 399 M
+(                        v = 0;) s
+18 388 M (425:) s
+48 388 M
+(                        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+192 388 M
+(while) s
+/F-gs-font 10 10 SF
+0 setgray
+222 388 M
+( \(v < Rlabel.count\) : \(v += 1\) {) s
+18 377 M (426:) s
+48 377 M
+(                            val = json.get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+306 377 M
+("PANEL") s
+/F-gs-font 10 10 SF
+0 setgray
+348 377 M
+(\).index\(p\).get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+438 377 M
+("label") s
+/F-gs-font 10 10 SF
+0 setgray
+480 377 M
+(\).index\(l\)) s
+18 366 M (427:) s
+48 366 M
+(                                .get\(@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+276 366 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+318 366 M
+(\(Rlabel.keyForIndex\(v\)\)) s
+18 355 M (428:) s
+48 355 M
+(                            \);) s
+18 344 M (429:) s
+18 333 M (430:) s
+48 333 M
+(                            ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+216 333 M
+(switch) s
+/F-gs-font 10 10 SF
+0 setgray
+252 333 M
+( \(Rlabel.keyForIndex\(v\)\) {) s
+18 322 M (431:) s
+48 322 M
+(                                Jlabel.name => {) s
+18 311 M (432:) s
+48 311 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 311 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+276 311 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+288 311 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+306 311 M
+( val.ctrlPack\(Ctype.string\)\)) s
+18 300 M (433:) s
+48 300 M
+(                                        lb.name = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 300 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 300 M
+( std.fmt.allocPrint\(allocator, ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+552 300 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+582 300 M
+(, .{val.x.?.string}\)) s
+18 289 M (434:) s
+48 289 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 289 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+18 278 M (435:) s
+48 278 M
+(                                        @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+294 278 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+324 278 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+330 278 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+348 278 M
+( std.fmt.allocPrint\(allocator,) s
+18 267 M (436:) s
+48 267 M
+(                                            ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+312 267 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+480 267 M
+(, .{) s
+18 256 M (437:) s
+48 256 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 256 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 256 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 256 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 256 M
+(\(Rlabel.keyForIndex\(v\)\)) s
+18 245 M (438:) s
+48 245 M
+(                                        }\)\);) s
+18 234 M (439:) s
+48 234 M
+(                                },) s
+18 223 M (440:) s
+48 223 M
+(                                Jlabel.posx => {) s
+18 212 M (441:) s
+48 212 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 212 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+276 212 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+288 212 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+306 212 M
+( val.ctrlPack\(Ctype.integer\)\) {) s
+18 201 M (442:) s
+48 201 M
+(                                        lb.posx = @intCast\(val.x.?.integer\);) s
+18 190 M (443:) s
+48 190 M
+(                                    } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+276 190 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+300 190 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+312 190 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+342 190 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 190 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 190 M
+( std.fmt.allocPrint\(allocator,) s
+18 179 M (444:) s
+48 179 M
+(                                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+288 179 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+456 179 M
+(, .{) s
+18 168 M (445:) s
+48 168 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 168 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 168 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 168 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 168 M
+(\(Rbutton.keyForIndex\(v\)\)) s
+18 157 M (446:) s
+48 157 M
+(                                        }\)\);) s
+18 146 M (447:) s
+48 146 M
+(                                },) s
+18 135 M (448:) s
+48 135 M
+(                                Jlabel.posy => {) s
+18 124 M (449:) s
+48 124 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 124 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+276 124 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+288 124 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+306 124 M
+( val.ctrlPack\(Ctype.integer\)\) {) s
+18 113 M (450:) s
+48 113 M
+(                                        lb.posy = @intCast\(val.x.?.integer\);) s
+18 102 M (451:) s
+48 102 M
+(                                    } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+276 102 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+300 102 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+312 102 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+342 102 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 102 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 102 M
+( std.fmt.allocPrint\(allocator,) s
+18 91 M (452:) s
+48 91 M
+(                                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+288 91 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+456 91 M
+(, .{) s
+18 80 M (453:) s
+48 80 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 80 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 80 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 80 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 80 M
+(\(Rbutton.keyForIndex\(v\)\)) s
+18 69 M (454:) s
+48 69 M
+(                                        }\)\);) s
+18 58 M (455:) s
+48 58 M
+(                                },) s
+18 47 M (456:) s
+48 47 M
+(                                Jlabel.text => {) s
+18 36 M (457:) s
+48 36 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 36 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+276 36 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+288 36 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+306 36 M
+( val.ctrlPack\(Ctype.string\)\)) s
+18 25 M (458:) s
+48 25 M
+(                                        lb.text = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 25 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 25 M
+( std.fmt.allocPrint\(allocator, ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+552 25 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+582 25 M
+(, .{val.x.?.string}\)) s
+18 14 M (459:) s
+48 14 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 14 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+18 3 M (460:) s
+48 3 M
+(                                        @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+294 3 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+324 3 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+330 3 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+348 3 M
+( std.fmt.allocPrint\(allocator,) s
+_R
+S
+%%Page: (11) 11
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 11 def
+/fname (/home/soleil/Zterm/src-zig/mdlRjson.zig) def
+/fdir (/home/soleil/Zterm/src-zig) def
+/ftail (mdlRjson.zig) def
+% User defined strings:
+/pagenumstr (11) def
+/moddatestr (09/27/23) def
+/modtimestr (00:11:58) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+18 498 M (461:) s
+48 498 M
+(                                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+288 498 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+456 498 M
+(, .{) s
+18 487 M (462:) s
+48 487 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 487 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 487 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 487 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 487 M
+(\(Rlabel.keyForIndex\(v\)\)) s
+18 476 M (463:) s
+48 476 M
+(                                        }\)\);) s
+18 465 M (464:) s
+48 465 M
+(                                },) s
+18 454 M (465:) s
+48 454 M
+(                                Jlabel.title => {) s
+18 443 M (466:) s
+48 443 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 443 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+276 443 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+288 443 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+306 443 M
+( val.ctrlPack\(Ctype.) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+426 443 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+450 443 M
+(\)\)) s
+18 432 M (467:) s
+48 432 M
+(                                        lb.title = val.x.?.) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+402 432 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+18 421 M (468:) s
+48 421 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 421 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+18 410 M (469:) s
+48 410 M
+(                                        @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+294 410 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+324 410 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+330 410 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+348 410 M
+( std.fmt.allocPrint\(allocator,) s
+18 399 M (470:) s
+48 399 M
+(                                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+288 399 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+456 399 M
+(, .{) s
+18 388 M (471:) s
+48 388 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 388 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 388 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 388 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 388 M
+(\(Rbutton.keyForIndex\(v\)\)) s
+18 377 M (472:) s
+48 377 M
+(                                        }\)\);) s
+18 366 M (473:) s
+18 355 M (474:) s
+48 355 M
+(                                    ENRG.label.append\(lb\) catch ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+432 355 M
+(unreachable) s
+/F-gs-font 10 10 SF
+0 setgray
+498 355 M
+(;) s
+18 344 M (475:) s
+48 344 M
+(                                },) s
+18 333 M (476:) s
+48 333 M
+(                            }) s
+18 322 M (477:) s
+48 322 M
+(                        }) s
+18 311 M (478:) s
+18 300 M (479:) s
+48 300 M
+(                        l += 1;) s
+18 289 M (480:) s
+48 289 M
+(                    }) s
+18 278 M (481:) s
+48 278 M
+(                },) s
+18 267 M (482:) s
+48 267 M
+(                ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+144 267 M
+(//===============================================================================) s
+/F-gs-font 10 10 SF
+18 256 M (483:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 256 M
+(                ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+144 256 M
+(// FIELD) s
+/F-gs-font 10 10 SF
+18 245 M (484:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 245 M
+(                ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+144 245 M
+(//===============================================================================) s
+/F-gs-font 10 10 SF
+18 234 M (485:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+18 223 M (486:) s
+48 223 M
+(                Jpanel.field => {) s
+18 212 M (487:) s
+48 212 M
+(                    val = json.get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+258 212 M
+("PANEL") s
+/F-gs-font 10 10 SF
+0 setgray
+300 212 M
+(\).index\(p\).get\(@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+396 212 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+438 212 M
+(\(Rpanel.keyForIndex\(n\)\)\);) s
+18 201 M (488:) s
+18 190 M (489:) s
+48 190 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 190 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+186 190 M
+( sreftyp = undefined;) s
+18 179 M (490:) s
+48 179 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 179 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+186 179 M
+( lf: DEFFIELD = undefined;) s
+18 168 M (491:) s
+48 168 M
+(                    y = val.x.?.array.items.len;) s
+18 157 M (492:) s
+48 157 M
+(                    z = 0;) s
+18 146 M (493:) s
+48 146 M
+(                    l = 0;) s
+18 135 M (494:) s
+48 135 M
+(                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+168 135 M
+(while) s
+/F-gs-font 10 10 SF
+0 setgray
+198 135 M
+( \(z < y\) : \(z += 1\) {) s
+18 124 M (495:) s
+48 124 M
+(                        v = 0;) s
+18 113 M (496:) s
+48 113 M
+(                        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+192 113 M
+(while) s
+/F-gs-font 10 10 SF
+0 setgray
+222 113 M
+( \(v < Rfield.count\) : \(v += 1\) {) s
+18 102 M (497:) s
+48 102 M
+(                            val = json.get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+306 102 M
+("PANEL") s
+/F-gs-font 10 10 SF
+0 setgray
+348 102 M
+(\).index\(p\).get\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+438 102 M
+("field") s
+/F-gs-font 10 10 SF
+0 setgray
+480 102 M
+(\).index\(l\)) s
+18 91 M (498:) s
+48 91 M
+(                                .get\(@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+276 91 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+318 91 M
+(\(Rfield.keyForIndex\(v\)\)) s
+18 80 M (499:) s
+48 80 M
+(                            \);) s
+18 69 M (500:) s
+18 58 M (501:) s
+48 58 M
+(                            ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+216 58 M
+(switch) s
+/F-gs-font 10 10 SF
+0 setgray
+252 58 M
+( \(Rfield.keyForIndex\(v\)\) {) s
+18 47 M (502:) s
+48 47 M
+(                                Jfield.name => { ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+342 47 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+354 47 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+366 47 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+384 47 M
+( val.ctrlPack\(Ctype.string\)\)) s
+18 36 M (503:) s
+48 36 M
+(                                        lf.name = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 36 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 36 M
+( std.fmt.allocPrint\(allocator, ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+552 36 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+582 36 M
+(, .{val.x.?.string}\)) s
+18 25 M (504:) s
+48 25 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 25 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+18 14 M (505:) s
+48 14 M
+(                                        @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+294 14 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+324 14 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+330 14 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+348 14 M
+( std.fmt.allocPrint\(allocator,) s
+18 3 M (506:) s
+48 3 M
+(                                            ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+312 3 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+480 3 M
+(, .{) s
+_R
+S
+%%Page: (12) 12
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 12 def
+/fname (/home/soleil/Zterm/src-zig/mdlRjson.zig) def
+/fdir (/home/soleil/Zterm/src-zig) def
+/ftail (mdlRjson.zig) def
+% User defined strings:
+/pagenumstr (12) def
+/moddatestr (09/27/23) def
+/modtimestr (00:11:58) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+18 498 M (507:) s
+48 498 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 498 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 498 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 498 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 498 M
+(\(Rfield.keyForIndex\(v\)\)) s
+18 487 M (508:) s
+48 487 M
+(                                        }\)\);) s
+18 476 M (509:) s
+48 476 M
+(                                },) s
+18 465 M (510:) s
+48 465 M
+(                                Jfield.posx => { ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+342 465 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+354 465 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+366 465 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+384 465 M
+( val.ctrlPack\(Ctype.integer\)\) {) s
+18 454 M (511:) s
+48 454 M
+(                                        lf.posx = @intCast\(val.x.?.integer\);) s
+18 443 M (512:) s
+48 443 M
+(                                    } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+276 443 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+300 443 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+312 443 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+342 443 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 443 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 443 M
+( std.fmt.allocPrint\(allocator,) s
+18 432 M (513:) s
+48 432 M
+(                                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+288 432 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+456 432 M
+(, .{) s
+18 421 M (514:) s
+48 421 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 421 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 421 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 421 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 421 M
+(\(Rbutton.keyForIndex\(v\)\)) s
+18 410 M (515:) s
+48 410 M
+(                                        }\)\);) s
+18 399 M (516:) s
+48 399 M
+(                                },) s
+18 388 M (517:) s
+48 388 M
+(                                Jfield.posy => { ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+342 388 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+354 388 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+366 388 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+384 388 M
+( val.ctrlPack\(Ctype.integer\)\) {) s
+18 377 M (518:) s
+48 377 M
+(                                        lf.posy = @intCast\(val.x.?.integer\);) s
+18 366 M (519:) s
+48 366 M
+(                                    } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+276 366 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+300 366 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+312 366 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+342 366 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 366 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 366 M
+( std.fmt.allocPrint\(allocator,) s
+18 355 M (520:) s
+48 355 M
+(                                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+288 355 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+456 355 M
+(, .{) s
+18 344 M (521:) s
+48 344 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 344 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 344 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 344 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 344 M
+(\(Rbutton.keyForIndex\(v\)\)) s
+18 333 M (522:) s
+48 333 M
+(                                        }\)\);) s
+18 322 M (523:) s
+48 322 M
+(                                },) s
+18 311 M (524:) s
+48 311 M
+(                               Jfield.reftyp => {) s
+18 300 M (525:) s
+48 300 M
+(                                        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+288 300 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+300 300 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+312 300 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+330 300 M
+( val.ctrlPack\(Ctype.string\)\) {) s
+18 289 M (526:) s
+48 289 M
+(                                            sreftyp = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+372 289 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+390 289 M
+( std.fmt.allocPrint\(allocator, ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+576 289 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+606 289 M
+(, .{val.x.?.string}\);) s
+18 278 M (527:) s
+48 278 M
+(                                            ) s
+18 267 M (528:) s
+48 267 M
+(                                        } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+300 267 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+324 267 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+336 267 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+366 267 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+372 267 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+390 267 M
+( std.fmt.allocPrint\(allocator,) s
+18 256 M (529:) s
+48 256 M
+(                                                ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+336 256 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+504 256 M
+(, .{) s
+18 245 M (530:) s
+48 245 M
+(                                                @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+342 245 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+384 245 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+540 245 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+582 245 M
+(\(Rfield.keyForIndex\(v\)\)) s
+18 234 M (531:) s
+48 234 M
+(                                            }\)\);) s
+18 223 M (532:) s
+18 212 M (533:) s
+48 212 M
+(                                        lf.reftyp = strToEnum\(dds.REFTYP ,sreftyp\);) s
+18 201 M (534:) s
+48 201 M
+(                                },) s
+18 190 M (535:) s
+48 190 M
+(                                Jfield.width => {) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+342 190 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+354 190 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+366 190 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+384 190 M
+( val.ctrlPack\(Ctype.integer\)\) {) s
+18 179 M (536:) s
+48 179 M
+(                                        lf.width= @intCast\(val.x.?.integer\);) s
+18 168 M (537:) s
+48 168 M
+(                                    } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+276 168 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+300 168 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+312 168 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+342 168 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 168 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 168 M
+( std.fmt.allocPrint\(allocator,) s
+18 157 M (538:) s
+48 157 M
+(                                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+288 157 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+456 157 M
+(, .{) s
+18 146 M (539:) s
+48 146 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 146 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 146 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 146 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 146 M
+(\(Rbutton.keyForIndex\(v\)\)) s
+18 135 M (540:) s
+48 135 M
+(                                        }\)\);) s
+18 124 M (541:) s
+48 124 M
+(                                },) s
+18 113 M (542:) s
+48 113 M
+(                                Jfield.scal => {) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+336 113 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+348 113 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+360 113 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+378 113 M
+( val.ctrlPack\(Ctype.integer\)\) {) s
+18 102 M (543:) s
+48 102 M
+(                                        lf.width= @intCast\(val.x.?.integer\);) s
+18 91 M (544:) s
+48 91 M
+(                                    } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+276 91 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+300 91 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+312 91 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+342 91 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 91 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 91 M
+( std.fmt.allocPrint\(allocator,) s
+18 80 M (545:) s
+48 80 M
+(                                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+288 80 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+456 80 M
+(, .{) s
+18 69 M (546:) s
+48 69 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 69 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 69 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 69 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 69 M
+(\(Rbutton.keyForIndex\(v\)\)) s
+18 58 M (547:) s
+48 58 M
+(                                        }\)\);) s
+18 47 M (548:) s
+18 36 M (549:) s
+48 36 M
+(                                },) s
+18 25 M (550:) s
+48 25 M
+(                                Jfield.requier => {) s
+18 14 M (551:) s
+48 14 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 14 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+276 14 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+288 14 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+306 14 M
+( val.ctrlPack\(Ctype.) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+426 14 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+450 14 M
+(\)\) {) s
+18 3 M (552:) s
+48 3 M
+(                                        lf.requier = val.x.?.) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+414 3 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+438 3 M
+( ;) s
+_R
+S
+%%Page: (13) 13
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 13 def
+/fname (/home/soleil/Zterm/src-zig/mdlRjson.zig) def
+/fdir (/home/soleil/Zterm/src-zig) def
+/ftail (mdlRjson.zig) def
+% User defined strings:
+/pagenumstr (13) def
+/moddatestr (09/27/23) def
+/modtimestr (00:11:58) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+18 498 M (553:) s
+48 498 M
+(                                    } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+276 498 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+300 498 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+312 498 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+342 498 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 498 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 498 M
+( std.fmt.allocPrint\(allocator,) s
+18 487 M (554:) s
+48 487 M
+(                                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+288 487 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+456 487 M
+(, .{) s
+18 476 M (555:) s
+48 476 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 476 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 476 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 476 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 476 M
+(\(Rbutton.keyForIndex\(v\)\)) s
+18 465 M (556:) s
+48 465 M
+(                                        }\)\);) s
+18 454 M (557:) s
+48 454 M
+(                                },) s
+18 443 M (558:) s
+48 443 M
+(                                Jfield.protect=> {) s
+18 432 M (559:) s
+48 432 M
+(                                    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+264 432 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+276 432 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+288 432 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+306 432 M
+( val.ctrlPack\(Ctype.) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+426 432 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+450 432 M
+(\)\) {) s
+18 421 M (560:) s
+48 421 M
+(                                        lf.protect= val.x.?.) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+408 421 M
+(bool) s
+/F-gs-font 10 10 SF
+0 setgray
+432 421 M
+( ;) s
+18 410 M (561:) s
+48 410 M
+(                                    } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+276 410 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+300 410 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+312 410 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+342 410 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 410 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 410 M
+( std.fmt.allocPrint\(allocator,) s
+18 399 M (562:) s
+48 399 M
+(                                        ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+288 399 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+456 399 M
+(, .{) s
+18 388 M (563:) s
+48 388 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 388 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 388 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 388 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 388 M
+(\(Rbutton.keyForIndex\(v\)\)) s
+18 377 M (564:) s
+48 377 M
+(                                        }\)\);) s
+18 366 M (565:) s
+48 366 M
+(                                },) s
+18 355 M (566:) s
+48 355 M
+(                                Jfield.edtcar => { ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+354 355 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+366 355 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+378 355 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+396 355 M
+( val.ctrlPack\(Ctype.string\)\) {) s
+18 344 M (567:) s
+48 344 M
+(                                        lf.edtcar= ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+354 344 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+372 344 M
+( std.fmt.allocPrint\(allocator, ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+558 344 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+588 344 M
+(, .{val.x.?.string}\);) s
+18 333 M (568:) s
+48 333 M
+(                                    } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+276 333 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+300 333 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+312 333 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+342 333 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 333 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 333 M
+( std.fmt.allocPrint\(allocator,) s
+18 322 M (569:) s
+48 322 M
+(                                            ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+312 322 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+480 322 M
+(, .{) s
+18 311 M (570:) s
+48 311 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 311 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 311 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 311 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 311 M
+(\(Rfield.keyForIndex\(v\)\)) s
+18 300 M (571:) s
+48 300 M
+(                                        }\)\);) s
+18 289 M (572:) s
+48 289 M
+(                                },) s
+18 278 M (573:) s
+48 278 M
+(                                Jfield.errmsg=> { ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 278 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+360 278 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+372 278 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+390 278 M
+( val.ctrlPack\(Ctype.string\)\) {) s
+18 267 M (574:) s
+48 267 M
+(                                        lf.errmsg= ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+354 267 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+372 267 M
+( std.fmt.allocPrint\(allocator, ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+558 267 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+588 267 M
+(, .{val.x.?.string}\);) s
+18 256 M (575:) s
+48 256 M
+(                                    } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+276 256 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+300 256 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+312 256 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+342 256 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 256 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 256 M
+( std.fmt.allocPrint\(allocator,) s
+18 245 M (576:) s
+48 245 M
+(                                            ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+312 245 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+480 245 M
+(, .{) s
+18 234 M (577:) s
+48 234 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 234 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 234 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 234 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 234 M
+(\(Rfield.keyForIndex\(v\)\)) s
+18 223 M (578:) s
+48 223 M
+(                                        }\)\);) s
+18 212 M (579:) s
+48 212 M
+(                                },) s
+18 201 M (580:) s
+48 201 M
+(                                Jfield.help=> { ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+336 201 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+348 201 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+360 201 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+378 201 M
+( val.ctrlPack\(Ctype.string\)\) {) s
+18 190 M (581:) s
+48 190 M
+(                                        lf.help= ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+342 190 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+360 190 M
+( std.fmt.allocPrint\(allocator, ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+546 190 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+576 190 M
+(, .{val.x.?.string}\);) s
+18 179 M (582:) s
+48 179 M
+(                                    } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+276 179 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+300 179 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+312 179 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+342 179 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 179 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 179 M
+( std.fmt.allocPrint\(allocator,) s
+18 168 M (583:) s
+48 168 M
+(                                            ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+312 168 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+480 168 M
+(, .{) s
+18 157 M (584:) s
+48 157 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 157 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 157 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 157 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 157 M
+(\(Rfield.keyForIndex\(v\)\)) s
+18 146 M (585:) s
+48 146 M
+(                                        }\)\);) s
+18 135 M (586:) s
+48 135 M
+(                                },) s
+18 124 M (587:) s
+48 124 M
+(                                Jfield.help=> { ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+336 124 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+348 124 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+360 124 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+378 124 M
+( val.ctrlPack\(Ctype.string\)\) {) s
+18 113 M (588:) s
+48 113 M
+(                                        lf.help= ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+342 113 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+360 113 M
+( std.fmt.allocPrint\(allocator, ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+546 113 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+576 113 M
+(, .{val.x.?.string}\);) s
+18 102 M (589:) s
+48 102 M
+(                                    } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+276 102 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+300 102 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+312 102 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+342 102 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 102 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 102 M
+( std.fmt.allocPrint\(allocator,) s
+18 91 M (590:) s
+48 91 M
+(                                            ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+312 91 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+480 91 M
+(, .{) s
+18 80 M (591:) s
+48 80 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 80 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 80 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 80 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 80 M
+(\(Rfield.keyForIndex\(v\)\)) s
+18 69 M (592:) s
+48 69 M
+(                                        }\)\);) s
+18 58 M (593:) s
+48 58 M
+(                                },) s
+18 47 M (594:) s
+48 47 M
+(                                Jfield.procfunc=> { ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+360 47 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+372 47 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+384 47 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+402 47 M
+( val.ctrlPack\(Ctype.string\)\) {) s
+18 36 M (595:) s
+48 36 M
+(                                        lf.procfunc= ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+366 36 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+384 36 M
+( std.fmt.allocPrint\(allocator, ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+570 36 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+600 36 M
+(, .{val.x.?.string}\);) s
+18 25 M (596:) s
+48 25 M
+(                                    } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+276 25 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+300 25 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+312 25 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+342 25 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 25 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 25 M
+( std.fmt.allocPrint\(allocator,) s
+18 14 M (597:) s
+48 14 M
+(                                            ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+312 14 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+480 14 M
+(, .{) s
+18 3 M (598:) s
+48 3 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 3 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 3 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 3 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 3 M
+(\(Rfield.keyForIndex\(v\)\)) s
+_R
+S
+%%Page: (14) 14
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 14 def
+/fname (/home/soleil/Zterm/src-zig/mdlRjson.zig) def
+/fdir (/home/soleil/Zterm/src-zig) def
+/ftail (mdlRjson.zig) def
+% User defined strings:
+/pagenumstr (14) def
+/moddatestr (09/27/23) def
+/modtimestr (00:11:58) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+18 498 M (599:) s
+48 498 M
+(                                        }\)\);) s
+18 487 M (600:) s
+48 487 M
+(                                },) s
+18 476 M (601:) s
+48 476 M
+(                                Jfield.proctask => { ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+366 476 M
+(if) s
+/F-gs-font 10 10 SF
+0 setgray
+378 476 M
+( \() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+390 476 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+408 476 M
+( val.ctrlPack\(Ctype.string\)\) {) s
+18 465 M (602:) s
+48 465 M
+(                                        lf.protask = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+366 465 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+384 465 M
+( std.fmt.allocPrint\(allocator, ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+570 465 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+600 465 M
+(, .{val.x.?.string}\);) s
+18 454 M (603:) s
+48 454 M
+(                                    } ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+276 454 M
+(else) s
+/F-gs-font 10 10 SF
+0 setgray
+300 454 M
+( @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+312 454 M
+(panic) s
+/F-gs-font 10 10 SF
+0 setgray
+342 454 M
+(\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+348 454 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+366 454 M
+( std.fmt.allocPrint\(allocator,) s
+18 443 M (604:) s
+48 443 M
+(                                            ) s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+312 443 M
+("Json  err_Field :{s}.{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+480 443 M
+(, .{) s
+18 432 M (605:) s
+48 432 M
+(                                            @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+318 432 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+360 432 M
+(\(Rpanel.keyForIndex\(n\)\), @) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+516 432 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+558 432 M
+(\(Rfield.keyForIndex\(v\)\)) s
+18 421 M (606:) s
+48 421 M
+(                                        }\)\);) s
+18 410 M (607:) s
+48 410 M
+(                                     ENRG.field.append\(lf\) catch ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+438 410 M
+(unreachable) s
+/F-gs-font 10 10 SF
+0 setgray
+504 410 M
+(;) s
+18 399 M (608:) s
+48 399 M
+(                                },) s
+18 388 M (609:) s
+48 388 M
+(                            }) s
+18 377 M (610:) s
+48 377 M
+(                        }) s
+18 366 M (611:) s
+18 355 M (612:) s
+48 355 M
+(                        l += 1;) s
+18 344 M (613:) s
+48 344 M
+(                    }) s
+18 333 M (614:) s
+48 333 M
+(                },) s
+18 322 M (615:) s
+18 311 M (616:) s
+48 311 M
+(            }) s
+18 300 M (617:) s
+48 300 M
+(        }) s
+18 289 M (618:) s
+48 289 M
+(    }) s
+18 278 M (619:) s
+48 278 M
+(}) s
+18 267 M (620:) s
+18 256 M (621:) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 256 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+18 245 M (622:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 245 M
+(// Main function) s
+/F-gs-font 10 10 SF
+18 234 M (623:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+48 234 M
+(//..............................//) s
+/F-gs-font 10 10 SF
+18 223 M (624:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 223 M
+(pub fn ) s
+/Courier-Bold 10 10 SUF
+0 0 1 setrgbcolor
+90 223 M
+(main) s
+/F-gs-font 10 10 SF
+0 setgray
+114 223 M
+(\(\) !) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+138 223 M
+(void) s
+/F-gs-font 10 10 SF
+0 setgray
+162 223 M
+( {) s
+18 212 M (625:) s
+48 212 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 212 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+90 212 M
+( my_file = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+156 212 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+174 212 M
+( std.fs.cwd\(\).createFile\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+324 212 M
+("Zdspf.txt") s
+/F-gs-font 10 10 SF
+0 setgray
+390 212 M
+(, .{ .read = true }\);) s
+18 201 M (626:) s
+48 201 M
+(        ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+96 201 M
+(defer) s
+/F-gs-font 10 10 SF
+0 setgray
+126 201 M
+( my_file.close\(\);) s
+18 190 M (627:) s
+18 179 M (628:) s
+18 168 M (629:) s
+48 168 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 168 M
+(const) s
+/F-gs-font 10 10 SF
+0 setgray
+102 168 M
+( file_size = ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+180 168 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+198 168 M
+( my_file.getEndPos\(\);) s
+18 157 M (630:) s
+48 157 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 157 M
+(var) s
+/F-gs-font 10 10 SF
+0 setgray
+90 157 M
+( buffer : []) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+162 157 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+174 157 M
+(= allocator.alloc\() s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+282 157 M
+(u8) s
+/F-gs-font 10 10 SF
+0 setgray
+294 157 M
+(, file_size\) catch ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+408 157 M
+(unreachable) s
+/F-gs-font 10 10 SF
+0 setgray
+474 157 M
+( ;) s
+18 146 M (631:) s
+18 135 M (632:) s
+18 124 M (633:) s
+48 124 M
+(    _= ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+90 124 M
+(try) s
+/F-gs-font 10 10 SF
+0 setgray
+108 124 M
+( my_file.read\(buffer[0..buffer.len]\);) s
+18 113 M (634:) s
+18 102 M (635:) s
+48 102 M
+(    ) s
+/Courier-Oblique 10 10 SUF
+0.698039 0.133333 0.133333 setrgbcolor
+72 102 M
+(// init arraylist) s
+/F-gs-font 10 10 SF
+18 91 M (636:) s
+/Courier-Oblique 10 10 SUF
+/F-gs-font 10 10 SF
+0 setgray
+48 91 M
+(    ENRG.button = std.ArrayList\(DEFBUTTON\).init\(allocator\);) s
+18 80 M (637:) s
+48 80 M
+(    ENRG.label = std.ArrayList\(DEFLABEL\).init\(allocator\);) s
+18 69 M (638:) s
+48 69 M
+(    ENRG.field = std.ArrayList\(DEFFIELD\).init\(allocator\);) s
+18 58 M (639:) s
+18 47 M (640:) s
+48 47 M
+(    jsonDecode\(buffer\) catch ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+222 47 M
+(return) s
+/F-gs-font 10 10 SF
+0 setgray
+258 47 M
+(;) s
+18 36 M (641:) s
+18 25 M (642:) s
+48 25 M
+(    deb_Log\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+120 25 M
+("zmodlRJson.txt") s
+/F-gs-font 10 10 SF
+0 setgray
+216 25 M
+(\);) s
+18 14 M (643:) s
+18 3 M (644:) s
+48 3 M
+(    plog\(.schema\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+192 3 M
+("\\nwrite Json") s
+/F-gs-font 10 10 SF
+0 setgray
+276 3 M
+(, .{}\);) s
+_R
+S
+%%Page: (15) 15
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 15 def
+/fname (/home/soleil/Zterm/src-zig/mdlRjson.zig) def
+/fdir (/home/soleil/Zterm/src-zig) def
+/ftail (mdlRjson.zig) def
+% User defined strings:
+/pagenumstr (15) def
+/moddatestr (09/27/23) def
+/modtimestr (00:11:58) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+18 498 M (645:) s
+48 498 M
+(    plog\(.schema\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+192 498 M
+("\\n{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+246 498 M
+(, .{buffer}\);) s
+18 487 M (646:) s
+48 487 M
+(    plog\(.schema\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+192 487 M
+("\\nRead Json") s
+/F-gs-font 10 10 SF
+0 setgray
+270 487 M
+(, .{}\);) s
+18 476 M (647:) s
+18 465 M (648:) s
+48 465 M
+(    plog\(.Panel\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+186 465 M
+("\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+210 465 M
+(, .{}\);) s
+18 454 M (649:) s
+48 454 M
+(    plog\(.Panel\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+186 454 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+216 454 M
+(, .{ENRG.name}\);) s
+18 443 M (650:) s
+48 443 M
+(    plog\(.Panel\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+186 443 M
+("{d}") s
+/F-gs-font 10 10 SF
+0 setgray
+216 443 M
+(, .{ENRG.posx}\);) s
+18 432 M (651:) s
+48 432 M
+(    plog\(.Panel\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+186 432 M
+("{d}") s
+/F-gs-font 10 10 SF
+0 setgray
+216 432 M
+(, .{ENRG.posy}\);) s
+18 421 M (652:) s
+48 421 M
+(    plog\(.Panel\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+186 421 M
+("{}") s
+/F-gs-font 10 10 SF
+0 setgray
+210 421 M
+(, .{ENRG.cadre}\);) s
+18 410 M (653:) s
+48 410 M
+(    plog\(.Panel\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+186 410 M
+("{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+228 410 M
+(, .{ENRG.title}\);) s
+18 399 M (654:) s
+18 388 M (655:) s
+48 388 M
+(    plog\(.Button\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+192 388 M
+("\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+216 388 M
+(, .{}\);) s
+18 377 M (656:) s
+48 377 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 377 M
+(for) s
+/F-gs-font 10 10 SF
+0 setgray
+90 377 M
+( \(ENRG.button.items\) |f| {) s
+18 366 M (657:) s
+48 366 M
+(        plog\(.Button\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+216 366 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+246 366 M
+(, .{f.name}\);) s
+18 355 M (658:) s
+48 355 M
+(        plog\(.Button\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+216 355 M
+("{any}") s
+/F-gs-font 10 10 SF
+0 setgray
+258 355 M
+(, .{f.key}\);) s
+18 344 M (659:) s
+48 344 M
+(        plog\(.Button\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+216 344 M
+("{}") s
+/F-gs-font 10 10 SF
+0 setgray
+240 344 M
+(, .{f.show}\);) s
+18 333 M (660:) s
+48 333 M
+(        plog\(.Button\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+216 333 M
+("{}") s
+/F-gs-font 10 10 SF
+0 setgray
+240 333 M
+(, .{f.check}\);) s
+18 322 M (661:) s
+48 322 M
+(        plog\(.Button\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+216 322 M
+("{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+258 322 M
+(, .{f.title}\);) s
+18 311 M (662:) s
+48 311 M
+(    }) s
+18 300 M (663:) s
+18 289 M (664:) s
+48 289 M
+(    plog\(.Label\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+186 289 M
+("\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+210 289 M
+(, .{}\);) s
+18 278 M (665:) s
+48 278 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 278 M
+(for) s
+/F-gs-font 10 10 SF
+0 setgray
+90 278 M
+( \(ENRG.label.items\) |f| {) s
+18 267 M (666:) s
+48 267 M
+(        plog\(.Label\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 267 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+240 267 M
+(, .{f.name}\);) s
+18 256 M (667:) s
+48 256 M
+(        plog\(.Label\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 256 M
+("{d}") s
+/F-gs-font 10 10 SF
+0 setgray
+240 256 M
+(, .{f.posx}\);) s
+18 245 M (668:) s
+48 245 M
+(        plog\(.Label\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 245 M
+("{d}") s
+/F-gs-font 10 10 SF
+0 setgray
+240 245 M
+(, .{f.posy}\);) s
+18 234 M (669:) s
+48 234 M
+(        plog\(.Label\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 234 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+240 234 M
+(, .{f.text}\);) s
+18 223 M (670:) s
+48 223 M
+(        plog\(.Label\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 223 M
+("{}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+246 223 M
+(, .{f.title}\);) s
+18 212 M (671:) s
+48 212 M
+(    }) s
+18 201 M (672:) s
+18 190 M (673:) s
+48 190 M
+(    plog\(.Field\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+186 190 M
+("\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+210 190 M
+(, .{}\);) s
+18 179 M (674:) s
+48 179 M
+(    ) s
+/Courier-Bold 10 10 SUF
+0.627451 0.12549 0.941176 setrgbcolor
+72 179 M
+(for) s
+/F-gs-font 10 10 SF
+0 setgray
+90 179 M
+( \(ENRG.field.items\) |f| {) s
+18 168 M (675:) s
+48 168 M
+(        plog\(.Field\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 168 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+240 168 M
+(, .{f.name}\);) s
+18 157 M (676:) s
+48 157 M
+(        plog\(.Field\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 157 M
+("{d}") s
+/F-gs-font 10 10 SF
+0 setgray
+240 157 M
+(, .{f.posx}\);) s
+18 146 M (677:) s
+48 146 M
+(        plog\(.Field\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 146 M
+("{d}") s
+/F-gs-font 10 10 SF
+0 setgray
+240 146 M
+(, .{f.posy}\);) s
+18 135 M (678:) s
+48 135 M
+(        plog\(.Field\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 135 M
+("{s}") s
+/F-gs-font 10 10 SF
+0 setgray
+240 135 M
+(, .{@) s
+/Courier-Bold 10 10 SUF
+0.372549 0.619608 0.627451 setrgbcolor
+270 135 M
+(tagName) s
+/F-gs-font 10 10 SF
+0 setgray
+312 135 M
+(\(f.reftyp\)}\);) s
+18 124 M (679:) s
+48 124 M
+(        plog\(.Field\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 124 M
+("{d}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+252 124 M
+(, .{f.width}\);) s
+18 113 M (680:) s
+48 113 M
+(        plog\(.Field\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 113 M
+("{d}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+252 113 M
+(, .{f.scal}\);) s
+18 102 M (681:) s
+48 102 M
+(        plog\(.Field\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 102 M
+("{}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+246 102 M
+(, .{f.requier}\);) s
+18 91 M (682:) s
+48 91 M
+(        plog\(.Field\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 91 M
+("{}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+246 91 M
+(, .{f.protect}\);) s
+18 80 M (683:) s
+48 80 M
+(        plog\(.Field\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 80 M
+("{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+252 80 M
+(, .{f.edtcar}\);) s
+18 69 M (684:) s
+48 69 M
+(        plog\(.Field\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 69 M
+("{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+252 69 M
+(, .{f.errmsg}\);) s
+18 58 M (685:) s
+48 58 M
+(        plog\(.Field\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 58 M
+("{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+252 58 M
+(, .{f.help}\);) s
+18 47 M (686:) s
+48 47 M
+(        plog\(.Field\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 47 M
+("{}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+246 47 M
+(, .{f.procfunc}\);) s
+18 36 M (687:) s
+48 36 M
+(        plog\(.Field\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+210 36 M
+("{s}\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+252 36 M
+(, .{f.proctask}\);) s
+18 25 M (688:) s
+48 25 M
+(    }) s
+18 14 M (689:) s
+18 3 M (690:) s
+_R
+S
+%%Page: (16) 16
+%%BeginPageSetup
+_S
+90 rotate
+24 -571 translate
+/pagenum 16 def
+/fname (/home/soleil/Zterm/src-zig/mdlRjson.zig) def
+/fdir (/home/soleil/Zterm/src-zig) def
+/ftail (mdlRjson.zig) def
+% User defined strings:
+/pagenumstr (16) def
+/moddatestr (09/27/23) def
+/modtimestr (00:11:58) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+18 498 M (691:) s
+48 498 M
+(    plog\(.end\).debug\() s
+/Courier-Bold 10 10 SUF
+0.737255 0.560784 0.560784 setrgbcolor
+174 498 M
+("End.\\n") s
+/F-gs-font 10 10 SF
+0 setgray
+222 498 M
+(, .{}\);) s
+18 487 M (692:) s
+18 476 M (693:) s
+48 476 M
+(    end_Log\(\);) s
+18 465 M (694:) s
+48 465 M
+(}) s
+_R
+S
+%%Trailer
+%%Pages: 16
+%%DocumentNeededResources: font Times-Roman Courier-Oblique Courier-Bold 
+%%+ font Courier Times-Bold 
+%%EOF

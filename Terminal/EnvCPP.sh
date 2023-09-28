@@ -15,8 +15,6 @@ faGras='\033[1m'
 
 
 
-
-
 projet_lib=$1
 
 name_src=$2".cpp"
@@ -101,7 +99,7 @@ f_readPos() {	#commande de positionnement	lines + coln + text
 }
 
 # resize 
-printf '\e[8;'30';'120't'
+printf '\e[8;'24';'120't'
 
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -195,4 +193,5 @@ do
 done
 
 tput cnorm
+
 exit 0

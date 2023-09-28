@@ -18,9 +18,9 @@ a) install Zig https://ziglang.org/download/  
 
 b) install Zls LSP [https://github.com/zigtools/zls](https://github.com/zigtools/zls)
 
-c) install pacman lldb ( lldb-vscode)  Helix cherche le débogueur
-
 c) install lldb (pacman -S lldb) for manjaro or arch    lldb-vscode  recommend for Helix and ZIG
+
+d)  _Look at the “enScript” folder: a module to list your source files on the printer_
 
 personally I put Zig in ./zig and zls in ./zls  
 
@@ -38,18 +38,11 @@ add matching paths and aliases  
   alias zig="/home/soleil/.zig/zig"  
 ```
 
-in .bashrc
-
-add line   
-~Allows HELIX to intuitively access either your files or your texts in your files and present you with an exhaustive list of files;~
-
-integrated with the latest version
-
-intégrer-------------------------------------
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 .config/helix/  
 
-my config.toml file concerns the editor settings  
+config.toml file concerns the editor settings  
 
 After searching and gathering the most important and cool points
 
@@ -61,21 +54,47 @@ tested and bug-free  
 
 mytheme.toml  
 
-It's a copy of sonokai.toml and very few modifications "|" for the indentation { }...  
+origine (dark\_plus) very few modifications "|" for the indentation { }...  
 
 a note in config.toml
 
 I put the relationship.
 
-theme = "/home/soleil/.config/helix/mytheme"  
+theme = "mytheme"  
 
 copy mytheme to usr/lib/helix/theme/
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-language.toml
+<table><tbody><tr><td>.cache/helix</td><td>.config/helix</td></tr></tbody></table>
 
-It's an example :
+cache/helix  → Contains  helix.log  and  archiveFile.log
+
+.config/helix →Contains  config.toml , langahe.toml , mytheme.toml
+
+<table><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>Zterm</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>Print</td><td>&nbsp;</td><td>src-c</td><td>&nbsp;</td><td>src-zig</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>deps</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>curse</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>lib</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>decimal</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>
+
+ZIG project my architecture
+
+ Zterm → Contains compiled programs and Forders
+
+Print    → Contains Docs
+
+src-c    → source C/C++
+
+src-zig → Contains source and build, folders( deps,lib )
+
+deps    → Contains  folders import  
+
+                  curse   → Contains source import
+
+                  lib        → source.h  ex: link libpcre2-posix.so 
+
+decimal → source   import  link mpdecimal.so 
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+This is an example of an environment :
 
 for me: using Zig-lang, I configured it and I no longer have link errors with LSP and the language is well recognized.  
 
@@ -107,7 +126,9 @@ compile: zig build / doc ....
  7. Compile_Doc
 ```
 
-EnvZCPP.sh
+The compilations are done with a build which allows a lot of flexibility and incorporates all the settings
+
+EnvCPP.sh
 
 ```plaintext
 compile: gcc... c/c++
@@ -119,57 +140,71 @@ compile: gcc... c/c++
 3. Compile_Prod
 ```
 
+The compilations are done with a Makefile which allows a lot of flexibility and incorporates all the settings
+
 MenuDEV.sh
 
 ```plaintext
-Menu Général
+        Langage-&gt;.zig - Project:  .....
 
-1) VTE terminal compile: for ZIG application (secure)
+    ------------compile cpp-----------------
+ 1. Terminal-Gen
 
-2) BUILD ZIG application
+    ------------compile Zig-----------------
+11. Gencurs
 
-10) execute HELIX >  root directory: PROJECT
+12. app/module
 
-55) HELIX launch >  root directory: PROJECT
+13. study
 
-66) launch HELIX last registered file-source
+    ----------------------------------------
+55. Edit my project
 
-77) clear helix.log
+66. Edit last source used
 
-88) console
+77. clear helix.log
 
-99) e__________________________________________________________xit
+88. Console
+
+99. Exit
 ```
 
-**To retrieve the latest source, you have to C-s keymap**  
-**please look at the config.toml please**
+  1 → Secure terminal for a Client application
 
-**ex:**
+11 → ex: Code generator from a designator   
+
+12 → Module under test for integration with Gencurs
+
+13 → Learning the ZIG language
+
+55 → Opening Helix --default-working-directory PROJECT/src-zig
+
+66 → Opening Helix: searches for the latest record in ".cache/helix/archiveFile.log"   
+
+77 → cleaning the helix.log file
+
+88 →  Opening Standard console simulation for customer application testing or other
+
+When you are in the Helix environment:
+
+**To retrieve the latest source, you have to A-q keymap (Alt-q)**  
+**please look at the config.toml please**
 
 ```plaintext
         Path :/home/soleil/Zterm/src-zig
-                  q -> exit
-                  Name source : Gencurs.zig
+
+             q -&gt; exit
+
+             Name source : Gencurs.zig
 ```
 
-Recording in the “archiveFile.log” f
+Archive the source: date Time path name allows you to have a follow-up and gives the possibility of opening the last source on which you were.
 
-in the form date time directory name-source "2023-09-25 20:54:12 file:///home/soleil/Zterm/src-zig/Gencurs.zig"
+Recording in the ".cache/helix/archiveFile.log"
 
- this allows you to restart from the last processed source and to have follow-up
+"2023-09-25 20:54:12 file:///home/soleil/Zterm/src-zig/Gencurs.zig"
 
-At the moment we don't have access to filename etc..
-
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
-the console option boots into a reworked terminal and releases the menu.
-
-The C/C++ compilation only helps me to make a VTE terminal (gtk)  
-
-The C/C++ compilation only helps me to make a VTE terminal (gtk)  
-for use in the base with programs like Gencurs
-
-https://github.com/AS400JPLPC/zig_TermCurs  
+At the moment we do not have access to the file name to include directly in archiveFile etc..
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
@@ -226,15 +261,13 @@ We can't really do without visualizing spaces, and colors can quickly become inc
     Textobject queries: ✓  
     Indent queries: ✓
 
-  
-  
-  
 2023-09-22  **After testing**
 
 *   update config.toml
 *   new mytheme  :  very close dark\_plus > vscode
-*   2003-09-25 Updated search for last source saved with "write-buffer-close" or "wbc"
 *   2023-09-26 menu  option 88 console  :   
     Opening a console independently  
     config.toml  # select line up  / bufferline = "multiple"  
     change Ctrl-s  C-s to Alt-q A-q free combination
+*   2023-09-27 last update small adjustment menu and copyZig and lastFileZig  
+    process No change of directory everything is done by parameter

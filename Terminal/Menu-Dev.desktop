@@ -3,7 +3,7 @@ Version=1.0
 Type=Application
 Name=Devp
 Comment=
-Exec=xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --geometry="80x26"  --title="MENU-DEV" -x /home/soleil/.Terminal/MenuDEV.sh
+Exec=xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --geometry="80x26"  --title="MENU-DEV" -x $home.Terminal/MenuDEV.sh
 Icon=applications-development
 Path=
 Terminal=false
