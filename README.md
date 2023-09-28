@@ -193,7 +193,7 @@ When you are in the Helix environment:
 ```plaintext
         Path :/home/soleil/Zterm/src-zig
 
-             q -&gt; exit
+             q -> exit
 
              Name source : Gencurs.zig
 ```
@@ -271,3 +271,4 @@ We can't really do without visualizing spaces, and colors can quickly become inc
     change Ctrl-s  C-s to Alt-q A-q free combination
 *   2023-09-27 last update small adjustment menu and copyZig and lastFileZig  
     process No change of directory everything is done by parameter
+*   2023-09-28 add endscript : no activate default
