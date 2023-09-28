@@ -52,10 +52,10 @@ f_dsplyPos(){ #commande de positionnement	lines + coln + couleur + text
 # resize 
 printf '\e[8;'12';'80't'
 
-choix=""
+name=""
 PATH_FILE=""
 
-while [ "$choix" != "q" ]
+while [ "$name" != "q" ]
 do
 
 f_cls
@@ -68,10 +68,13 @@ f_cls
 
 
 	f_readPos   7  20 'Path source  :'; path=$REPLY;
+	if [ "$path" == "q" ] ; then 
+		break;
+	fi
 
 	f_readPos   8  20 'Name source  :'; name=$REPLY;
 
-	if [ "$path" == "q" -o "name" == "q" ] ; then 
+	if [ "$name" == "q" ] ; then 
 		break;
 	fi
 
@@ -79,12 +82,15 @@ f_cls
 		f_readPos 10 50  'erreur de saisie Enter'
 	else
 
-		PATH_FILE=$1"/"$path"/"$name
+		PATH_FILE=$1$path"/"$name
+		PATH_PS=$1print/${name%.*}.ps
 
 		if test -f $PATH_FILE; then
-
+			if test -f PATH_PS ; then
+				rm f $PATH_PS
+			fi 
 			f_dsplyPos  10  1 "Print.: "$faGras$fcJaune$PATH_FILE"\n";
- 			enscript -1rG --line-numbers -p $1/print/$name.ps --highlight=zig --color=1 -c  $PATH_FILE  --borders --highlight-bar-gray=gray --word-wrap 
+ 			enscript -1rG --line-numbers -p $PATH_PS --highlight=zig --color=1 -c  $PATH_FILE  --borders --highlight-bar-gray=gray --word-wrap 
 			f_pause
 	
 			break;
