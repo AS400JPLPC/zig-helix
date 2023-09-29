@@ -70,13 +70,13 @@ copy mytheme to usr/lib/helix/theme/
 
 cache/helix  → Contains  helix.log  and  archiveFile.log
 
-.config/helix →Contains  config.toml , langahe.toml , mytheme.toml
+.config/helix →Contains  config.toml , langage.toml , mytheme.toml
 
 <table><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>Zterm</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>Print</td><td>&nbsp;</td><td>src-c</td><td>&nbsp;</td><td>src-zig</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>deps</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>curse</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>lib</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>decimal</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>
 
 ZIG project my architecture
 
- Zterm → Contains compiled programs and Forders
+ Zterm → Contains compiled programs and Folders
 
 Print    → Contains Docs
 
@@ -158,6 +158,8 @@ MenuDEV.sh
 13. study
 
     ----------------------------------------
+44. enScript Printer
+    
 55. Edit my project
 
 66. Edit last source used
@@ -176,6 +178,8 @@ MenuDEV.sh
 12 → Module under test for integration with Gencurs
 
 13 → Learning the ZIG language
+
+44 → List of your print-ready source files
 
 55 → Opening Helix --default-working-directory PROJECT/src-zig
 
@@ -200,7 +204,7 @@ When you are in the Helix environment:
 
 Archive the source: date Time path name allows you to have a follow-up and gives the possibility of opening the last source on which you were.
 
-Recording in the ".cache/helix/archiveFile.log"
+Recording in the ".cache/helix/archiveFile.log" example
 
 "2023-09-25 20:54:12 file:///home/soleil/Zterm/src-zig/Gencurs.zig"
 

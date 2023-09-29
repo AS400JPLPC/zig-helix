@@ -1,5 +1,5 @@
-**ENSCRIPT**  
-  
+**ENSCRIPT**
+
 install pacman -S enscript
 
 software   
@@ -13,4 +13,7 @@ Zig not being recognized, I created the “zig.st” module and added the zig re
 I put the procedure update\_Enscript.sh, which you must use with sudo or pkexec.  
  
 
-It's complicated for me to ask to include the module, I only speak English, only with Google
+It's complicated for me to ask to include the module, I only speak English, only with Google  
+  
+The source code list software showed me that I was using names identical to ZIG intrinsic functions,  
+with "HELIX" it took me very little time to change my source code...
