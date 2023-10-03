@@ -3,7 +3,16 @@
  * Description: Zig programming language.
  * Author: Jean-Pierre Laroche <pnfisher@eos.ncsu.edu>
  */
-/* The super state of all C highlightings. */
+
+state x_string extends Highlight
+{
+  /\"/ {
+    language_print ($0);
+    return;
+  }
+}
+
+
 
 
 zig_special_re =
@@ -33,69 +42,11 @@ state special extends Highlight
 }
 
 
-
-zig_func_re =
-/* Keywords.
-   (build-re '(addrSpaceCast addWithOverflow alignCast alignOf as atomicLoad atomicRmw atomicStore
-bitCast bitOffsetOf bitSizeOf bitReverse breakpoint byteSwap
-call cDefine ceil cImport cInclude clz cmpxchgStrong cmpxchgWeak compileError compileLog cos constCast ctz cUndef cVaArg cVaCopy cVaEnd cVaStart
-divExact divFloor divTrunc
-embedFile enumFromInt errorFromInt errorName errorReturnTrace errSetCast export extern exp exp2
-fabs fence field fieldParentPtr floatCast floatFromInt floor frameAddress
-hasDecl hasField
-import inComptime intCast intFromBool intFromEnum intFromError intFromFloat intFromPtr
-log log2 log10
-max memcpy memset min mod mulAdd mulWithOverflow
-offsetOf
-panic popCount prefetch ptrCast ptrFromInt
-rem returnAddress
-select setAlignStack setCold setEvalBranchQuota setFloatMode setRuntimeSafety shlExact shlWithOverflow shrExact shuffle sizeOf splat subWithOverflow src sqrt sin
-prefetch
-reduce round
-tagName tan trap trunc truncate typeInfo typeName
-This Type TypeOf
-unionInit
-volatileCast
-Vector
-wasmMemorySize wasmMemoryGrow workGroupId workGroupSize workItemId
-))
-  */
-  /\b(a(ddrSpaceCast|ddWithOverflow|lignCast|lignOf|s|tomicLoad|tomicRmw|tomicStore)\
-|b(itCast|itOffsetOf|itSizeOf|itReverse|reakpoint|yteSwap)\
-|c(all|Define|eil|Import|Include|lz|mpxchg(Strong|Weak)|ompile(Error|Log)|os|onstCast|tz|Undef|Va(Arg|Copy|End|Start))\
-|d(iv(Exact|Floor|Trunc))\
-|e(mbedFile|numFromInt|rror(FromInt|Name|ReturnTrace)|rrSetCast|x(port|tern|p|p2))\
-|f(abs|ence|iel(d|dParentPtr)|loat(Cast|FromInt)|loor|rameAddress)\
-|h(as(Decl|Field))\
-|i(mport|nComptime|nt(Cast|From(Bool|Enum|Error|Float|Ptr)))\
-|l(og|og2|og10)\
-|m(ax|em(cpy|set)|in|od|ul(Add|WithOverflow))\
-|o(ffsetOf)\
-|p(refetch)\
-|p(anic|opCount|tr(Cast|FromInt))\
-|r(em|eturnAddress)\
-|s(|rc|in|qrt|el(ect)|et(AlignStack|Cold|EvalBranchQuota|FloatMode|RuntimeSafety)|hl(Exact|WithOverflow)|hrExact|huffle|izeOf|plat|ubWithOverflow)\
-|r(educe|ound)\
-|t(a(gName|n)|r(ap|unc|uncate)|this|ype(Info|Name))\
-|T(his|ype|ypeOf)\
-|u(nionInit)\
-|v(olatileCast)\
-|V(ector)\
-|w(ork(GroupId|GroupSize|ItemId))\
-|wasmMemorySize|wasmMemoryGrow\
-)\b/;
-
-
-
 /*extends HighlightEntry*/
 state zig extends special
 {
 
-BEGIN {
-    /* See `c.st' for the comments on this one. */
-    type_re = zig_func_re ;
-	
-  }
+
 
   /* Comments. */
   /\/\// {
@@ -107,10 +58,12 @@ BEGIN {
 
   /* String constants. */
   /\"/ {
+	face_string[fg_color] =     language_color("forest green");
     string_face (true);
     language_print ($0);
-    call (c_string);
+    call (x_string);
     string_face (false);
+	face_string[fg_color] =		language_color("rosy brown");
   }
 
   /* Matrix [].  */ 
@@ -138,6 +91,24 @@ BEGIN {
     language_print ($0);
     string_face (false);
   }
+
+
+/* function */
+
+/([@][A-Za-z]*)/{
+ 
+ /* Types. */
+
+	face_string[fg_color] =		language_color("blue");
+    string_face(true);
+    language_print ($0);
+    string_face(false);
+	face_string[fg_color] =		language_color("black");
+ 
+
+}
+
+
 
 
 
@@ -182,15 +153,6 @@ BEGIN {
     keyword_face (true);
     language_print ($0);
     keyword_face (false);
-  }
-
-
-
- /* Types. */
-  zig_func_re {
-    function_name_face(true);
-    language_print ($0);
-    function_name_face (false);
   }
 
 

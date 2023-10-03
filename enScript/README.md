@@ -17,3 +17,4 @@ It's complicated for me to ask to include the module, I only speak English, only
   
 The source code list software showed me that I was using names identical to ZIG intrinsic functions,  
 with "HELIX" it took me very little time to change my source code...
+I found how to take into account the intrinsic function of ZIG "@" ex: @tagName, now the zig.st enscript unless the grammar changes or a new type arrives
