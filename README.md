@@ -31,11 +31,7 @@ add matching paths and aliases  
 ```plaintext
   export PATH=/home/soleil/.zig:$PATH  
 
-  export PATH=/home/soleil/.zls:$PATH  
-
-  alias zls="/home/soleil/.zls/zls"  
-
-  alias zig="/home/soleil/.zig/zig"  
+  export PATH=/home/soleil/.zls:$PATH    
 ```
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
@@ -159,7 +155,7 @@ MenuDEV.sh
 
     ----------------------------------------
 44. enScript Printer
-    
+
 55. Edit my project
 
 66. Edit last source used
@@ -276,3 +272,5 @@ We can't really do without visualizing spaces, and colors can quickly become inc
 *   2023-09-27 last update small adjustment menu and copyZig and lastFileZig  
     process No change of directory everything is done by parameter
 *   2023-09-28 add endscript : no activate default
+*   2023-10-03 update langage.toml  
+    There is very little action on the settings already in place, so let it be and opt for the minimum authorized (less inconsistency with Hélix)

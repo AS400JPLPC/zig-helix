@@ -135,7 +135,7 @@ do
 
 	f_dsplyPos 13  24 $faGras$fcJaune '----------------------------------------'
 
-	#f_dsplyPos 15  20 $faGras$fcRouge'44.'; f_dsplyPos 15  24 $faGras$fcCyan  'enScript Printer'
+	f_dsplyPos 15  20 $faGras$fcRouge'44.'; f_dsplyPos 15  24 $faGras$fcCyan  'enScript Printer'
 	
 	f_dsplyPos 17  20 $faGras$fcRouge'55.'; f_dsplyPos 17  24 $faGras$fcCyan  'Edit my project'
 
@@ -194,7 +194,7 @@ do
 
 #?file
 		66)
-			/home/soleil/.Terminal/lastFileZig.sh 
+			/home/soleil/.Terminal/lastFileZig.sh $PROJECT
 
             ;;
 #?clear 
