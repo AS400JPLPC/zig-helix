@@ -12,6 +12,8 @@ faGras='\033[1m'
 # function  menu
 #=========================
 
+PROJECT=$1
+
 f_cls() {
 
 reset > /dev/null
@@ -67,5 +69,5 @@ name=$(grep  'zig'  $HOME/.cache/helix/grepa.txt | cut  -d"/" -f1)
 
  # call last directory  HELIX
 
- exec xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --geometry="129x42"  --font="Noto Sans Mono  Regular 15" --default-working-directory=$rep   --title="PROJECT : "$1 -x helix $name 
+ exec xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --geometry="129x42"  --font="Noto Sans Mono  Regular 15" --default-working-directory=$rep   --title="PROJECT : "$PROJECT -x helix $name 
 exit 0
