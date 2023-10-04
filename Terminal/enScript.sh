@@ -84,15 +84,20 @@ f_cls
 
 		PATH_FILE=$1$path"/"$name
 		PATH_PS=$1print/${name%.*}.ps
+		PATH_PDF=$1print/${name%.*}.pdf
 
 		if test -f $PATH_FILE; then
 			if test -f PATH_PS ; then
 				rm f $PATH_PS
 			fi 
 			f_dsplyPos  10  1 "Print.: "$faGras$fcJaune$PATH_FILE"\n";
- 			enscript -1rG --line-numbers -p $PATH_PS --highlight=zig --color=1 -c  $PATH_FILE  --borders --highlight-bar-gray=gray --word-wrap 
+
+			# --quiet Does not display warning info messages, no font (bold) 
+ 			enscript -1rG --line-numbers -p $PATH_PS --highlight=zig --color=1 -c  $PATH_FILE  --borders --highlight-bar-gray=gray --word-wrap --quiet
 			f_pause
-	
+			ps2pdf $PATH_PS $PATH_PDF
+			rm -f $PATH_PS
+
 			break;
 		else
 			f_dsplyPos 10 1  'the file is invalid >'$faGras$fcJaune$PATH_FILE"\n"

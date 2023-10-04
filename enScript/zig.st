@@ -4,7 +4,13 @@
  * Author: Jean-Pierre Laroche <pnfisher@eos.ncsu.edu>
  */
 
-state x_string extends Highlight
+/* origine face_string		= make_face(bold_font, 1, 0); */
+
+/* force no bold */
+face_string		= make_face(0, 1, 0);
+
+
+state x_string 
 {
   /\"/ {
     language_print ($0);
@@ -14,101 +20,98 @@ state x_string extends Highlight
 
 
 
+/* value special */
 
 zig_special_re =
 /* Keywords.
-   (build-re '(undefined true false null err and or))
+   (build-re '(undefined true false null err))
   */
-  /\b(undefined|true|false|null|err|and|or)\b/;
+  /\b(undefined|true|false|null|err)\b/;
 
 
 
-state special extends Highlight
-{
-  BEGIN {
-      type_re = zig_special_re;
-  }
-
-
-  zig_special_re{
-    face_string[fg_color] =		language_color("red");
-    string_face(true);
-    language_print ($0);
-    string_face(false);
-	face_string[fg_color] =		language_color("rosy brown");
-  }
-
-
-}
-
-
-/*extends HighlightEntry*/
-state zig extends special
+/*langage ZIG-LANG*/
+state zig extends Highlight
 {
 
-
+	BEGIN {
+      	type_re = zig_special_re;
+  	}
 
   /* Comments. */
   /\/\// {
-    comment_face (true);
-    language_print ($0);
-    call (eat_one_line);
-    comment_face (false);
+
+    	comment_face (true);
+    	language_print ($0);
+   		call (eat_one_line);
+    	comment_face (false);
+
   }
 
   /* String constants. */
   /\"/ {
-	face_string[fg_color] =     language_color("forest green");
-    string_face (true);
-    language_print ($0);
-    call (x_string);
-    string_face (false);
-	face_string[fg_color] =		language_color("rosy brown");
+	face_string[fg_color] =	language_color("red");
+	string_face (true);
+	language_print ($0);
+	call (x_string);
+	string_face (false);
+	face_string[fg_color] =	language_color("black");
   }
 
   /* Matrix [].  */ 
   /\[|\]|\{|\}|\(|\)/ {
-	face_string[fg_color] =		language_color("firebrick");
-    string_face(true);
+	face_string[fg_color] =	language_color("firebrick");
+	string_face(true);
 	language_print ($0);
 	string_face(false);
-	face_string[fg_color] =		language_color("rosy brown");
+	face_string[fg_color] =	language_color("black");
   }
 
   /* Matrix start.  */ 
   /[0-9]/ {
-	face_string[fg_color] =		language_color("Coral");
-    string_face(true);
+	face_string[fg_color] =	language_color("red");
+	string_face (true);
 	language_print ($0);
-	string_face(false);
-	face_string[fg_color] =		language_color("rosy brown");
+	string_face (false);
+	face_string[fg_color] =	language_color("black");
   }
 
 
   /* Character constants. */
-  /'.'|'\\\\.'/ {
-    string_face (true);
-    language_print ($0);
-    string_face (false);
+  /'\\\\'/ {
+	face_string[fg_color] =	language_color("black");
+	string_face (true);
+	language_print ($0);
+	face_string[fg_color] =	language_color("black");
   }
 
 
-/* function */
 
-/([@][A-Za-z]*)/{
+
+
+  /* function */
+
+  /([@][A-Za-z]*)/{
  
- /* Types. */
-
-	face_string[fg_color] =		language_color("blue");
-    string_face(true);
-    language_print ($0);
-    string_face(false);
-	face_string[fg_color] =		language_color("black");
- 
-
-}
+	face_string[fg_color] =	language_color("blue");
+	string_face (true);
+	language_print ($0);
+	string_face (false);
+	face_string[fg_color] =	language_color("black");
+  }
 
 
+
+
+  /* regle des signes  |[\/]|[%]|[\&]*/
+
+	/([-]|[+]|[==]|[<]|[>]|[!]|[=]|[*]|[%]|[&]|[|]|[\^])/{
+		face_string[fg_color] =	language_color("Aquamarine");
+    	string_face (true);
+    	language_print ($0);
+    	string_face (false);
+		face_string[fg_color] =	language_color("black");
+	}
 
 
 
@@ -150,10 +153,20 @@ state zig extends special
 |u(n(ion|reachable)|singnamespace|size|8|16|32|64|80|128)\
 |v(ar|o(id|latile))\
 |w(hile))\b/ {
-    keyword_face (true);
+	face_string[fg_color] =	language_color("purple");
+   	string_face(true);
     language_print ($0);
-    keyword_face (false);
-  }
+    string_face(false);
+	face_string[fg_color] =	language_color("black");
+ }
+
+	zig_special_re{
+		face_string[fg_color] =	language_color("purple");
+		string_face(true);
+		language_print ($0);
+		string_face(false);
+		face_string[fg_color] =	language_color("black");
+  	}
 
 
 }
