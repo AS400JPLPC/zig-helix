@@ -193,7 +193,7 @@ When you are in the Helix environment:
 ```plaintext
         Path :/home/soleil/Zterm/src-zig
 
-             q -> exit
+             q -&gt; exit
 
              Name source : Gencurs.zig
 ```
@@ -274,4 +274,4 @@ We can't really do without visualizing spaces, and colors can quickly become inc
 *   2023-09-28 add endscript : no activate default
 *   2023-10-03 update langage.toml  
     There is very little action on the settings already in place, so let it be and opt for the minimum authorized (less inconsistency with Hélix)
-    2023-10-05 patch echo -e for copyZig.sh
+*   2023-10-05 patch echo -e for copyZig.sh
