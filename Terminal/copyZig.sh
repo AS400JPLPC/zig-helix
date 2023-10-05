@@ -87,7 +87,7 @@ f_cls
 
 			CURRENT_DATE=`date +"%Y-%m-%d %T file://"`
 
-			echo -en $CURRENT_DATE$PATH_FILE>> $HOME/.cache/helix/archiveFile.log ;
+			echo -e $CURRENT_DATE$PATH_FILE>> $HOME/.cache/helix/archiveFile.log ;
 
 			f_pause
 	
