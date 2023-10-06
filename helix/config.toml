@@ -26,12 +26,14 @@ scroll-lines = 1
 
 [editor.whitespace.render]
 space = "all"
-
+tab ="all"
 [editor.whitespace.characters]
 space = "·"
+tab = "→"
 
-
-
+[editor.indent-guides]
+character = "│"
+render = true
 
 [editor.file-picker]
 hidden = false
@@ -49,13 +51,11 @@ select = "underline"
 
 
 [editor.soft-wrap]
-max-wrap =0			# espace before ruler
+max-wrap =0		# espace before ruler
 enable = true
 
 
-[editor.indent-guides]
-character = "│"
-render = true
+
 
 
 [editor.statusline]
@@ -76,9 +76,11 @@ auto-signature-help = false
 # Show LSP messages in the status line
 display-messages = true
 
-#display-inlay-hints = true
+#LSP snippets are a way for language servers to provide more complex completions for an editor
+display-inlay-hints = true
 
 [editor.search]
+smart-case = true
 wrap-around = true
 
 [keys.normal]
@@ -92,6 +94,7 @@ A-q = ":sh xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --ge
 # select line up
 A-x = "extend_to_line_bounds"
 X = ["extend_line_up", "extend_to_line_bounds"]
+
 
 [keys.select]
 A-x = "extend_to_line_bounds"

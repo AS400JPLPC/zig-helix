@@ -1,3 +1,4 @@
+  
 **Helix**
 
 **2003-09-25 Updated search for last source saved with "write-buffer-close" or "wbc" sorry**  
@@ -193,7 +194,7 @@ When you are in the Helix environment:
 ```plaintext
         Path :/home/soleil/Zterm/src-zig
 
-             q -&gt; exit
+             q -> exit
 
              Name source : Gencurs.zig
 ```
@@ -275,3 +276,9 @@ We can't really do without visualizing spaces, and colors can quickly become inc
 *   2023-10-03 update langage.toml  
     There is very little action on the settings already in place, so let it be and opt for the minimum authorized (less inconsistency with Hélix)
 *   2023-10-05 patch echo -e for copyZig.sh
+*   2023-10-06 **Important, you must not replace tabs with spaces. To do this, you must declare voir le config.toml**  
+     
+
+<table><tbody><tr><td>[editor.whitespace.render]<br>space = "all"<br>tab ="all"<br>[editor.whitespace.characters]<br>space = "·"<br>tab = "→"</td></tr></tbody></table>
+
+*   During an update of VSCODE, the settings changed and my source files became a real hassle. You can resume, with for example "mousepad" a word processor where all the characters are displayed and change the points to tabulation etc. Be careful, you have to go there with little slippers.
