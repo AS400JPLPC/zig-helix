@@ -141,7 +141,7 @@ The compilations are done with a Makefile which allows a lot of flexibility and 
 MenuDEV.sh
 
 ```plaintext
-        Langage-&gt;.zig - Project:  .....
+        Langage-ZIG-LANG - Project:  .....
 
     ------------compile cpp-----------------
  1. Terminal-Gen
@@ -223,7 +223,9 @@ q = exit
 
 The script runs in a separate window "pkexec (sudo) lldb attach PID"
 
-!\[Debug\](assets/Debug\_lldb.png)
+  
+![](assets/Debuglldb.png)   
+ 
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
@@ -280,6 +282,8 @@ We can't really do without visualizing spaces, and colors can quickly become inc
     Textobject queries: ✓  
     Indent queries: ✓
 
+![](assets/Helix.png) 
+
 2023-09-22  **After testing**
 
 *   update config.toml
@@ -299,5 +303,5 @@ We can't really do without visualizing spaces, and colors can quickly become inc
 <table><tbody><tr><td>[editor.whitespace.render]<br>space = "all"<br>tab ="all"<br>[editor.whitespace.characters]<br>space = "·"<br>tab = "→"</td></tr></tbody></table>
 
 *   During an update of VSCODE, the settings changed and my source files became a real hassle. You can resume, with for example "mousepad" a word processor where all the characters are displayed and change the points to tabulation etc. Be careful, you have to go there with little slippers.
-*   2023-10-08 add debug , clean procedure \*.sh 
+*   2023-10-08 add debug , clean procedure \*.sh
 *   2023-10-08 The debug mode with HELIX is experimental, it does not work completely, for example, we do not obtain the value of the variables in the submodules in a clear way. With the LLDB program you have a complete mode, lldb-vscode is a derivative of lldb But it's strictly the same with VSCODE
