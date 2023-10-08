@@ -78,12 +78,12 @@ f_read_RESUTAT() {	#RESULTAT
 		rm -r $folder_cache_src
 	fi
 		
-    if test -d $folder_out ; then
-    	rm -r $folder_out
-    fi
+	if test -d $folder_out ; then
+		rm -r $folder_out
+	fi
 
 	if test -d $folder_cache_home ; then
-    	rm -r $folder_cache_home
+		rm -r $folder_cache_home
 	fi
 	
 	echo -en '\033[0;0m';
@@ -161,8 +161,8 @@ do
  		case "$choix" in
 
 # Clear projet Cache and binary
-        1)
-            echo -e  "Clear Projet"
+		1)
+			echo -e  "Clear Projet"
 
 			if test -f $projet_bin  ; then
 				rm -r $projet_bin 
@@ -180,9 +180,9 @@ do
 				rm -r $folder_cache_home
 			fi
 
-            ;;
+			;;
 # DEBUG
-        2)
+		2)
 			f_cls
             echo -e $faStabilo$fcGreen"Compile_Debug"$fcNoir
 			
@@ -197,12 +197,12 @@ do
 				f_read_RESUTAT
 			fi
 			f_pause
-            ;;
+		;;
 
 # PROD
-        3)
+		3)
 			f_cls
-            echo -e $faStabilo$fcGreen"Compile_Prod"$fcNoir
+			echo -e $faStabilo$fcGreen"Compile_Prod"$fcNoir
 			
 			f_clear_Compile
 			
@@ -215,12 +215,12 @@ do
 				f_read_RESUTAT
 			fi
 			f_pause
-            ;;
+		;;
 
 # SAFE
-        4)
+		4)
 			f_cls
-            echo -e $faStabilo$fcGreen"Compile_Safe"$fcNoir
+			echo -e $faStabilo$fcGreen"Compile_Safe"$fcNoir
 			
 			f_clear_Compile
 			
@@ -233,12 +233,12 @@ do
 				f_read_RESUTAT
 			fi
 			f_pause
-            ;;
+		;;
 
 # SMALL
-        5)
+		5)
 			f_cls
-            echo -e $faStabilo$fcGreen"Compile_Small"$fcNoir
+			echo -e $faStabilo$fcGreen"Compile_Small"$fcNoir
 			
 			f_clear_Compile
 			
@@ -252,12 +252,12 @@ do
 				f_read_RESUTAT
 			fi
 			f_pause
-            ;;
+		;;
 
 # TEST
-        6)
+		6)
 			f_cls
-            echo -e $faStabilo$fcGreen"Compile_Test"$fcNoir
+			echo -e $faStabilo$fcGreen"Compile_Test"$fcNoir
 			
 			f_clear_Compile
 			
@@ -266,13 +266,13 @@ do
           		f_clear_Compile;\
 			)
 			f_pause
-            ;;
+		;;
 
 
 # DOC
-        7)
+		7)
 			f_cls
-            echo -e $faStabilo$fcGreen"Compile_Doc"$fcNoir
+			echo -e $faStabilo$fcGreen"Compile_Doc"$fcNoir
 			
 			f_clear_Compile
 
@@ -286,13 +286,12 @@ do
 		
 			f_read_RESUTAT
 			f_pause
-            ;;
+		;;
 
 # QUIT
-        99)
-
-            break
-            ;;
+		99)
+			break
+		;
 	esac 
 	fi # fintest option
 done

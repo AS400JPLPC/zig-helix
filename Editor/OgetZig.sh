@@ -68,10 +68,7 @@ f_offColor
 
 rm -r $HOME/.zig
 
-#wget https://zigbin.io/master/x86_64-linux.tar.xz
-#tar -xf x86_64-linux.tar.xz
-#mv zig-linux-x86_64* $HOME/.zig
-#rm x86_64-linux*
+# stable last
 
 wget https://ziglang.org/download/0.11.0/zig-linux-x86_64-0.11.0.tar.xz
 tar -xf zig-linux-x86_64-0.11.0.tar.xz

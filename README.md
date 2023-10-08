@@ -1,4 +1,3 @@
-  
 **Helix**
 
 **2003-09-25 Updated search for last source saved with "write-buffer-close" or "wbc" sorry**  
@@ -155,6 +154,8 @@ MenuDEV.sh
 13. study
 
     ----------------------------------------
+33. Debug LLDB
+
 44. enScript Printer
 
 55. Edit my project
@@ -176,6 +177,8 @@ MenuDEV.sh
 
 13 → Learning the ZIG language
 
+33 → debeugeur LLDB 
+
 44 → List of your print-ready source files
 
 55 → Opening Helix --default-working-directory PROJECT/src-zig
@@ -194,7 +197,7 @@ When you are in the Helix environment:
 ```plaintext
         Path :/home/soleil/Zterm/src-zig
 
-             q -> exit
+             q = exit
 
              Name source : Gencurs.zig
 ```
@@ -206,6 +209,21 @@ Recording in the ".cache/helix/archiveFile.log" example
 "2023-09-25 20:54:12 file:///home/soleil/Zterm/src-zig/Gencurs.zig"
 
 At the moment we do not have access to the file name to include directly in archiveFile etc..
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+option 33 :  debugZig.sh
+
+Pacman -S lldb    package includes  ( ldb - lldb-argdumper - lldb-instr - lldb-server - lldb-vscode )
+
+```plaintext
+PID ?
+q = exit
+```
+
+The script runs in a separate window "pkexec (sudo) lldb attach PID"
+
+!\[Debug\](assets/Debug\_lldb.png)
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
@@ -276,9 +294,10 @@ We can't really do without visualizing spaces, and colors can quickly become inc
 *   2023-10-03 update langage.toml  
     There is very little action on the settings already in place, so let it be and opt for the minimum authorized (less inconsistency with Hélix)
 *   2023-10-05 patch echo -e for copyZig.sh
-*   2023-10-06 **Important, you must not replace tabs with spaces. To do this, you must declare voir le config.toml**  
-     
+*   2023-10-06 **Important, you must not replace tabs with spaces. To do this, you must declare voir le config.toml**
 
 <table><tbody><tr><td>[editor.whitespace.render]<br>space = "all"<br>tab ="all"<br>[editor.whitespace.characters]<br>space = "·"<br>tab = "→"</td></tr></tbody></table>
 
 *   During an update of VSCODE, the settings changed and my source files became a real hassle. You can resume, with for example "mousepad" a word processor where all the characters are displayed and change the points to tabulation etc. Be careful, you have to go there with little slippers.
+*   2023-10-08 add debug , clean procedure \*.sh 
+*   2023-10-08 The debug mode with HELIX is experimental, it does not work completely, for example, we do not obtain the value of the variables in the submodules in a clear way. With the LLDB program you have a complete mode, lldb-vscode is a derivative of lldb But it's strictly the same with VSCODE

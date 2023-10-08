@@ -64,9 +64,7 @@ center = ["file-name","file-modification-indicator"]
 #right = ["version-control", "diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
 right = [ "diagnostics", "position", "total-line-numbers",  "file-type"]
 separator = "│"
-mode.normal = "NORMAL"
-mode.insert = "INSERT"
-mode.select = "SELECT"
+
 
 
 
@@ -77,7 +75,7 @@ auto-signature-help = false
 display-messages = true
 
 #LSP snippets are a way for language servers to provide more complex completions for an editor
-display-inlay-hints = true
+#display-inlay-hints = true
 
 [editor.search]
 smart-case = true

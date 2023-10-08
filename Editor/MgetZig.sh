@@ -66,15 +66,14 @@ f_offColor
 
 rm -r $HOME/.zig
 
+
+# last github dev
 wget https://zigbin.io/master/x86_64-linux.tar.xz
 tar -xf x86_64-linux.tar.xz
 mv zig-linux-x86_64* $HOME/.zig
 rm x86_64-linux*
 
-#wget https://ziglang.org/download/0.11.0/zig-linux-x86_64-0.11.0.tar.xz
-#tar -xf zig-linux-x86_64-0.11.0.tar.xz
-#mv zig-linux-x86_64-0.11.0 $HOME/.zig
-#rm zig-linux-x86_64-0.11.0*
+
 
 
 f_dsplyCentrer 22  $fcVert '> '

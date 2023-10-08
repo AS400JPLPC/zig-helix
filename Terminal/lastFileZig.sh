@@ -19,33 +19,33 @@ f_cls() {
 reset > /dev/null
 	echo -en '\033[1;1H'
 	echo -en '\033]11;#000000\007'
-	echo -en '\033]10;#FFFFFF\007'	 
+	echo -en '\033]10;#FFFFFF\007'
 }
 
 f_pause(){
 	echo -en '\033[0;0m'
- 	echo -en $faStabilo$fcRouge'Press[Enter] key to continue'
+	echo -en $faStabilo$fcRouge'Press[Enter] key to continue'
 	tput civis 	# curseur invisible
 	read -s -n 1
 	echo -en '\033[0;0m'
 }
 f_cls
 
- #echo -en $faGras$fcGreen
- #echo -en "last source used\n\n"
- #echo -en '\033[0;0m'
- nbr=0 
- pos=0
- rm -f $HOME/.cache/helix/grepa.txt
- rm -f $HOME/.cache/helix/grepb.txt
+#echo -en $faGras$fcGreen
+#echo -en "last source used\n\n"
+#echo -en '\033[0;0m'
+nbr=0 
+pos=0
+rm -f $HOME/.cache/helix/grepa.txt
+rm -f $HOME/.cache/helix/grepb.txt
 
- grep  'file'  $HOME/.cache/helix/archiveFile.log | cut  -d" " -f3 >> $HOME/.cache/helix/grepa.txt
+grep  'file'  $HOME/.cache/helix/archiveFile.log | cut  -d" " -f3 >> $HOME/.cache/helix/grepa.txt
 
 # grep  "$1"  $HOME/.cache/helix/grepa.txt | cut  -d" " -f2 >> $HOME/.cache/helix/grepb.txt
 
 
 #retrieve last enrg.
- tail -n 1  $HOME/.cache/helix/grepa.txt >> $HOME/.cache/helix/grepb.txt
+tail -n 1  $HOME/.cache/helix/grepa.txt >> $HOME/.cache/helix/grepb.txt
 >$HOME/.cache/helix/grepa.txt
 
 #retrieve nbr occurence
@@ -64,10 +64,12 @@ let "pos= $nbr+2"
 grep  'file' $HOME/.cache/helix/grepb.txt | cut  -d"/" -f$nbr-$pos >>  $HOME/.cache/helix/grepa.txt
 name=$(grep  'zig'  $HOME/.cache/helix/grepa.txt | cut  -d"/" -f1)
 
- rm -f $HOME/.cache/helix/grepa.txt
- rm -f $HOME/.cache/helix/grepb.txt
+rm -f $HOME/.cache/helix/grepa.txt
+rm -f $HOME/.cache/helix/grepb.txt
 
- # call last directory  HELIX
+# call last directory  HELIX
 
- exec xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --geometry="129x42"  --font="Noto Sans Mono  Regular 15" --default-working-directory=$rep   --title="PROJECT : "$PROJECT -x helix $name 
+exec xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --geometry="129x42"  --font="Noto Sans Mono  Regular 15" --default-working-directory=$rep   --title="PROJECT : "$PROJECT -x helix $name 
+
+tput cnorm
 exit 0

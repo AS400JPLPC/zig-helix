@@ -66,7 +66,7 @@ f_cls() {
 reset > /dev/null
 	echo -en '\033[1;1H'
 	echo -en '\033]11;#000000\007'
-	echo -en '\033]10;#FFFFFF\007'	 
+	echo -en '\033]10;#FFFFFF\007'
 }
 
 f_pause(){
@@ -91,11 +91,11 @@ f_readPos() {	#commande de positionnement	lines + coln + text
 	let colR=$2+${#3}+1  # si on doit coller faire  $2+${#3}
 	echo -en '\033['$lig';'$col'f'$fdVert$faGras$fcBlanc$3 
 	echo -en '\033[0;0m' 
-	tput cnorm	# curseur visible         			
+	tput cnorm	# curseur visible
  	echo -en '\033['$lig';'$colR'f'$faGras$fcGreen
 	read   
 	tput civis 	# curseur invisible
-	echo -en '\033[0;0m'			  
+	echo -en '\033[0;0m'
 }
 
 # resize 
@@ -185,9 +185,9 @@ do
 
 
 # QUIT
-        99)
-            break
-            ;;
+		99)
+			break
+		;;
 	esac 
 	fi # fintest option
 done
