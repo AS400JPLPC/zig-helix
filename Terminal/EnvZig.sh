@@ -291,7 +291,7 @@ do
 # QUIT
 		99)
 			break
-		;
+		;;
 	esac 
 	fi # fintest option
 done
