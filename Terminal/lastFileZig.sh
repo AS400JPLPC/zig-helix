@@ -52,24 +52,24 @@ tail -n 1  $HOME/.cache/helix/grepa.txt >> $HOME/.cache/helix/grepb.txt
 nbr=$(grep  -o -i  '/' $HOME/.cache/helix/grepb.txt | wc -l)
 
 #retieve directory
-rep=/$(grep  'file' $HOME/.cache/helix/grepb.txt | cut  -d"/" -f2-$nbr) 
-
+REP=/$(grep  'file' $HOME/.cache/helix/grepb.txt | cut  -d"/" -f2-$nbr) 
 
 >$HOME/.cache/helix/grepa.txt
+
+
 # name source
 let "nbr= $nbr+1"
 let "pos= $nbr+2"
 
-
 grep  'file' $HOME/.cache/helix/grepb.txt | cut  -d"/" -f$nbr-$pos >>  $HOME/.cache/helix/grepa.txt
-name=$(grep  'zig'  $HOME/.cache/helix/grepa.txt | cut  -d"/" -f1)
+NAME=$(grep  'zig'  $HOME/.cache/helix/grepa.txt | cut  -d"/" -f1)
 
 rm -f $HOME/.cache/helix/grepa.txt
 rm -f $HOME/.cache/helix/grepb.txt
 
 # call last directory  HELIX
 
-exec xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --geometry="129x42"  --font="Noto Sans Mono  Regular 15" --default-working-directory=$rep   --title="PROJECT : "$PROJECT -x helix $name 
+exec xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --geometry="129x42"  --font="Noto Sans Mono  Regular 15" --default-working-directory=$REP   --title="PROJECT : "$PROJECT -x helix $NAME 
 
 tput cnorm
 exit 0

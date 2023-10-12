@@ -18,9 +18,14 @@ a) install Zig https://ziglang.org/download/  
 
 b) install Zls LSP [https://github.com/zigtools/zls](https://github.com/zigtools/zls)
 
-c) install lldb (pacman -S lldb) for manjaro or arch    lldb-vscode  recommend for Helix and ZIG
+c) install lldb (pacman -S lldb) for manjaro or arch  include   lldb-vscode  recommend for Helix and ZIG
 
-d)  _Look at the “enScript” folder: a module to list your source files on the printer_
+d) _Look at the “enScript” folder: a module to list your source files on the printer_ (pacman -S enscript)
+
+c) **I provide a set of small BASH procedures (which are very simple, modifiable as desired). This will give you a lot of flexibility**
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  
+ 
 
 personally I put Zig in ./zig and zls in ./zls  
 
@@ -68,11 +73,11 @@ cache/helix  → Contains  helix.log  and  archiveFile.log
 
 .config/helix →Contains  config.toml , langage.toml , mytheme.toml
 
-<table><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>Zterm</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>Print</td><td>&nbsp;</td><td>src-c</td><td>&nbsp;</td><td>src-zig</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>deps</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>curse</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>lib</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>decimal</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>
+<table><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>Zterm</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>Print</td><td>&nbsp;</td><td>src-c</td><td>&nbsp;</td><td>src-zig</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>deps</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>curse</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>lib</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>decimal</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>
 
 ZIG project my architecture
 
- Zterm → Contains compiled programs and Folders
+Zterm → Contains compiled programs and Folders
 
 Print    → Contains Docs
 
@@ -86,7 +91,7 @@ deps    → Contains  folders import  
 
                   lib        → source.h  ex: link libpcre2-posix.so 
 
-decimal → source   import  link mpdecimal.so 
+                  decimal → source   import  link mpdecimal.so 
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
@@ -107,7 +112,7 @@ EnvZig.sh
 ```plaintext
 compile: zig build / doc ....
 
- 1. ClearProjet (cache, not source)
+ 1. ClearProjet (only cache compile )
 
  2. Compile_Debug
 
@@ -129,7 +134,7 @@ EnvCPP.sh
 ```plaintext
 compile: gcc... c/c++
 
-1. ClearProjet ( not source )
+1. ClearProjet
 
 2. Compile_Debug
 
@@ -171,7 +176,7 @@ MenuDEV.sh
 
   1 → Secure terminal for a Client application
 
-11 → ex: Code generator from a designator   
+11 → ex: Code generator from a designor   
 
 12 → Module under test for integration with Gencurs
 
@@ -197,9 +202,9 @@ When you are in the Helix environment:
 ```plaintext
         Path :/home/soleil/Zterm/src-zig
 
-             q = exit
-
-             Name source : Gencurs.zig
+        q -&gt; exit
+        ----------------------------------------
+        Name source :  mdlRjson.zig
 ```
 
 Archive the source: date Time path name allows you to have a follow-up and gives the possibility of opening the last source on which you were.
@@ -223,11 +228,32 @@ q = exit
 
 The script runs in a separate window "pkexec (sudo) lldb attach PID"
 
-  
-![](assets/Debuglldb.png)   
- 
+!\[\](assets/Debuglldb.png)   
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+option: 44 enScript form source to printer
+
+look folder enscript
+
+```plaintext
+        Path :/home/soleil/Zterm/
+
+        q -&gt; exit
+        ----------------------------------------
+
+        Path source :  src-zig
+
+        Name source :  mdlRjson.zig
+
+        ----------------------------------------
+
+        Paper Size -&gt; A4 / A3 / Letter
+
+        Size : A3
+```
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 Coming back to the difference between VSCODE and HELIX  
 is that I had direct action from VSCODE,  
@@ -282,26 +308,32 @@ We can't really do without visualizing spaces, and colors can quickly become inc
     Textobject queries: ✓  
     Indent queries: ✓
 
-![](assets/Helix.png) 
+!\[\](assets/Helix.png) 
 
 2023-09-22  **After testing**
 
-*   update config.toml
-*   new mytheme  :  very close dark\_plus > vscode
-*   2023-09-26 menu  option 88 console  :   
+*   new mytheme  : comes from  dark\_plus > vscode  
+    .
+*   menu  option 88 console  :   
     Opening a console independently  
-    config.toml  # select line up  / bufferline = "multiple"  
-    change Ctrl-s  C-s to Alt-q A-q free combination
-*   2023-09-27 last update small adjustment menu and copyZig and lastFileZig  
-    process No change of directory everything is done by parameter
-*   2023-09-28 add endscript : no activate default
-*   2023-10-03 update langage.toml  
-    There is very little action on the settings already in place, so let it be and opt for the minimum authorized (less inconsistency with Hélix)
-*   2023-10-05 patch echo -e for copyZig.sh
+    .
+*   Alt-q A-q free combination  last update small adjustment menu and copyZig and lastFileZig  
+    .
+*   2023-10-03 update langage.toml and config.toml  
+    There is very little action on the settings already in place, so let it be and opt for the minimum authorized (less inconsistency with Hélix)  
+    .
 *   2023-10-06 **Important, you must not replace tabs with spaces. To do this, you must declare voir le config.toml**
 
 <table><tbody><tr><td>[editor.whitespace.render]<br>space = "all"<br>tab ="all"<br>[editor.whitespace.characters]<br>space = "·"<br>tab = "→"</td></tr></tbody></table>
 
-*   During an update of VSCODE, the settings changed and my source files became a real hassle. You can resume, with for example "mousepad" a word processor where all the characters are displayed and change the points to tabulation etc. Be careful, you have to go there with little slippers.
-*   2023-10-08 add debug , clean procedure \*.sh
-*   2023-10-08 The debug mode with HELIX is experimental, it does not work completely, for example, we do not obtain the value of the variables in the submodules in a clear way. With the LLDB program you have a complete mode, lldb-vscode is a derivative of lldb But it's strictly the same with VSCODE
+*   During an update of VSCODE, the settings changed and my source files became a real hassle. You can resume, with for example "mousepad" a word processor where all the characters are displayed and change the points to tabulation etc. Be careful, you have to go there with little slippers.  
+    .
+*   2023-10-08 add debug , clean procedure \*.sh  
+    .
+*   2023-10-08 The debug mode with HELIX is experimental, it does not work completely, for example, we do not obtain the value of the variables in the submodules in a clear way. With the LLDB program you have a complete mode, lldb-vscode is a derivative of lldb But it's strictly the same with VSCODE.      lldb: it is possible to use GUI order  (tui) to have an overview     Point at objects etc... in console mode and follow step by step   
+    .
+*   2023-10-09  _I'm sorry, my restructuring of the sources, the copy and paste, now I'm back on my project, so I use HELIX and the small tools daily._  
+    .
+*   2023-10-11  Added choice of A4 - A3 - Letter paper   for option 44   
+    .
+*   2023-10-11  Saving the name of your current work with "Alt-q" removing "file:///home…" the ABSOLUTE PATH ONLY  “file:/home…”

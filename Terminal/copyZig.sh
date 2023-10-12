@@ -13,7 +13,6 @@ faGras='\033[1m'
 
 
 
-
 f_cls() {
 reset > /dev/null
 	echo -en '\033[1;1H'
@@ -37,11 +36,11 @@ f_readPos() {	#commande de positionnement	lines + coln + text
 	let colR=$2+${#3}+1  # si on doit coller faire  $2+${#3}
 	echo -en '\033['$lig';'$col'f'$fdVert$faGras$fcBlanc$3 
 	echo -en '\033[0;0m' 
-	tput cnorm	# curseur visible         			
+	tput cnorm	# curseur visible
  	echo -en '\033['$lig';'$colR'f'$faGras$fcGreen
 	read   
 	tput civis 	# curseur invisible
-	echo -en '\033[0;0m'			  
+	echo -en '\033[0;0m'
 }
 
 f_dsplyPos(){ #commande de positionnement	lines + coln + couleur + text
@@ -85,7 +84,7 @@ f_cls
 
 			f_dsplyPos  9  1 "enrg.: "$faGras$fcJaune$PATH_FILE"\n";
 
-			CURRENT_DATE=`date +"%Y-%m-%d %T file://"`
+			CURRENT_DATE=`date +"%Y-%m-%d %T file:"`
 
 			echo -e $CURRENT_DATE$PATH_FILE>> $HOME/.cache/helix/archiveFile.log ;
 
