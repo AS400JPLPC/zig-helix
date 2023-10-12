@@ -24,8 +24,7 @@ d) _Look at the “enScript” folder: a module to list your source files on the
 
 c) **I provide a set of small BASH procedures (which are very simple, modifiable as desired). This will give you a lot of flexibility**
 
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  
- 
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  
 
 personally I put Zig in ./zig and zls in ./zls  
 
@@ -248,7 +247,7 @@ look folder enscript
 
         ----------------------------------------
 
-        Paper Size -&gt; A4 / A3 / Letter
+        Paper Size  ; A4 / A3 / Letter
 
         Size : A3
 ```
