@@ -202,7 +202,7 @@ When you are in the Helix environment:
 ```plaintext
         Path :/home/soleil/Zterm/src-zig
 
-        q -&gt; exit
+        q = exit
         ----------------------------------------
         Name source :  mdlRjson.zig
 ```
@@ -239,7 +239,7 @@ look folder enscript
 ```plaintext
         Path :/home/soleil/Zterm/
 
-        q -&gt; exit
+        q = exit
         ----------------------------------------
 
         Path source :  src-zig
