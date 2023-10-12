@@ -227,7 +227,7 @@ q = exit
 
 The script runs in a separate window "pkexec (sudo) lldb attach PID"
 
-!\[\](assets/Debuglldb.png)   
+![](assets/Debuglldb.png)   
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
@@ -307,7 +307,7 @@ We can't really do without visualizing spaces, and colors can quickly become inc
     Textobject queries: ✓  
     Indent queries: ✓
 
-!\[\](assets/Helix.png) 
+![](assets/Helix.png) 
 
 2023-09-22  **After testing**
 
