@@ -68,7 +68,8 @@ rm -f $HOME/.cache/helix/grepa.txt
 rm -f $HOME/.cache/helix/grepb.txt
 
 # call last directory  HELIX
-set -x
-$HOME/.Terminal/TermHX $PROJECT $REP $NAME & exit
-set +x
+
+exec xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar  --geometry="129x42"  --font="Noto Sans Mono 15" --default-working-directory=$REP   --title="PROJECT : "$PROJECT -x helix $NAME 
+
+tput cnorm
 exit 0

@@ -24,6 +24,8 @@ d) _Look at the “enScript” folder: a module to list your source files on the
 
 c) **I provide a set of small BASH procedures (which are very simple, modifiable as desired). This will give you a lot of flexibility**
 
+d) A tool is available to you TermHx a small 23kb terminal
+
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  
 
 personally I put Zig in ./zig and zls in ./zls  
@@ -62,7 +64,7 @@ I put the relationship.
 
 theme = "mytheme"  
 
-copy mytheme to usr/lib/helix/theme/
+copy mytheme to /usr/lib/helix/runtime/themes/
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
@@ -335,4 +337,27 @@ We can't really do without visualizing spaces, and colors can quickly become inc
     .
 *   2023-10-11  Added choice of A4 - A3 - Letter paper   for option 44   
     .
-*   2023-10-11  Saving the name of your current work with "Alt-q" removing "file:///home…" the ABSOLUTE PATH ONLY  “file:/home…”
+*   2023-10-11  Saving the name of your current work with "Alt-q" removing "file:///home…" the ABSOLUTE PATH ONLY  “file:/home…”  
+     
+*   2023-10-20  _**important possibility:**_  
+     
+
+```plaintext
+Consideration of a mini Terminal based on the VTE3 library.
+More security (no "close" button) only ALT-F4 or normal closing of the "Helix" editor.
+Very light. TermHx 8mo
+Font "Noto Sans Mono".
+We obtain the same rendering as "xfce4-terminal".
+Possibility of having several working sessions (attention LSP will suffer).
+No more keys to configure in the terminal
+All keyboard keys are available. Except Alt-F4
+```
+
+*   For those who want to keep the traditional terminal system: bash\_lastFile.sh and bash\_myProject.sh.  
+     
+*   the terminal is located in the src-c folder TermHX.cpp and the Makefile   
+     
+*   modification     config.toml  
+     “auto-save”.  Example, you want to compile by changing the window focus automatically, saving your source is done.  
+    "auto-signature-help" = false.   LSP is still in development, the overhead is painful. (idem avec VSCODE)  
+     #bufferline = "multiple", Easier to get started. With multiwindowing, buffers etc.

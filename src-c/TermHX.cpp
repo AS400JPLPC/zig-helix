@@ -1,11 +1,10 @@
 /// -----------------------------------------------------------------
 /// Jean-Pierre Laroche
 /// projet 2018-08-08  (C) 2018   Copyright 2018  <laroche.jeanpierre@gmail.com>
-/// but : 	terminal rapide	/ flexible / respectant le code escape
+/// but : 	
 ///			fast / flexible terminal / respecting the escape code
-///			-no-pie EXÉCUTABLE  programme maitre mini server terminal
-///			plus souple que XTERM et plus sécuritaire que les terminal public  pour des applicatifs
-///			outil pour développer une application de type 5250 / 3270 ou terminal semi-graphic
+///			-no-pie EXÉCUTABLE  programme server terminal
+///			More flexible than XTERM and more secure than public terminals
 ///			tool to develop a 5250/3270 or terminal semi-graphic application
 
 
@@ -18,19 +17,15 @@
 #include <pango/pango.h>
 #include <gdk/gdkx.h>
 
-/// si test cout
-//#include <iostream>
-
 ///------------------------------------------
 /// paramétrage spécifique
 /// ex:
 ///------------------------------------------
 
-#define WORKPGM		"./Gencurs"
+#define WORKPGM		"/usr/lib/helix/hx"
 
-bool _DEBUG_  = true; /// ALT_F4 ATVIVE  _DEBUG_ = true
 
-#define MESSAGE_ALT_F4 "vous devez activer uniquement \n en développemnt  \n Confirm destroy Application --> DEBUG"
+#define MESSAGE_ALT_F4 "Confirm destroy Application"
 
 
 /// ----------------------------------------
@@ -38,12 +33,12 @@ bool _DEBUG_  = true; /// ALT_F4 ATVIVE  _DEBUG_ = true
 ///-----------------------------------------
 #define VTENAME "VTE-TERM3270"
 
-unsigned int COL=	132;	/// max 132
+/// basic function
+unsigned int COL=	80;	    
+unsigned int ROW =	24;
 
-unsigned int ROW =	42;		/// max 42 including a line for the system
-
-/// defined not optional
-#define VTEFONT	"Noto Sans Mono  Regular"
+/// defined not optional police default
+#define VTEFONT	"Noto Sans Mono"
 
 //*******************************************************
 // PROGRAME
@@ -76,9 +71,7 @@ bool ctrlPgm(std::string v_TEXT)
 	std::filesystem::path p(v_TEXT.c_str());
 											switch(strswitch(p.stem().c_str()))
 											{
-												case  strswitch("mdlPanel")		: b_pgm =true;		break;
-												case  strswitch("Gencurs")		: b_pgm =true;		break;
-                        case  strswitch("Exemple")		: b_pgm =true;		break;
+                        case  strswitch("hx")		: b_pgm =true;		break;
 											}
 	return b_pgm;
 }
@@ -101,8 +94,7 @@ void close_window()
 ///-------------------------------------
 gboolean key_press_ALTF4()
 {
-	if (_DEBUG_ == 1)
-	{
+
 		GtkWidget *dialog;
 		const gchar* _MSG_ =  MESSAGE_ALT_F4;
 
@@ -133,7 +125,6 @@ gboolean key_press_ALTF4()
 									//break;
 		}
 
-	}
 	// not active ALT_F4
 	return GDK_EVENT_STOP;
 }
@@ -149,52 +140,35 @@ void	init_Terminal()
 
 	VteTerminal *VTE;
 
-	//determines the maximum size for screens
-	Display* d = XOpenDisplay(NULL);
-	Screen*  s = DefaultScreenOfDisplay(d);
-	char * font_terminal = new char[30] ;
-
+    char * font_terminal = new char[30] ;
 
 	/// Font DejaVu Sans Mono -> xfce4-terminal
-	/// confortable and extend numbers columns and rows
 
-	if ( s->width <= 1600 && s->height >=1024 ) {				    // ex: 13"... 15"
-		sprintf(font_terminal,"%s %s" , VTEFONT,"11");
-		COL = 132;
-		ROW = 32;
-		}
-	else if ( s->width <= 1920 && s->height >=1080 ) {			// ex: 17"... 32"
-		sprintf(font_terminal,"%s %s" , VTEFONT,"12");
-		COL = 158;
-		ROW = 42;
-		}
-	else if ( s->width > 1920  ) {								          //  ex: 2560 x1600 > 27"  font 13
-		sprintf(font_terminal,"%s %s" , VTEFONT,"15");        //  ex: 3840 x2160 > 32"  font 15
-		COL = 168;
-		ROW = 44;
-	}
-	//COL = 132;
-	//ROW = 32;
+    /// confortable and extend numbers columns and rows
+	// HELIX 
+    sprintf(font_terminal,"%s %s" , VTEFONT," 15"); 
+	COL = 129;
+	ROW = 42;
+
+
 	// resize  title  font
-  VTE = VTE_TERMINAL (terminal);
+    VTE = VTE_TERMINAL (terminal);
 
-  vte_terminal_set_font (VTE,pango_font_description_from_string(font_terminal));		/// font utilisé
+    vte_terminal_set_font (VTE,pango_font_description_from_string(font_terminal));		/// font use
 
-	vte_terminal_set_size (VTE, COL, ROW);												                    /// size du terminal
-
-	gtk_window_set_title(GTK_WINDOW(window), VTENAME);									              /// titre du terminal de base
+	vte_terminal_set_size (VTE, COL, ROW);												/// size du terminal
 
 	vte_terminal_set_scrollback_lines (VTE,0);		 									///	désactiver historique.
 
-	vte_terminal_set_scroll_on_output(VTE,FALSE);										/// pas de défilement en cas de nouvelle sortie
+	vte_terminal_set_scroll_on_output(VTE,FALSE);										/// pas de défilement 
 
-	vte_terminal_set_scroll_on_keystroke(VTE,FALSE);								/// pas de défilement en bas s’il y a interaction de l’utilisateur
+	vte_terminal_set_scroll_on_keystroke(VTE,FALSE);								    /// pas de défilement 
 
-	vte_terminal_set_mouse_autohide(VTE, TRUE);											/// cacher le curseur de la souris quand le clavier est utilisé.
+	vte_terminal_set_mouse_autohide(VTE, TRUE);											/// hiden  mouse  keyboard Actif .
 
-	vte_terminal_set_cursor_blink_mode(VTE, VTE_CURSOR_BLINK_ON);		/// cursor blink on
+	vte_terminal_set_cursor_blink_mode(VTE, VTE_CURSOR_BLINK_ON);		                /// cursor blink on
 
-	vte_terminal_set_cursor_shape(VTE,VTE_CURSOR_SHAPE_BLOCK);		  /// define cursor 'block'
+	vte_terminal_set_cursor_shape(VTE,VTE_CURSOR_SHAPE_BLOCK);		                    /// define cursor 'block'
 
 
 }
@@ -206,15 +180,6 @@ void	init_Terminal()
 void term_spawn_callback(VteTerminal *terminal, GPid pid, GError *error, gpointer user_data)
 {
 		child_pid = pid;
-}
-/// -----------------------------------------------------------------------------
-/// possibility to change the name of the terminal
-/// -----------------------------------------------------------------------------
-
-
-void on_title_changed(GtkWidget *terminal)
-{
-    gtk_window_set_title(GTK_WINDOW(window), vte_terminal_get_window_title(VTE_TERMINAL(terminal)));
 }
 
 /// -----------------------------------------------------------------------------
@@ -264,35 +229,37 @@ int main(int argc, char *argv[])
 	const gchar *dir;
 	gchar ** command ;
 
+    gchar *arg_1[]  = { (gchar*)WORKPGM,  NULL}; // hx  
+
+    gchar *arg_2[] = { (gchar*)WORKPGM,(char*)"-c", (gchar*) argv[3], NULL}; // hx file
+
+    gchar  *Title = (char*) malloc (30);;
+    sprintf(Title,"Project: %s",(gchar*) argv[1]); // PROJECT
+
 /// -----------------------------------------------------------------------------
 /// -----------------------------------------------------------------------------
 /// -----------------------------------------------------------------------------
+/// 4 argument  
+/// 0= le programe TermHX
+/// 1= Project
+/// 2= directory working
+/// 3= file option 66 
 /// contrôle autorisation traitement --> protection
+/// BUTTON CLOSE off
+/// ALT-F4 CLOSE windows HX
+/// Button mini / maxi ON
 
+    if ( false == ctrlPgm(WORKPGM))					return EXIT_FAILURE;	// contrôle file exist helix
+    if (argc > 4 || argc < 3 )  return EXIT_FAILURE;
 
-
-	gchar *arg_1[] = { (gchar*)WORKPGM,  NULL};
-	gchar *arg_2[] = { (gchar*) argv[1], NULL};		/// arg[1] P_pgm
-	// exemple P_Pgm (argv[1]) = ./programme
-
-	if (argc == 1 )  {
-		if ( false == ctrlPgm(WORKPGM))					return EXIT_FAILURE;	// contrôle file autorisation
-		if ( false == exists_File(WORKPGM) ) 			return EXIT_FAILURE;	// contrôle si programme
-		dir = std::filesystem::path(WORKPGM).parent_path().c_str();
+    if (argc == 3) {
 		command = arg_1;
-	}
-	if (argc == 2 )  {
-		if ( false == ctrlPgm((char*)argv[1]))			return EXIT_FAILURE;	// contrôle file autorisation
-		if ( false == extention_File((char*)argv[1]) )	return EXIT_FAILURE;	// contrôle extention
-		if ( false == isDir_File((char*)argv[1]) ) 		return EXIT_FAILURE; 	// contrôle is directorie
-		if ( false == exists_File((char*)argv[1]) )		return EXIT_FAILURE;	// contrôle si programme
-		dir = std::filesystem::path((const char*)(char*)argv[1]).parent_path().c_str();
+        dir   = (gchar*) argv[1];
+    };
+    if (argc == 4) {
 		command = arg_2;
-	}
-	if (argc > 2)  return EXIT_FAILURE;
-
-
-
+        dir   = (gchar*) argv[2];
+    };
 
 /// -----------------------------------------------------------------------------
 /// -----------------------------------------------------------------------------
@@ -304,11 +271,10 @@ int main(int argc, char *argv[])
 	gtk_init(&argc,&argv);
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
-	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
-	gtk_window_set_resizable (GTK_WINDOW(window),false);
+	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+	gtk_window_set_resizable (GTK_WINDOW(window),true);               // <--- spécifique helix
 	gtk_window_set_deletable (GTK_WINDOW(window),false);
-
-
+    
 
 
     /* Initialise the terminal */
@@ -322,7 +288,7 @@ int main(int argc, char *argv[])
 		VTE_TERMINAL(terminal), //VteTerminal *terminal
         VTE_PTY_DEFAULT, // VtePtyFlags pty_flags,
 
-        dir,			// const char *working_directory
+        dir,			// const char *working_directory PROJECT ex; $home/myproject/src-zig
         command,		// command
 
         NULL,			// environment
@@ -338,6 +304,8 @@ int main(int argc, char *argv[])
         NULL);			// gpointer user_data
 
 
+    gtk_window_set_title(GTK_WINDOW(window),Title);  // name PROJECT
+
     // Connect some signals
 	g_signal_connect(GTK_WINDOW(window),"delete_event", G_CALLBACK(key_press_ALTF4), NULL);
 
@@ -345,7 +313,6 @@ int main(int argc, char *argv[])
 	g_signal_connect(terminal, "child-exited",  G_CALLBACK (close_window), NULL);
 	g_signal_connect(terminal, "destroy",  G_CALLBACK (close_window), NULL);
 
-	g_signal_connect(terminal, "window-title-changed", G_CALLBACK(on_title_changed), NULL);
 	g_signal_connect(terminal, "resize-window", G_CALLBACK(on_resize_window),NULL);
 
 
@@ -356,7 +323,7 @@ int main(int argc, char *argv[])
     gtk_container_add(GTK_CONTAINER(window), terminal);
 
     gtk_widget_hide(window);			// hide = ignore flash
-    gtk_widget_show_all(window);		// for test invalide contrôle protection
+    gtk_widget_show_all(window);		// run
 
     gtk_main();
 

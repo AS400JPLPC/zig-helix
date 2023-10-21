@@ -4,7 +4,7 @@ theme="mytheme"
 
 [editor]
 # Show currently open buffers, only when more than one exists.=bufferline = "multiple"
-bufferline = "multiple"
+#bufferline = "multiple"
 
 # Highlight all lines with a cursor
 cursorline = true
@@ -18,11 +18,13 @@ mouse = true
 
 auto-format =false
 
+auto-save = true
+
 middle-click-paste= true
 
 scroll-lines = 1
 
-
+gutters = ["diagnostics", "line-numbers"]
 
 [editor.whitespace.render]
 space = "all"
@@ -65,7 +67,9 @@ center = ["file-name","file-modification-indicator"]
 right = [ "diagnostics", "position", "total-line-numbers",  "file-type"]
 separator = "│"
 
-
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
 
 
 [editor.lsp]
@@ -77,6 +81,7 @@ display-messages = true
 #LSP snippets are a way for language servers to provide more complex completions for an editor
 #display-inlay-hints = true
 
+
 [editor.search]
 smart-case = true
 wrap-around = true
@@ -84,10 +89,11 @@ wrap-around = true
 [keys.normal]
 # Use system clipboard  copy/paste
 y = "yank_main_selection_to_clipboard"
-p = "paste_clipboard_before"
+p = ["paste_clipboard_after"]
+P = ["paste_clipboard_before"]
 
 # historique and last work source
-A-q = ":sh xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --geometry='80x26'  --title='MENUSRC' -x /home/soleil/.Terminal/copyZig.sh  && exit"
+A-q = ":sh xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --geometry='80x26'  --title='MENUSRC' -x /home/soleil/.Terminal/copyZig.sh && exit"
 
 # select line up
 A-x = "extend_to_line_bounds"
