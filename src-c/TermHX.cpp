@@ -254,7 +254,7 @@ int main(int argc, char *argv[])
 
     if (argc == 3) {
 		command = arg_1;
-        dir   = (gchar*) argv[1];
+        dir   = (gchar*) argv[2];
     };
     if (argc == 4) {
 		command = arg_2;
