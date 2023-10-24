@@ -3,6 +3,6 @@
 # $2 project
 
 set -x
-$HOME/.Terminal/TermHX  $2 $1 & exit
+nohup  $HOME/.Terminal/TermHX  $2 $1 &exit
 set +x
 exit 0

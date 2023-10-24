@@ -69,6 +69,6 @@ rm -f $HOME/.cache/helix/grepb.txt
 
 # call last directory  HELIX
 set -x
-$HOME/.Terminal/TermHX $PROJECT $REP $NAME & exit
+nohup $HOME/.Terminal/TermHX $PROJECT $REP $NAME &exit 
 set +x
 exit 0

@@ -1,7 +1,6 @@
 **Helix**
 
-**2003-09-25 Updated search for last source saved with "write-buffer-close" or "wbc" sorry**  
-**Unable to securely access name and directory I bypassed it, please read below**
+**2023-10-24  Normally, I finished debugging all the scripts and made it flexible to use.**
 
 _After a few problems... & a few scares..._  
 _I switch from VSCode ide to helix-editor_  
@@ -72,15 +71,23 @@ copy mytheme to /usr/lib/helix/runtime/themes/
 
 cache/helix  → Contains  helix.log  and  archiveFile.log
 
-.config/helix →Contains  config.toml , langage.toml , mytheme.toml
-
-<table><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>Zterm</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>Print</td><td>&nbsp;</td><td>src-c</td><td>&nbsp;</td><td>src-zig</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>deps</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>curse</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>lib</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>decimal</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>
-
+.config/helix →Contains  config.toml , langage.toml , mytheme.toml    
+  
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  
+  
 ZIG project my architecture
 
-Zterm → Contains compiled programs and Folders
+<table><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>Zterm</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>Docs</td><td>&nbsp;</td><td>Print</td><td>&nbsp;</td><td>src-c</td><td>&nbsp;</td><td>src-zig</td><td>&nbsp;</td><td>&nbsp;</td><td>binary</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>deps</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>curse</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>lib</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>decimal</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>
 
-Print    → Contains Docs
+  
+  
+ 
+
+Zterm → Contains compiled binary programs and Folders  
+  
+Docs    → build-docs
+
+Print    → Contains Docs source
 
 src-c    → source C/C++
 
@@ -92,7 +99,8 @@ deps    → Contains  folders import  
 
                   lib        → source.h  ex: link libpcre2-posix.so 
 
-                  decimal → source   import  link mpdecimal.so 
+                  decimal → source   import  link mpdecimal.so   
+ 
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
@@ -311,41 +319,28 @@ We can't really do without visualizing spaces, and colors can quickly become inc
 
 ![](assets/Helix.png) 
 
-2023-09-22  **After testing**
+2023-09-22  **Testing**
 
 *   new mytheme  : comes from  dark\_plus > vscode  
-    .
-*   menu  option 88 console  :   
-    Opening a console independently  
-    .
-*   Alt-q A-q free combination  last update small adjustment menu and copyZig and lastFileZig  
-    .
-*   2023-10-03 update langage.toml and config.toml  
+     
+*   update langage.toml and config.toml  
     There is very little action on the settings already in place, so let it be and opt for the minimum authorized (less inconsistency with Hélix)  
-    .
-*   2023-10-06 **Important, you must not replace tabs with spaces. To do this, you must declare voir le config.toml**
-
-<table><tbody><tr><td>[editor.whitespace.render]<br>space = "all"<br>tab ="all"<br>[editor.whitespace.characters]<br>space = "·"<br>tab = "→"</td></tr></tbody></table>
-
+     
 *   During an update of VSCODE, the settings changed and my source files became a real hassle. You can resume, with for example "mousepad" a word processor where all the characters are displayed and change the points to tabulation etc. Be careful, you have to go there with little slippers.  
-    .
-*   2023-10-08 add debug , clean procedure \*.sh  
-    .
-*   2023-10-08 The debug mode with HELIX is experimental, it does not work completely, for example, we do not obtain the value of the variables in the submodules in a clear way. With the LLDB program you have a complete mode, lldb-vscode is a derivative of lldb But it's strictly the same with VSCODE.      lldb: it is possible to use GUI order  (tui) to have an overview     Point at objects etc... in console mode and follow step by step   
-    .
-*   2023-10-09  _I'm sorry, my restructuring of the sources, the copy and paste, now I'm back on my project, so I use HELIX and the small tools daily._  
-    .
-*   2023-10-11  Added choice of A4 - A3 - Letter paper   for option 44   
-    .
-*   2023-10-11  Saving the name of your current work with "Alt-q" removing "file:///home…" the ABSOLUTE PATH ONLY  “file:/home…”  
+      
      
-*   2023-10-20  _**important possibility:**_  
+*   The debug mode with HELIX is experimental, it does not work completely, for example, we do not obtain the value of the variables in the submodules in a clear way. With the LLDB program you have a complete mode, lldb-vscode is a derivative of lldb But it's strictly the same with VSCODE.      lldb: it is possible to use GUI order  (tui) to have an overview     Point at objects etc... in console mode and follow step by step   
+      
      
+*   **Saving the name of your current work with "Alt-q" removing "file:///home…" the ABSOLUTE PATH ONLY  “file:/home…”**  
+      
+     
+*   2023-10-20  _**important possibility:**_
 
 ```plaintext
 Consideration of a mini Terminal based on the VTE3 library.
 More security (no "close" button) only ALT-F4 or normal closing of the "Helix" editor.
-Very light. TermHx 8mo
+Very light. TermHx 8mo actif
 Font "Noto Sans Mono".
 We obtain the same rendering as "xfce4-terminal".
 Possibility of having several working sessions (attention LSP will suffer).
@@ -355,9 +350,56 @@ All keyboard keys are available. Except Alt-F4
 
 *   For those who want to keep the traditional terminal system: bash\_lastFile.sh and bash\_myProject.sh.  
      
-*   the terminal is located in the src-c folder TermHX.cpp and the Makefile   
+*   the terminal is located in the src-c folder TermHX.cpp and the Makefile  
      
 *   modification     config.toml  
      “auto-save”.  Example, you want to compile by changing the window focus automatically, saving your source is done.  
     "auto-signature-help" = false.   LSP is still in development, the overhead is painful. (idem avec VSCODE)  
-     #bufferline = "multiple", Easier to get started. With multiwindowing, buffers etc.
+     #bufferline = "multiple", Easier to get started. With multiwindowing, buffers etc.  
+     
+*   2023-10-24     
+                        helix dissociation and menu\_dev (_**real session**_)  **more HELIX scratch session**  
+                        compilation menu test -ZIG with errors returning     /    the size and movement of the binary in the main directory  
+                        Cleaning the cache/out directory  
+                          
+                        How to name your sources   
+                        source = name.zig  
+                        buildefile = buildname.zig
+
+```plaintext
+ex: option 2 debug
+Compile_Debug
++ zig build --build-file /home/soleil/Zterm/src-zig/buildExemple.zig
+BUILD DEBUG     Exemple.zig  ->  /home/soleil/Zterm/Exemple   size : 2,6M
+Press[Enter] key to continue
+
+
+ex option 7 doc
+Compile_Doc
++ zig build docs --build-file /home/soleil/Zterm/src-zig/buildExemple.zig
+/home/soleil/Zterm/src-zig/Docs_Exemple
+BUILD DOCS     Exemple.zig  ->  Docs_Exemple 
+Press[Enter] key to continue
+
+an example buildExemple.zig
+```  
+
+![](assets/compile.png)   
+
+___________________________   
+
+![](assets/erreur.png)   
+
+___________________________   
+  
+
+   
+  
+I am at the same level (VSCODE) code editor with more flexibility and security  
+ 
+
+*   tip: when you study.   
+    if you need a copy and paste from an external source make a source   
+    ex: A\_copy.zig in your HELIX session with your program made vnew spacebar F choose A\_copy go to https://zigbyexample.github.io/   
+    copy a source then open A\_copy (mousepad or other) copy again (paste) on your reload session etc...  
+    It looks complicated, but it actually goes very quickly

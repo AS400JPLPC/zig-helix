@@ -74,7 +74,7 @@ do
 	f_dsplyPos  7  20 $faGras$fcRouge'11.'; f_dsplyPos  7  24 $faGras$fcGreen 'Gencurs'
 	f_dsplyPos  8  20 $faGras$fcRouge'12.'; f_dsplyPos  8  24 $faGras$fcGreen 'Exemple'
 
-	f_dsplyPos  9  20 $faGras$fcRouge'13.'; f_dsplyPos  9  24 $faGras$fcGreen 'Test-app'
+	f_dsplyPos  9  20 $faGras$fcRouge'13.'; f_dsplyPos  9  24 $faGras$fcGreen 'mdlRjson'
 
 	f_dsplyPos 11  20 $faGras$fcRouge'20.'; f_dsplyPos 11  24 $faGras$fcGreen 'study'
 
@@ -126,9 +126,9 @@ do
 		;;
 
 
-#study ex sdl2
+#study 
         20)
-			#/home/soleil/.Terminal/EnvZig.sh  $LIBPROJECT   "Tconsole"	
+			/home/soleil/.Terminal/dispatch.sh $envZIG  $LIBPROJECT   "dirfile"	
 		;;
 
 

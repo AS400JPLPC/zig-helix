@@ -53,7 +53,7 @@ f_dsplyPos(){ #commande de positionnement	lines + coln + couleur + text
 }
 
 # resize 
-printf '\e[8;'18';'100't'
+printf '\e[8;'20';'100't'
 
 name=""
 PATH_FILE=""
@@ -63,28 +63,28 @@ while [ "$name" != "q" ]
 do
 
 f_cls
-	f_dsplyPos  1  24 $faGras$fcBleu '----------------------------------------'
+	f_dsplyPos  1  20 $faGras$fcBleu '----------------------------------------'
 	
 	f_dsplyPos  3  20 $faGras$fcGreen 'Path :'$1
 
 	f_dsplyPos  5  20 $faGras$fcRouge 'q -> exit'
 
-	f_dsplyPos  6  24 $faGras$fcBleu '----------------------------------------'
+	f_dsplyPos  6  20 $faGras$fcBleu '----------------------------------------'
 
 
-	f_readPos   7  20 'Path source  :'; path=$REPLY;
+	f_readPos   8  20 'Path source  :'; path=$REPLY;
 	if [ "$path" == "q" ] ; then 
 		break;
 	fi
 
-	f_readPos   9  20 'Name source  :'; name=$REPLY;
+	f_readPos  10  20 'Name source  :'; name=$REPLY;
 
 	if [ "$name" == "q" ] ; then 
 		break;
 	fi
 
 	if [ "$path" == "" -o  "$name" == "" ] ; then 
-		f_readPos 9 50  'erreur de saisie Enter'
+		f_readPos 10 50  'erreur de saisie Enter'
 	else
 	
 		PATH_FILE=$1$path"/"$name
@@ -95,17 +95,17 @@ f_cls
 			if test -f PATH_PS ; then
 				rm f $PATH_PS
 			fi 
-
+			f_dsplyPos 12  20 $faGras$fcBleu '----------------------------------------'
 			while [ "$ok" != "Y" ]
 			do
 				PAPER="" 
-				f_dsplyPos  12  20 $faGras$fcGreen 'Paper Size -> A4 / A3 / Letter'
-				f_dsplyPos  14  20 'Size :                 '
-				f_readPos   14  20 'Size :'; PAPER=$REPLY;
+				f_dsplyPos  14  20 $faGras$fcGreen 'Paper Size -> A4 / A3 / Letter'
+				f_dsplyPos  16  20 'Size :                 '
+				f_readPos   16  20 'Size :'; PAPER=$REPLY;
 
 				if [ "$PAPER" == "A4" ] || [ "$PAPER" == "A3" ] || [ "$PAPER" == "Letter" ]  ; then 
 
-					f_dsplyPos  16  1 "Print.: "$faGras$fcJaune$PATH_FILE"\n";
+					f_dsplyPos  18  1 "Print.: "$faGras$fcJaune$PATH_FILE"\n";
 
 					# --quiet Does not display warning info messages, no font (bold) 
 					if [ "$PAPER" == "A3" ] ; then # portrait
@@ -121,7 +121,7 @@ f_cls
 			done
 			break;
 		else
-			f_dsplyPos 10 1  'the file is invalid >'$faGras$fcJaune$PATH_FILE"\n"
+			f_dsplyPos 11 1  'the file is invalid >'$faGras$fcJaune$PATH_FILE"\n"
 			f_pause
 		fi
 

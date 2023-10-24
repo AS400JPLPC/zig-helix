@@ -1,4 +1,7 @@
 #!/bin/bash
+set +x 
+
+
 faStabilo='\033[7m'
 fcRouge='\033[31m'
 fcJaune='\033[33;1m'
@@ -39,6 +42,9 @@ folder_out=$projet_lib$projet_src"zig-out"
 folder_bin=$projet_lib$projet_src"zig-out/bin/"${name_src%.*}
 
 
+folder_docs=$projet_lib$projet_src"Docs_"${name_src%.*}
+
+projet_docs=$projet_lib"Docs_"${name_src%.*}
 
 choix=""
 
@@ -47,19 +53,19 @@ choix=""
 #=========================
 f_clear_Compile() { 
 
-			if test -f $projet_bin  ; then
+			if test -f "$projet_bin"  ; then
 				rm -r $projet_bin 
 			fi
 
-			if test -d $folder_cache_src ; then
+			if test -d "$folder_cache_src" ; then
 				rm -r $folder_cache_src
 			fi
 
-			if test -d $folder_out ; then
+			if test -d "$folder_out" ; then
 				rm -r $folder_out
 			fi
 
-			if test -d $folder_cache_home ; then
+			if test -d "$folder_cache_home" ; then
 				rm -r $folder_cache_home
 			fi
 } 
@@ -72,22 +78,29 @@ f_read_RESUTAT() {	#RESULTAT
 	echo -en "  size : "
 	ls -lrtsh $folder_bin | cut -d " " -f6
 
-	mv $folder_bin $projet_bin
 
-	if test -d $folder_cache_src ; then
+	mv  $folder_bin $projet_bin
+
+	if test -d "$folder_cache_src" ; then
 		rm -r $folder_cache_src
 	fi
 		
-	if test -d $folder_out ; then
+	if test -d "$folder_out" ; then
 		rm -r $folder_out
 	fi
 
-	if test -d $folder_cache_home ; then
+	if test -d "$folder_cache_home" ; then
 		rm -r $folder_cache_home
+	fi
+
+	if test -d "$folder_cache_deps" ; then
+		rm -r $folder_cache_deps
 	fi
 	
 	echo -en '\033[0;0m';
 }
+
+
 
 #=========================
 # function  menu
@@ -123,11 +136,11 @@ f_readPos() {	#commande de positionnement	lines + coln + text
 	let colR=$2+${#3}+1  # si on doit coller faire  $2+${#3}
 	echo -en '\033['$lig';'$col'f'$fdVert$faGras$fcBlanc$3 
 	echo -en '\033[0;0m' 
-	tput cnorm	# curseur visible         			
+	tput cnorm	# curseur visible
  	echo -en '\033['$lig';'$colR'f'$faGras$fcGreen
 	read   
 	tput civis 	# curseur invisible
-	echo -en '\033[0;0m'			  
+	echo -en '\033[0;0m'
 }
 
 # resize 
@@ -157,42 +170,45 @@ do
 	if echo $choix | tr -d [:blank:] | tr -d [:digit:] | grep . &> /dev/null; then
 		f_readPos 22 90  'erreur de saisie Enter'
 	else
-		 
  		case "$choix" in
 
 # Clear projet Cache and binary
 		1)
 			echo -e  "Clear Projet"
 
-			if test -f $projet_bin  ; then
+			if test -f $("$projet_bin")  ; then
 				rm -r $projet_bin 
 			fi
 
-			if test -d $folder_cache_src ; then
+			if test -d "$folder_cache_src" ; then
 				rm -r $folder_cache_src
 			fi
 
-			if test -d $folder_cache_deps ; then
+			if test -d "$folder_cache_deps" ; then
 				rm -r $folder_cache_deps
 			fi
 			
-			if test -d $folder_cache_home ; then
+			if test -d "$folder_cache_home" ; then
 				rm -r $folder_cache_home
+			fi
+
+			if test -d "$folder_out" ; then
+				rm -r $folder_out
 			fi
 
 			;;
 # DEBUG
 		2)
 			f_cls
-            echo -e $faStabilo$fcGreen"Compile_Debug"$fcNoir
+			echo -e $faStabilo$fcGreen"Compile_Debug"$fcNoir
 			
 			f_clear_Compile
 			
 			( set -x ; \
-					zig build  --build-file $projet_lib$projet_src"build"$name_src ;\
+				zig build  --build-file $projet_lib$projet_src"build"$name_src ;\
 			)
-			if test -f $folder_bin; then
 
+			if test -f "$folder_bin" ; then
 				mode="DEBUG"
 				f_read_RESUTAT
 			fi
@@ -210,7 +226,7 @@ do
 					zig build -Doptimize=ReleaseFast --build-file $projet_lib$projet_src"build"$name_src ;\
 			)
 			
-			if test -f $folder_bin; then
+			if test -f "$folder_bin" ; then
 				mode="PROD"
 				f_read_RESUTAT
 			fi
@@ -228,7 +244,7 @@ do
 					zig build -Doptimize=ReleaseSafe --build-file $projet_lib$projet_src"build"$name_src ;\
 			)
 			
-			if test -f $folder_bin; then
+			if test -f "$folder_bin" ; then
 				mode="SAFE"
 				f_read_RESUTAT
 			fi
@@ -247,7 +263,7 @@ do
 			)
 			
 
-			if test -f $folder_bin; then
+			if test -f "$folder_bin" ; then
 				mode="SMALL"
 				f_read_RESUTAT
 			fi
@@ -276,15 +292,36 @@ do
 			
 			f_clear_Compile
 
-			if test -d "docs_"$name_src ; then
-			rm -r "docs_"$name_src  
+			if test -d "$folder_docs" ; then
+			rm -r $folder_docs  
 			fi
 			
 			( set -x ; \
 					zig build docs --build-file $projet_lib$projet_src"build"$name_src ;\
 			)
-		
-			f_read_RESUTAT
+			echo -en "$folder_docs\n"
+			if test -d "$folder_docs" ; then
+
+				if test -d "$projet_docs" ; then
+					rm -r $projet_docs
+				fi
+
+				mv $folder_docs  $projet_docs
+
+				echo -e $faStabilo$fcCyan"BUILD DOCS"$mode $fcNoir "  " $fcJaune$name_src $fcNoir "->" $fcCyan "Docs_"${name_src%.*} $fcNoir
+
+				if test -d "$folder_cache_src" ; then
+					rm -r $folder_cache_src
+				fi
+
+				if test -d "$folder_cache_home" ; then
+					rm -r $folder_cache_home
+				fi
+
+				if test -d "$folder_out" ; then
+					rm -r $folder_out
+				fi
+			fi
 			f_pause
 		;;
 

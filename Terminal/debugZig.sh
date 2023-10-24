@@ -76,7 +76,7 @@ f_cls
 	if ps -p $PID > /dev/null
 		then
 		printf '\e[8;'40';'120't'
-		exec xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --geometry="129x42"  --font="Noto Sans Mono  Regular 15" --default-working-directory=$rep   --title="PROJECT : "$PROJECT -x  pkexec lldb --attach-pid $PID
+		exec xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --geometry="129x42"  --font="Noto Sans Mono  Regular 15" --default-working-directory=$rep   --title="LLDB : "$PROJECT -x  pkexec lldb --attach-pid $PID 
 		break
 	else
 		f_readPos 9 50  'erreur PID invalide'

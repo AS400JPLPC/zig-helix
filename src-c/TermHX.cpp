@@ -171,6 +171,7 @@ void	init_Terminal()
 	vte_terminal_set_cursor_shape(VTE,VTE_CURSOR_SHAPE_BLOCK);		                    /// define cursor 'block'
 
 
+
 }
 
 
