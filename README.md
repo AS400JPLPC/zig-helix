@@ -400,6 +400,6 @@ I am at the same level (VSCODE) code editor with more flexibility and security
 
 *   tip: when you study.   
     if you need a copy and paste from an external source make a source   
-    ex: A\_copy.zig in your HELIX session with your program made vnew spacebar F choose A\_copy go to https://zigbyexample.github.io/   
+    ex: A\_copy.zig in your HELIX session with your program made vnew spacebar F choose A\_copy go to [https://ziglearn.org/](https://ziglearn.org/)
     copy a source then open A\_copy (mousepad or other) copy again (paste) on your reload session etc...  
     It looks complicated, but it actually goes very quickly
