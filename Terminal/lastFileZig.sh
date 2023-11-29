@@ -22,13 +22,6 @@ reset > /dev/null
 	echo -en '\033]10;#FFFFFF\007'
 }
 
-f_pause(){
-	echo -en '\033[0;0m'
-	echo -en $faStabilo$fcRouge'Press[Enter] key to continue'
-	tput civis 	# curseur invisible
-	read -s -n 1
-	echo -en '\033[0;0m'
-}
 f_cls
 
 #echo -en $faGras$fcGreen
@@ -68,7 +61,6 @@ rm -f $HOME/.cache/helix/grepa.txt
 rm -f $HOME/.cache/helix/grepb.txt
 
 # call last directory  HELIX
-set -x
-nohup $HOME/.Terminal/TermHX $PROJECT $REP $NAME &exit 
-set +x
+nohup $HOME/.Terminal/TermHX $PROJECT $REP $NAME &
+f_cls
 exit 0
