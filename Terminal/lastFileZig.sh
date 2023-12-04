@@ -38,7 +38,7 @@ pos=0
 rm -f $HOME/.cache/helix/grepa.txt
 rm -f $HOME/.cache/helix/grepb.txt
 
-grep  'file'  $HOME/.cache/helix/archiveFile.log | cut  -d" " -f3 >> $HOME/.cache/helix/grepa.txt
+grep  $PROJECTLIB  $HOME/.cache/helix/archiveFile.log | cut  -d" " -f3 >> $HOME/.cache/helix/grepa.txt
 
 # grep  "$1"  $HOME/.cache/helix/grepa.txt | cut  -d" " -f2 >> $HOME/.cache/helix/grepb.txt
 
@@ -54,7 +54,6 @@ nbr=$(grep  -o -i  '/' $HOME/.cache/helix/grepb.txt | wc -l)
 REP=/$(grep  'file' $HOME/.cache/helix/grepb.txt | cut  -d"/" -f2-$nbr) 
 
 >$HOME/.cache/helix/grepa.txt
-
 
 # name source
 let "nbr= $nbr+1"
