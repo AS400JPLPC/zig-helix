@@ -78,6 +78,7 @@ do
 
 	f_dsplyPos 11  20 $faGras$fcRouge'20.'; f_dsplyPos 11  24 $faGras$fcGreen 'study'
 
+
 	f_dsplyPos 13  24 $faGras$fcJaune '----------------------------------------'
 
 	f_dsplyPos 15  20 $faGras$fcRouge'33.'; f_dsplyPos 15  24 $faGras$fcGreen 'Debug codelldb'
@@ -128,9 +129,8 @@ do
 
 #study 
         20)
-			/home/soleil/.Terminal/dispatch.sh $envZIG  $LIBPROJECT   "dirfile"	
+			/home/soleil/.Terminal/dispatch.sh $envZIG  $LIBPROJECT   "crypt"	
 		;;
-
 
 
 
@@ -152,7 +152,7 @@ do
 
 #?file
 		66)
-			/home/soleil/.Terminal/lastFileZig.sh $PROJECT
+			/home/soleil/.Terminal/lastFileZig.sh $PROJECT $LIBPROJECT"src-zig"
 		;;
 
 #?clear 
@@ -175,7 +175,9 @@ do
 
 	esac 
 	fi # fintest option
+
 printf '\e[8;'32';'80't'
+
 done
 
 tput cnorm

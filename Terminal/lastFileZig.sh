@@ -13,7 +13,7 @@ faGras='\033[1m'
 #=========================
 
 PROJECT=$1
-
+PROJECTLIB=$2
 f_cls() {
 
 reset > /dev/null
@@ -21,7 +21,13 @@ reset > /dev/null
 	echo -en '\033]11;#000000\007'
 	echo -en '\033]10;#FFFFFF\007'
 }
-
+f_pause(){
+	echo -en '\033[0;0m'
+ 	echo -en $faStabilo$fcRouge'Press[Enter] key to continue'
+	tput civis 	# curseur invisible
+	read -s -n 1
+	echo -en '\033[0;0m'
+}
 f_cls
 
 #echo -en $faGras$fcGreen
@@ -60,7 +66,11 @@ NAME=$(grep  'zig'  $HOME/.cache/helix/grepa.txt | cut  -d"/" -f1)
 rm -f $HOME/.cache/helix/grepa.txt
 rm -f $HOME/.cache/helix/grepb.txt
 
-# call last directory  HELIX
-nohup $HOME/.Terminal/TermHX $PROJECT $REP $NAME &
+FILELIB=$PROJECTLIB"/"$NAME
+
+if test -f "$FILELIB"  ; then
+	# call last directory  HELIX
+	nohup $HOME/.Terminal/TermHX $PROJECT $REP $NAME &
 f_cls
+fi
 exit 0

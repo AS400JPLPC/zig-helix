@@ -2,9 +2,9 @@
 
 **2023-10-24  Normally, I finished debugging all the scripts and made it flexible to use.**
 
-_After a few problems... & a few scares..._  
-_I switch from VSCode ide to helix-editor_  
-_I need an editor, maybe less plugin...,_  
+_After a few problems... & a few scares..._
+_I switch from VSCode ide to helix-editor_
+_I need an editor, maybe less plugin...,_
 _but it does exactly what I ask it to do._
 
 Setting up Helix, I work with Linux, you will find in your distribution how to install it.
@@ -36,7 +36,7 @@ add matching paths and aliases  
 ```plaintext
   export PATH=/home/soleil/.zig:$PATH  
 
-  export PATH=/home/soleil/.zls:$PATH    
+  export PATH=/home/soleil/.zls:$PATH  
 ```
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
@@ -71,20 +71,18 @@ copy mytheme to /usr/lib/helix/runtime/themes/
 
 cache/helix  → Contains  helix.log  and  archiveFile.log
 
-.config/helix →Contains  config.toml , langage.toml , mytheme.toml    
-  
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_  
-  
+.config/helix →Contains  config.toml , langage.toml , mytheme.toml  
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
 ZIG project my architecture
 
-<table><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>Zterm</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>Docs</td><td>&nbsp;</td><td>Print</td><td>&nbsp;</td><td>src-c</td><td>&nbsp;</td><td>src-zig</td><td>&nbsp;</td><td>&nbsp;</td><td>binary</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>deps</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>curse</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>lib</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>decimal</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>
+<table><tbody><tr><td> </td><td> </td><td> </td><td> </td><td>Zterm</td><td> </td><td> </td><td> </td><td> </td><td> </td></tr><tr><td>Docs</td><td> </td><td>Print</td><td> </td><td>src-c</td><td> </td><td>src-zig</td><td> </td><td> </td><td>binary</td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>deps</td><td> </td><td> </td><td> </td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>curse</td><td> </td><td> </td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>lib</td><td> </td><td> </td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>decimal</td><td> </td><td> </td></tr></tbody></table>
 
-  
-  
  
 
-Zterm → Contains compiled binary programs and Folders  
-  
+Zterm → Contains compiled binary programs and Folders
+
 Docs    → build-docs
 
 Print    → Contains Docs source
@@ -99,7 +97,7 @@ deps    → Contains  folders import  
 
                   lib        → source.h  ex: link libpcre2-posix.so 
 
-                  decimal → source   import  link mpdecimal.so   
+                  decimal → source   import  link mpdecimal.so 
  
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
@@ -205,7 +203,7 @@ MenuDEV.sh
 
 When you are in the Helix environment:
 
-**To retrieve the latest source, you have to A-q keymap (Alt-q)**  
+**To retrieve the latest source, you have to A-q keymap (Alt-q)**
 **please look at the config.toml please**
 
 ```plaintext
@@ -264,8 +262,8 @@ look folder enscript
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-Coming back to the difference between VSCODE and HELIX  
-is that I had direct action from VSCODE,  
+Coming back to the difference between VSCODE and HELIX
+is that I had direct action from VSCODE,
 because there is no integrated terminal or possibility of communication from helix and program. RUST security.
 
 But the LSP is meaner than on vscode, so we find it.  
@@ -278,7 +276,7 @@ The gain: no more madness in the propagation of caches and various logs and memo
 
 I've done quite a few tests of neovim by the way, gvim, kakoune, lite-xl, geany, codeblock, sublime, atom, builder, and a few others, I think this one is the right one, it's still missing one or two things, but not vital.
 
-    
+  
 start informatique 1976 middle systeme  
 
 my big stops on PC since 1985
@@ -307,35 +305,27 @@ I'm working with "helix" and restructuring my sources, because I encounter the e
 
 We can't really do without visualizing spaces, and colors can quickly become inconsistent and unpleasant. 
 
-*   I think that there, I will stabilize.  
-    helix --health zig  
-    Configured language server: zls  
-    Binary for language server: /home/soleil/.zls/zls  
-    Configured debug adapter: lldb-vscode  
-    Binary for debug adapter: /usr/bin/lldb-vscode  
-    Highlight queries: ✓  
-    Textobject queries: ✓  
-    Indent queries: ✓
+* I think that there, I will stabilize.
+  helix --health zig
+  Configured language server: zls
+  Binary for language server: /home/soleil/.zls/zls
+  Configured debug adapter: lldb-vscode
+  Binary for debug adapter: /usr/bin/lldb-vscode
+  Highlight queries: ✓
+  Textobject queries: ✓
+  Indent queries: ✓
 
 ![](assets/Helix.png) 
 
 2023-09-22  **Testing**
 
-*   new mytheme  : comes from  dark\_plus > vscode  
-     
-*   update langage.toml and config.toml  
-    There is very little action on the settings already in place, so let it be and opt for the minimum authorized (less inconsistency with Hélix)  
-     
-*   During an update of VSCODE, the settings changed and my source files became a real hassle. You can resume, with for example "mousepad" a word processor where all the characters are displayed and change the points to tabulation etc. Be careful, you have to go there with little slippers.  
-      
-     
-*   The debug mode with HELIX is experimental, it does not work completely, for example, we do not obtain the value of the variables in the submodules in a clear way. With the LLDB program you have a complete mode, lldb-vscode is a derivative of lldb But it's strictly the same with VSCODE.      lldb: it is possible to use GUI order  (tui) to have an overview     Point at objects etc... in console mode and follow step by step   
-      
-     
-*   **Saving the name of your current work with "Alt-q" removing "file:///home…" the ABSOLUTE PATH ONLY  “file:/home…”**  
-      
-     
-*   2023-10-20  _**important possibility:**_
+* new mytheme  : comes from  dark\_plus > vscode
+* update langage.toml and config.toml
+  There is very little action on the settings already in place, so let it be and opt for the minimum authorized (less inconsistency with Hélix)
+* During an update of VSCODE, the settings changed and my source files became a real hassle. You can resume, with for example "mousepad" a word processor where all the characters are displayed and change the points to tabulation etc. Be careful, you have to go there with little slippers.
+* The debug mode with HELIX is experimental, it does not work completely, for example, we do not obtain the value of the variables in the submodules in a clear way. With the LLDB program you have a complete mode, lldb-vscode is a derivative of lldb But it's strictly the same with VSCODE.      lldb: it is possible to use GUI order  (tui) to have an overview     Point at objects etc... in console mode and follow step by step
+* **Saving the name of your current work with "Alt-q" removing "file:///home…" the ABSOLUTE PATH ONLY  “file:/home…”**
+* 2023-10-20  _**important possibility:**_
 
 ```plaintext
 Consideration of a mini Terminal based on the VTE3 library.
@@ -348,23 +338,20 @@ No more keys to configure in the terminal
 All keyboard keys are available. Except Alt-F4
 ```
 
-*   For those who want to keep the traditional terminal system: bash\_lastFile.sh and bash\_myProject.sh.  
-     
-*   the terminal is located in the src-c folder TermHX.cpp and the Makefile  
-     
-*   modification     config.toml  
-     “auto-save”.  Example, you want to compile by changing the window focus automatically, saving your source is done.  
-    "auto-signature-help" = false.   LSP is still in development, the overhead is painful. (idem avec VSCODE)  
-     #bufferline = "multiple", Easier to get started. With multiwindowing, buffers etc.  
-     
-*   2023-10-24     
-                        helix dissociation and menu\_dev (_**real session**_)  **more HELIX scratch session**  
-                        compilation menu test -ZIG with errors returning     /    the size and movement of the binary in the main directory  
-                        Cleaning the cache/out directory  
-                          
-                        How to name your sources   
-                        source = name.zig  
-                        buildefile = buildname.zig
+* For those who want to keep the traditional terminal system: bash\_lastFile.sh and bash\_myProject.sh.
+* the terminal is located in the src-c folder TermHX.cpp and the Makefile
+* modification     config.toml
+   “auto-save”.  Example, you want to compile by changing the window focus automatically, saving your source is done.
+  "auto-signature-help" = false.   LSP is still in development, the overhead is painful. (idem avec VSCODE)
+   #bufferline = "multiple", Easier to get started. With multiwindowing, buffers etc.
+* 2023-10-24   
+                      helix dissociation and menu\_dev (_**real session**_)  **more HELIX scratch session**
+                      compilation menu test -ZIG with errors returning     /    the size and movement of the binary in the main directory
+                      Cleaning the cache/out directory
+                      
+                      How to name your sources 
+                      source = name.zig
+                      buildefile = buildname.zig
 
 ```plaintext
 ex: option 2 debug
@@ -382,24 +369,25 @@ BUILD DOCS     Exemple.zig  ->  Docs_Exemple
 Press[Enter] key to continue
 
 an example buildExemple.zig
-```  
+```
 
-![](assets/compile.png)   
+![](assets/compile.png)
 
-___________________________   
+---
 
-![](assets/erreur.png)   
+![](assets/erreur.png)
 
-___________________________   
+---
+
+I am at the same level (VSCODE) code editor with more flexibility and security 
+
+* tip: when you study. 
+  if you need a copy and paste from an external source make a source 
+  ex: A\_copy.zig in your HELIX session with your program made vnew spacebar F choose A\_copy go to https://zigbyexample.github.io/ 
+  copy a source then open A\_copy (mousepad or other) copy again (paste) on your reload session etc...
+  It looks complicated, but it actually goes very quickly  
+  
   
 
-   
-  
-I am at the same level (VSCODE) code editor with more flexibility and security  
- 
-
-*   tip: when you study.   
-    if you need a copy and paste from an external source make a source   
-    ex: A\_copy.zig in your HELIX session with your program made vnew spacebar F choose A\_copy go to [https://ziglearn.org/](https://ziglearn.org/)
-    copy a source then open A\_copy (mousepad or other) copy again (paste) on your reload session etc...  
-    It looks complicated, but it actually goes very quickly
+* 2023-12-04.
+  update lastfile.zig **if the file does not exist in the project return**
