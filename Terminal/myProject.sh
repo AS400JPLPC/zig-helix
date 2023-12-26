@@ -10,6 +10,6 @@ reset > /dev/null
 }
 
 
-nohup  $HOME/.Terminal/TermHX  $2 $1 & 
-f_cls
+nohup  $HOME/.Terminal/TermHX  $2 $1 > /dev/null 2>&1 &
+
 exit 0

@@ -69,7 +69,6 @@ FILELIB=$PROJECTLIB"/"$NAME
 
 if test -f "$FILELIB"  ; then
 	# call last directory  HELIX
-	nohup $HOME/.Terminal/TermHX $PROJECT $REP $NAME &
-f_cls
+nohup $HOME/.Terminal/TermHX $PROJECT $REP $NAME > /dev/null 2>&1 &
 fi
 exit 0

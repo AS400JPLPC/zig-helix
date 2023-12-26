@@ -388,4 +388,5 @@ I am at the same level (VSCODE) code editor with more flexibility and security 
   It looks complicated, but it actually goes very quickly
 * 2023-12-04.
   update lastfile.zig **if the file does not exist in the project return**
-* 2023-12-26 add folder TerminalHX **terminal vte gtk for Helix**
+* 2023-12-26 add folder TerminalHX **terminal vte gtk3 for Helix**
+* 2023-12-26 delete message nohup from option 55/66 menu-dev
