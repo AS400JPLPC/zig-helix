@@ -385,9 +385,7 @@ I am at the same level (VSCODE) code editor with more flexibility and security 
   if you need a copy and paste from an external source make a source 
   ex: A\_copy.zig in your HELIX session with your program made vnew spacebar F choose A\_copy go to https://zigbyexample.github.io/ 
   copy a source then open A\_copy (mousepad or other) copy again (paste) on your reload session etc...
-  It looks complicated, but it actually goes very quickly  
-  
-  
-
+  It looks complicated, but it actually goes very quickly
 * 2023-12-04.
   update lastfile.zig **if the file does not exist in the project return**
+* 2023-12-26 add folder TerminalHX **terminal vte gtk for Helix**

@@ -35,7 +35,7 @@ CXX = g++
 #  production
 # -------------------------------------------------------------------
 ifeq ($(PROD), true)
- CPPFLAGS=	-std=c++17 \
+ CPPFLAGS=	-std=c++20 \
  	-Wall	-fexceptions	-pedantic-errors	-Wno-parentheses	-Waddress	\
  			-Wsign-compare -fpermissive 	-fstack-clash-protection	-fstack-protector-all \
  			`pkg-config --cflags vte-2.91`
