@@ -34,7 +34,7 @@
 #define VTENAME "VTE-TERM3270"
 
 /// basic function
-unsigned int COL=	80;	    
+unsigned int COL=	80;		
 unsigned int ROW =	24;
 
 /// defined not optional police default
@@ -56,7 +56,7 @@ GPid child_pid = 0;
 constexpr unsigned long long int strswitch(const char* c_name, unsigned long long int l_hash = 0)	/// string to int for switch
 {
 
-    return (*c_name == 0) ? l_hash : 101 * strswitch(c_name + 1) + *c_name;
+	return (*c_name == 0) ? l_hash : 101 * strswitch(c_name + 1) + *c_name;
 }
 
 
@@ -71,7 +71,7 @@ bool ctrlPgm(std::string v_TEXT)
 	std::filesystem::path p(v_TEXT.c_str());
 											switch(strswitch(p.stem().c_str()))
 											{
-                        case  strswitch("hx")		: b_pgm =true;		break;
+						case  strswitch("hx")		: b_pgm =true;		break;
 											}
 	return b_pgm;
 }
@@ -129,7 +129,22 @@ gboolean key_press_ALTF4()
 	return GDK_EVENT_STOP;
 }
 
+///-------------------------------------
+/// traitement CTRL-Z
+///-------------------------------------
+gboolean key_press_CTRLZ(GtkWidget *widget, GdkEventKey *event)
+{
 
+	( void ) widget;
+	if ( event->state & ( GDK_CONTROL_MASK | GDK_SHIFT_MASK  ) )
+	{
+		if ( event->keyval == GDK_KEY_z ||  event->keyval == GDK_KEY_Z )
+		{
+			return GDK_EVENT_STOP;
+		}
+	}
+	return false;
+}
 
 /// -----------------------------------------------------------------------------
 /// personalisation projet utilisant une terminal simplifier pour de la gestion
@@ -140,21 +155,21 @@ void	init_Terminal()
 
 	VteTerminal *VTE;
 
-    char * font_terminal = new char[30] ;
+	char * font_terminal = new char[30] ;
 
 	/// Font DejaVu Sans Mono -> xfce4-terminal
 
-    /// confortable and extend numbers columns and rows
+	/// confortable and extend numbers columns and rows
 	// HELIX 
-    sprintf(font_terminal,"%s %s" , VTEFONT," 15"); 
+	sprintf(font_terminal,"%s %s" , VTEFONT," 15"); 
 	COL = 129;
 	ROW = 42;
 
 
 	// resize  title  font
-    VTE = VTE_TERMINAL (terminal);
+	VTE = VTE_TERMINAL (terminal);
 
-    vte_terminal_set_font (VTE,pango_font_description_from_string(font_terminal));		/// font use
+	vte_terminal_set_font (VTE,pango_font_description_from_string(font_terminal));		/// font use
 
 	vte_terminal_set_size (VTE, COL, ROW);												/// size du terminal
 
@@ -162,20 +177,20 @@ void	init_Terminal()
 
 	vte_terminal_set_scroll_on_output(VTE,FALSE);										/// pas de défilement 
 
-	vte_terminal_set_scroll_on_keystroke(VTE,FALSE);								    /// pas de défilement 
+	vte_terminal_set_scroll_on_keystroke(VTE,FALSE);									/// pas de défilement 
 
 	vte_terminal_set_mouse_autohide(VTE, TRUE);											/// hiden  mouse  keyboard Actif .
 
-	vte_terminal_set_cursor_blink_mode(VTE, VTE_CURSOR_BLINK_ON);		                /// cursor blink on
+	vte_terminal_set_cursor_blink_mode(VTE, VTE_CURSOR_BLINK_ON);						/// cursor blink on
 
-	vte_terminal_set_cursor_shape(VTE,VTE_CURSOR_SHAPE_BLOCK);		                    /// define cursor 'block'
+	vte_terminal_set_cursor_shape(VTE,VTE_CURSOR_SHAPE_BLOCK);							/// define cursor 'block'
 
 
 }
 
 
 /// -----------------------------------------------------------------------------
-/// Callback for vte_terminal_spawn_async    retrived PID terminal ONLY
+/// Callback for vte_terminal_spawn_async	retrived PID terminal ONLY
 /// -----------------------------------------------------------------------------
 void term_spawn_callback(VteTerminal *terminal, GPid pid, GError *error, gpointer user_data)
 {
@@ -197,7 +212,7 @@ void on_resize_window(GtkWidget *terminal, guint  _col, guint _row)
 /// -----------------------------------------------------------------------------
 
 inline bool exists_File (const std::string& name) {
-    struct stat fileStat;
+	struct stat fileStat;
 	if(stat(name.c_str(),&fileStat) < 0) return false;  	// is exist objet
 
 	stat(name.c_str(),&fileStat);
@@ -229,12 +244,12 @@ int main(int argc, char *argv[])
 	const gchar *dir;
 	gchar ** command ;
 
-    gchar *arg_1[]  = { (gchar*)WORKPGM,  NULL}; // hx  
+	gchar *arg_1[]  = { (gchar*)WORKPGM,  NULL}; // hx  
 
-    gchar *arg_2[] = { (gchar*)WORKPGM,(char*)"-c", (gchar*) argv[3], NULL}; // hx file
+	gchar *arg_2[] = { (gchar*)WORKPGM,(char*)"-c", (gchar*) argv[3], NULL}; // hx file
 
-    gchar  *Title = (char*) malloc (30);;
-    sprintf(Title,"Project: %s",(gchar*) argv[1]); // PROJECT
+	gchar  *Title = (char*) malloc (30);;
+	sprintf(Title,"Project: %s",(gchar*) argv[1]); // PROJECT
 
 /// -----------------------------------------------------------------------------
 /// -----------------------------------------------------------------------------
@@ -249,17 +264,17 @@ int main(int argc, char *argv[])
 /// ALT-F4 CLOSE windows HX
 /// Button mini / maxi ON
 
-    if ( false == ctrlPgm(WORKPGM))					return EXIT_FAILURE;	// contrôle file exist helix
-    if (argc > 4 || argc < 3 )  return EXIT_FAILURE;
+	if ( false == ctrlPgm(WORKPGM))					return EXIT_FAILURE;	// contrôle file exist helix
+	if (argc > 4 || argc < 3 )  return EXIT_FAILURE;
 
-    if (argc == 3) {
+	if (argc == 3) {
 		command = arg_1;
-        dir   = (gchar*) argv[2];
-    };
-    if (argc == 4) {
+		dir   = (gchar*) argv[2];
+	};
+	if (argc == 4) {
 		command = arg_2;
-        dir   = (gchar*) argv[2];
-    };
+		dir   = (gchar*) argv[2];
+	};
 
 /// -----------------------------------------------------------------------------
 /// -----------------------------------------------------------------------------
@@ -272,43 +287,43 @@ int main(int argc, char *argv[])
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-	gtk_window_set_resizable (GTK_WINDOW(window),true);               // <--- spécifique helix
+	gtk_window_set_resizable (GTK_WINDOW(window),true);			   // <--- spécifique helix
 	gtk_window_set_deletable (GTK_WINDOW(window),false);
-    
 
+	gtk_widget_set_events ( window, GDK_KEY_PRESS_MASK );
 
-    /* Initialise the terminal */
-    terminal = vte_terminal_new();
+	/* Initialise the terminal */
+	terminal = vte_terminal_new();
 
-    // specific initialization of the terminal
+	// specific initialization of the terminal
 	init_Terminal();
 
 
-    vte_terminal_spawn_async(
+	vte_terminal_spawn_async(
 		VTE_TERMINAL(terminal), //VteTerminal *terminal
-        VTE_PTY_DEFAULT, // VtePtyFlags pty_flags,
+		VTE_PTY_DEFAULT, // VtePtyFlags pty_flags,
 
-        dir,			// const char *working_directory PROJECT ex; $home/myproject/src-zig
-        command,		// command
+		dir,			// const char *working_directory PROJECT ex; $home/myproject/src-zig
+		command,		// command
 
-        NULL,			// environment
-        (GSpawnFlags)(G_SPAWN_SEARCH_PATH |G_SPAWN_FILE_AND_ARGV_ZERO),				// spawn flags
-        NULL,			// GSpawnChildSetupFunc child_setup,
-        NULL,			// gpointer child_setup_data,
-        NULL,			// GDestroyNotify child_setup_data_destroy,
-        -1,				// int timeout
-        NULL,			// GCancellable *cancellable,
+		NULL,			// environment
+		(GSpawnFlags)(G_SPAWN_SEARCH_PATH |G_SPAWN_FILE_AND_ARGV_ZERO),				// spawn flags
+		NULL,			// GSpawnChildSetupFunc child_setup,
+		NULL,			// gpointer child_setup_data,
+		NULL,			// GDestroyNotify child_setup_data_destroy,
+		-1,				// int timeout
+		NULL,			// GCancellable *cancellable,
 
-        &term_spawn_callback,// VteTerminalSpawnAsyncCallback callback, get pid child
+		&term_spawn_callback,// VteTerminalSpawnAsyncCallback callback, get pid child
 
-        NULL);			// gpointer user_data
+		NULL);			// gpointer user_data
 
 
-    gtk_window_set_title(GTK_WINDOW(window),Title);  // name PROJECT
+	gtk_window_set_title(GTK_WINDOW(window),Title);  // name PROJECT
 
-    // Connect some signals
+	// Connect some signals
 	g_signal_connect(GTK_WINDOW(window),"delete_event", G_CALLBACK(key_press_ALTF4), NULL);
-
+	g_signal_connect(G_OBJECT(window),"key_press_event", G_CALLBACK(key_press_CTRLZ), NULL);
 
 	g_signal_connect(terminal, "child-exited",  G_CALLBACK (close_window), NULL);
 	g_signal_connect(terminal, "destroy",  G_CALLBACK (close_window), NULL);
@@ -319,13 +334,13 @@ int main(int argc, char *argv[])
 
 
 
-    /* Put widgets together and run the main loop */
-    gtk_container_add(GTK_CONTAINER(window), terminal);
+	/* Put widgets together and run the main loop */
+	gtk_container_add(GTK_CONTAINER(window), terminal);
 
-    gtk_widget_hide(window);			// hide = ignore flash
-    gtk_widget_show_all(window);		// run
+	gtk_widget_hide(window);			// hide = ignore flash
+	gtk_widget_show_all(window);		// run
 
-    gtk_main();
+	gtk_main();
 
-    return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
