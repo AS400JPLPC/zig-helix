@@ -136,7 +136,7 @@ gboolean key_press_CTRLZ(GtkWidget *widget, GdkEventKey *event)
 {
 
 	( void ) widget;
-	if ( event->state & ( GDK_CONTROL_MASK | GDK_SHIFT_MASK  ) )
+	if ( event->state & ( GDK_CONTROL_MASK ) )
 	{
 		if ( event->keyval == GDK_KEY_z ||  event->keyval == GDK_KEY_Z )
 		{

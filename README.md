@@ -391,3 +391,4 @@ I am at the same level (VSCODE) code editor with more flexibility and security 
 * 2023-12-26 add folder TerminalHX **terminal vte gtk3 for Helix**
 * 2023-12-26 delete message nohup from option 55/66 menu-dev
 * 2023-12-28 **out of service CTRL-Z with the "vte" terminal "TermHX"**
+* 2023-12-29 Sorry, correction CTRL-Z (clear terminal) do not consider SHIFT-Z
