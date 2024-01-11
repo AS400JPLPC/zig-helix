@@ -392,3 +392,25 @@ I am at the same level (VSCODE) code editor with more flexibility and security 
 * 2023-12-26 delete message nohup from option 55/66 menu-dev
 * 2023-12-28 **out of service CTRL-Z with the "vte" terminal "TermHX"**
 * 2023-12-29 Sorry, correction CTRL-Z (clear terminal) do not consider SHIFT-Z
+
+---
+
+astuce:
+
+I have provided you with two files as examples to make your life easier:</br>
+a) compile_zig_exemple, which displays the menu for compilation.</br>
+b) menu_Dev_exemple, which displays the general menu.</br></br>
+
+In the ./config/helix/ directory, I have added a few lines that simplify things.</br></br>
+[keys.normal."+"]</br>
+a = ":sh xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar --title='General-Menu...' -x ../MenuDEV.sh && exit"</br>
+b = ":sh xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar --title='Compile-Gencurs' -x ../Compile_Zig.sh 'Gencurs' && exit"</br>
+// Example: Specification for the 'Gencurs' project</br></br>
+
+c = ":sh xfce4-terminal --hide-menubar --hide-scrollbar ---hide-toolbar --title='Compile-Example' -x ../Compile_Zig.sh 'Example' && exit"</br>
+q = ":sh xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar --title='Save.Memory(66)' -x $HOME/.Terminal/copyZig.sh && exit"</br>
+t = ":sh $HOME/.Terminal/console.sh && exit"</br>
+</br>
+which allows you to envy nothing of VSCODE anymore.</br>
+
+</br>
