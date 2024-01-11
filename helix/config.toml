@@ -87,19 +87,17 @@ smart-case = true
 wrap-around = true
 
 [keys.normal]
-# Use system clipboard  copy/paste
-y = "yank_main_selection_to_clipboard"
-p = ["paste_clipboard_after"]
-P = ["paste_clipboard_before"]
-
-# historique and last work source
-A-q = ":sh xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar    --geometry='80x26'  --title='MENUSRC' -x /home/soleil/.Terminal/copyZig.sh && exit"
-
-# select line up
 A-x = "extend_to_line_bounds"
 X = ["extend_line_up", "extend_to_line_bounds"]
-
 
 [keys.select]
 A-x = "extend_to_line_bounds"
 X = ["extend_line_up", "extend_to_line_bounds"]
+
+# create a new minor mode bound to `+`
+[keys.normal."+"]
+a = ":sh xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar --title='Menu-General...' -x ../MenuDEV.sh && exit"
+b = ":sh xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar --title='Compile-Gencurs' -x ../Compile_Zig.sh 'Gencurs'  && exit"
+c = ":sh xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar --title='Compile-Exemple' -x ../Compile_Zig.sh 'Exemple'  && exit"
+q = ":sh xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar --title='Enr.Memoire(66)' -x $HOME/.Terminal/copyZig.sh && exit"
+t = ":sh $HOME/.Terminal/console.sh  && exit"
