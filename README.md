@@ -399,6 +399,10 @@ I am at the same level (VSCODE) code editor with more flexibility and security 
 * 2024-02-205 Adjustment of procedures, an "example" file will help you implement. The TermilaHX folder will allow you to have a VTE3 terminal freed from all keys except ALT-F4 and CTRL-Z by default.</br></br></br>
 ---
 
+![](assets/.terminal.png)
+
+---
+
 astuce:
 
 I have provided you with two files as examples to make your life easier:</br>
