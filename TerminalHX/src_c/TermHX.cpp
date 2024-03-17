@@ -23,7 +23,8 @@
 ///------------------------------------------
 
 #define WORKPGM		"/usr/lib/helix/hx"
-
+// this compile helix user 
+//#define WORKPGM		"/home/soleil/.helix/hx"
 
 #define MESSAGE_ALT_F4 "Confirm destroy Application"
 
@@ -34,7 +35,7 @@
 #define VTENAME "VTE-TERM3270"
 
 /// basic function
-unsigned int COL=	80;		
+unsigned int COL=	80;
 unsigned int ROW =	24;
 
 /// defined not optional police default
@@ -130,7 +131,7 @@ gboolean key_press_ALTF4()
 }
 
 ///-------------------------------------
-/// traitement CTRL-Z
+/// traitement CTRL-Z (bad helix cmd )
 ///-------------------------------------
 gboolean key_press_CTRLZ(GtkWidget *widget, GdkEventKey *event)
 {
@@ -158,11 +159,26 @@ void	init_Terminal()
 	char * font_terminal = new char[30] ;
 
 	/// Font DejaVu Sans Mono -> xfce4-terminal
+	//if ( s->width <= 1600 && s->height >=1024 ) {					/// ex: 13"... 15"
+	//	sprintf(font_terminal,"%s %s" , VTEFONT,"11");
+	//	COL = 124;
+	//	ROW = 32;
+	//	}
+	//else if ( s->width <= 1920 && s->height >=1080 ) {			/// ex: 17"... 32"
+	//	sprintf(font_terminal,"%s %s" , VTEFONT,"12");
+	//	COL = 124;
+	//	ROW = 38;
+	//	}
+	//else if ( s->width > 1920  ) {								//  ex: 2560 x1600 => 27"
+	//	sprintf(font_terminal,"%s %s" , VTEFONT,"15");
+	//	COL = 124;
+	//	ROW = 44;
+	//}
 
 	/// confortable and extend numbers columns and rows
 	// HELIX 
 	sprintf(font_terminal,"%s %s" , VTEFONT," 15"); 
-	COL = 125; // 120 cols  src
+	COL = 124; // 120 cols  src
 	ROW = 44;  // 42  lines src
 
 

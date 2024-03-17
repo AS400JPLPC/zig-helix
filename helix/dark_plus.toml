@@ -62,22 +62,20 @@
 "ui.menu" = { fg = "text", bg = "widget" }
 "ui.menu.selected" = { bg = "dark_blue2" }
 
-
-"ui.cursor" = { fg = "cursor", modifiers = ["reversed"]  }
+# TODO: Alternate bg colour for `ui.cursor.match` and `ui.selection`.
+"ui.cursor" = { fg = "cursor", modifiers = ["reversed"] }
 "ui.cursor.primary" = { fg = "cursor", modifiers = ["reversed"] }
-"ui.cursor.match" = { fg = "sienna", modifiers = ['slow_blink','reversed'], bg = "Myellow" }
-
-
+"ui.cursor.match" = { bg = "#3a3d41", modifiers = ["underlined"] }
 
 "ui.selection" = { bg = "#3a3d41" }
 "ui.selection.primary" = { bg = "dark_blue" }
 
 "ui.linenr" = { fg = "dark_gray" }
-"ui.linenr.selected" = { fg = "blue" } # "light_gray2"
+"ui.linenr.selected" = { fg = "light_gray2" }
 
 "ui.cursorline.primary" = { bg = "dark_gray3" }
-"ui.statusline" = { fg = "white", bg = "blue" }  # Mlight-gray
-"ui.statusline.inactive" = { fg = "white", bg = "blue" } # blue
+"ui.statusline" = { fg = "white", bg = "blue" }
+"ui.statusline.inactive" = { fg = "white", bg = "blue" }
 "ui.statusline.insert" = { fg = "white", bg = "yellow" }
 "ui.statusline.select" = { fg = "white", bg = "magenta" }
 
@@ -88,10 +86,10 @@
 "ui.text" = { fg = "text" }
 "ui.text.focus" = { fg = "white" }
 
-"ui.virtual.whitespace" = { fg = "Mlight-gray" } 
+"ui.virtual.whitespace" = { fg = "dark_gray" }
 "ui.virtual.ruler" = { bg = "borders" }
-"ui.virtual.indent-guide" = { fg = "dark_gray4" } 
-"ui.virtual.inlay-hint" = { fg = "white", bg = "#444444" }
+"ui.virtual.indent-guide" = { fg = "dark_gray4" }
+"ui.virtual.inlay-hint" = { fg = "dark_gray5"}
 
 "warning" = { fg = "gold2" }
 "error" = { fg = "red" }
@@ -116,6 +114,7 @@ dark_gray = "#858585"
 dark_gray2 = "#1e1e1e"
 dark_gray3 = "#282828"
 dark_gray4 = "#404040"
+dark_gray5 = "#8b949e"
 blue = "#007acc"
 blue2 = "#569CD6"
 blue3 = "#6796E6"
@@ -134,12 +133,6 @@ constant = "#4FC1FF"
 
 background = "#1e1e1e"
 text = "#d4d4d4"
-cursor = "#b5cea8" # <- pale_green  origine   "#a6a6a6"
+cursor = "#a6a6a6"
 widget = "#252526"
 borders = "#323232"
-
-Myellow = "#4e432f"
-sienna = "#cd853f"
-Mlight-gray = "#636C6e" #grey
-
-Mlight = "#1f1e1e" #grey

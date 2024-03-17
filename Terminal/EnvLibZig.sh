@@ -1,5 +1,5 @@
 #!/bin/bash
-#set +x 
+set +x 
 
 
 faStabilo='\033[7m'
@@ -27,7 +27,7 @@ projet_src="src-zig/"
 mode=""
 
 # name binary
-projet_bin=$projet_lib${name_src%.*}
+projet_bin=$projet_lib"lib"${name_src%.*}".so"
 
 # folder cache
 folder_cache_src=$projet_lib$projet_src"zig-cache"
@@ -35,16 +35,12 @@ folder_cache_src=$projet_lib$projet_src"zig-cache"
 folder_cache_deps=$projet_lib$projet_src"deps/zig-cache"
 
 folder_library=$projet_lib"library"
-folder_library_cache=$folder_library"/zig-cache"
-
-folder_cache_deps=$projet_lib$projet_src"deps/zig-cache"
-
-folder_cache_home=$HOME"/.cache/zig"
+folder_library_cache=$folder_libtrary"/zig-cache"
 
 # folder out
 folder_out=$projet_lib$projet_src"zig-out"
 # folder out bin
-folder_bin=$projet_lib$projet_src"zig-out/bin/"${name_src%.*}
+folder_bin=$projet_lib$projet_src"zig-out/lib/lib"${name_src%.*}".so"
 
 
 folder_docs=$projet_lib$projet_src"Docs_"${name_src%.*}
@@ -52,7 +48,6 @@ folder_docs=$projet_lib$projet_src"Docs_"${name_src%.*}
 projet_docs=$projet_lib"Docs_"${name_src%.*}
 
 choix=""
-
 
 #=========================
 # Func clear projet interne
@@ -75,9 +70,11 @@ f_clear_Compile() {
 				rm -r $folder_cache_home
 			fi
 
+
 			if test -d "$folder_library_cache" ; then
 				rm -r $folder_library_cache
 			fi
+
 
 			if test -d "$folder_cache_deps" ; then
 				rm -r $folder_cache_deps
@@ -111,7 +108,6 @@ f_read_RESUTAT() {	#RESULTAT
 	if test -d "$folder_library_cache" ; then
 		rm -r $folder_library_cache
 	fi
-
 
 	if test -d "$folder_cache_deps" ; then
 		rm -r $folder_cache_deps
@@ -166,20 +162,20 @@ f_readPos() {	#commande de positionnement	lines + coln + text
 # resize 
 printf '\e[8;'24';'120't'
 
+
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 while [ "$choix" != "99" ]
 do
  
 	f_cls
-	f_dsplyPos 1  24 $faGras$fcJaune 'COMPILE ->'$name_src
+	f_dsplyPos 1  24 $faGras$fcJaune 'COMPILE LIB ->'$name_src
 	f_dsplyPos 2  24 $faGras$fcJaune '----------------------------------------'
 	f_dsplyPos  4  20 $faGras$fcRouge' 1.'; f_dsplyPos  4  24 $faGras$fcGreen 'ClearProjet'
 	f_dsplyPos  6  20 $faGras$fcRouge' 2.'; f_dsplyPos 	6  24 $faGras$fcGreen 'Compile_Debug'
 	f_dsplyPos  8  20 $faGras$fcRouge' 3.'; f_dsplyPos 	8  24 $faGras$fcGreen 'Compile_Prod'
 	f_dsplyPos 10  20 $faGras$fcRouge' 4.'; f_dsplyPos 10  24 $faGras$fcGreen 'Compile_Safe'
 	f_dsplyPos 12  20 $faGras$fcRouge' 5.'; f_dsplyPos 12  24 $faGras$fcGreen 'Compile_Small'
-	f_dsplyPos 14  20 $faGras$fcRouge' 6.'; f_dsplyPos 14  24 $faGras$fcGreen 'Compile_test'
-	f_dsplyPos 16  20 $faGras$fcRouge' 7.'; f_dsplyPos 16  24 $faGras$fcGreen 'Compile_Doc'
+	f_dsplyPos 14  20 $faGras$fcRouge' 7.'; f_dsplyPos 14  24 $faGras$fcGreen 'Compile_Doc'
 	f_dsplyPos 18  20 $faGras$fcRouge'99.'; f_dsplyPos 18  24 $faGras$fcJaune 'Quit'
 
 	f_dsplyPos 20 24 $faGras$fcBleu '----------------------------------------'
@@ -207,10 +203,11 @@ do
 				rm -r $folder_cache_deps
 			fi
 			
+			
 			if test -d "$folder_library_cache" ; then
 				rm -r $folder_library_cache
 			fi
-
+			
 			if test -d "$folder_cache_home" ; then
 				rm -r $folder_cache_home
 			fi
@@ -228,7 +225,7 @@ do
 			f_clear_Compile
 			
 			( set -x ; \
-				zig build -Doptimize=Debug --build-file $projet_lib$projet_src"build"$name_src ;\
+				zig build  -Doptimize=Debug --build-file $projet_lib$projet_src"build"$name_src ;\
 			)
 
 			if test -f "$folder_bin" ; then
@@ -238,7 +235,7 @@ do
 			f_pause
 		;;
 
-# PROD
+# PROD FAST
 		3)
 			f_cls
 			echo -e $faStabilo$fcGreen"Compile_Prod"$fcNoir
@@ -293,20 +290,6 @@ do
 			f_pause
 		;;
 
-# TEST
-		6)
-			f_cls
-			echo -e $faStabilo$fcGreen"Compile_Test"$fcNoir
-			
-			f_clear_Compile
-			
-			(set -x ; \
-				zig  build test -fsummary  --build-file $projet_lib$projet_src"build"$name_src ;\
-          		f_clear_Compile;\
-			)
-			f_pause
-		;;
-
 
 # DOC
 		7)
@@ -339,10 +322,6 @@ do
 
 				if test -d "$folder_cache_home" ; then
 					rm -r $folder_cache_home
-				fi
-
-				if test -d "$folder_library_cache" ; then
-					rm -r $folder_library_cache
 				fi
 
 				if test -d "$folder_out" ; then

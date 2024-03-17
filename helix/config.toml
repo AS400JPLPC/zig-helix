@@ -1,6 +1,5 @@
-
 # error warning use my color 
-theme="mytheme"
+theme="dark_plus"
 
 [editor]
 # Show currently open buffers, only when more than one exists.=bufferline = "multiple"
@@ -25,14 +24,13 @@ middle-click-paste= true
 
 scroll-lines = 1
 
-gutters = ["diagnostics", "line-numbers"]
+#gutters = ["diagnostics", "line-numbers"]
+[editor.gutters]
+layout = ["diagnostics", "line-numbers"]
 
-[editor.whitespace.render]
-space = "all"
-tab ="all"
-[editor.whitespace.characters]
-space = "·"
-tab = "→"
+[editor.gutters.line-numbers]
+min-width = 1
+
 
 [editor.indent-guides]
 character = "│"
@@ -51,13 +49,14 @@ normal = "block"
 select = "underline"
 
 
+[editor.whitespace]
+render = "all"
+
 
 
 [editor.soft-wrap]
-max-wrap =0		# espace before ruler
+max-wrap =0	    # espace before ruler
 enable = true
-
-
 
 
 
@@ -90,7 +89,6 @@ wrap-around = true
 [keys.normal]
 A-x = "extend_to_line_bounds"
 X = ["extend_line_up", "extend_to_line_bounds"]
-
 [keys.select]
 A-x = "extend_to_line_bounds"
 X = ["extend_line_up", "extend_to_line_bounds"]
