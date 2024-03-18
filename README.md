@@ -89,7 +89,9 @@ Print    → Contains Docs source
 
 src-c    → source C/C++
 
-src-zig → Contains source and build, folders( deps,lib )
+libray   → source zig 
+
+src-zig → Contains source and build, folders( library, deps, lib )
 
 deps    → Contains  folders import  
 
