@@ -59,23 +59,51 @@ f_dsplyCentrer(){ #commande de positionnement	lines + couleur + text
 
 }
 
+cd $HOME
+
 f_dsplyCentrer 1  $fcJaune '> '
-zig version
+hx --version
 
 f_offColor
 
-rm -r $HOME/.zig
-
-wget https://zigbin.io/master/x86_64-linux.tar.xz
-tar -xf x86_64-linux.tar.xz
-mv zig-linux-x86_64* $HOME/.zig
-rm x86_64-linux*
 
 
+if test -d ~/.helix ; then
+		rm -r ~/.helix
+	fi
 
 
+if test -d ~/.cache/zig/ ; then
+		rm -rf ~/.cache/zig/
+	fi
+
+if test -d ~/.cargo/ ; then
+		rm -r ~/.cargo
+	fi
+
+mkdir $HOME/.helix
+
+git clone https://github.com/helix-editor/helix
+cd $HOME/helix
+
+cp $HOME/.config/helix/default.rs  $HOME/helix/helix-term/src/keymap/default.rs
+cargo install --path helix-term --locked
+
+
+cp  $HOME/.cargo/bin/hx $HOME/.helix/hx
+mv  $HOME/helix/contrib $HOME/.helix/
+mv  $HOME/helix/runtime $HOME/.helix/
+
+
+#if test -d ~/helix ; then
+#		rm -rf ~/helix
+#	fi
+if test -d ~/.cargo/ ; then
+		rm -r ~/.cargo
+	fi
+	
 f_dsplyCentrer 22  $fcVert '> '
-zig version
+hx --version
 
 f_offColor
 f_dsply 'veuilez faire Enter'

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# install stable  version zig  ->>> 0.11.0
-
 
 fdNoir='\033[40m'
 fdRouge='\033[41m'
@@ -68,7 +66,6 @@ f_offColor
 
 rm -r $HOME/.zig
 
-# stable last
 
 wget https://ziglang.org/download/0.11.0/zig-linux-x86_64-0.11.0.tar.xz
 tar -xf zig-linux-x86_64-0.11.0.tar.xz

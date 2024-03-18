@@ -86,12 +86,6 @@ display-messages = true
 smart-case = true
 wrap-around = true
 
-[keys.normal]
-A-x = "extend_to_line_bounds"
-X = ["extend_line_up", "extend_to_line_bounds"]
-[keys.select]
-A-x = "extend_to_line_bounds"
-X = ["extend_line_up", "extend_to_line_bounds"]
 
 # create a new minor mode bound to `+`
 [keys.normal."+"]

@@ -396,7 +396,7 @@ I am at the same level (VSCODE) code editor with more flexibility and security 
 </br></br></br></br></br>
 
 
-* 2024-02-205 Adjustment of procedures, an "example" file will help you implement. The TermilaHX folder will allow you to have a VTE3 terminal freed from all keys except ALT-F4 and CTRL-Z by default.</br></br></br>
+* 2024-02-25 Adjustment of procedures, an "example" file will help you implement. The TermilaHX folder will allow you to have a VTE3 terminal freed from all keys except ALT-F4 and CTRL-Z by default.</br></br></br>
 ---
 
 ![](assets/.terminal.png)
@@ -420,5 +420,145 @@ q = ":sh xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar --title='
 t = ":sh $HOME/.Terminal/console.sh && exit"</br>
 </br>
 which allows you to envy nothing of VSCODE anymore.</br>
+</br>
 
+
+
+* 2024-02-17 Adjustment of procedures</br>
+Introduction of the concept of "library"</br>
+Improved support for a project</br>
+
+Today, I prefer compiling the "Helix" project because it allows me the opportunity to hack the "KEYMAP" file (...helix/helix-term/src/keymap/default.rs). I have removed a good number of commands to keep only the essential ones.</br>
+I reverted to using the basic setup for "ZIG" and adopted the "dark_plus.toml" theme.</br>
+I added to the "thermHX" program in "C/C++" the prohibition of CRT-Z, which suspends and clears the terminal by default.</br>
+
+</br>
+* 2024-02-18 Adjustment of procedures</br>
+
+
+prerequis:</br>
+first compile helix:</br>
+
+```
+cd $HOME
+git clone https://github.com/helix-editor/helix
+
+cd helix
+
+
+cargo install --path helix-term --locked
+
+
+cp contrib/Helix.desktop ~/.local/share/applications
+
+creer dossier /.local/share/icons
+cp contrib/helix.png  ~/.local/share/icons
+```
+my keyamp ~/.config/helix/default.rs
+
+simple usuel 
+
+
+</br>
+clean config.toml
+add  MgetZig.sh MgetZls.sh MgetHelix.sh</br></br>
+change keymap:</br>
+I left all the menus as they were</br>
+"mode normal only":</br></br>
+
+        "del" => delete_char_forward,
+        "up" => move_visual_line_up,
+        "down" => move_visual_line_down,
+        "left" => move_char_left,
+        "right" => move_char_right,
+        "pageup" => page_up,
+        "pagedown" => page_down,
+        "home" => goto_line_start,
+        "end" => goto_line_end_newline,
+        "ret" => insert_newline,
+
+        ":" => command_mode,
+
+        "i" => insert_mode,
+
+        "o" => open_below,
+        "O" => open_above,
+
+
+        "A-d" => delete_selection,
+
+        "A-c" => change_selection,
+
+
+
+        "s" => select_regex,
+        
+
+        "C-s" => split_selection,
+
+
+
+        "%" => select_all,
+        "x" => extend_line_below,
+        "X" => extend_line_above,
+
+                "/" => search,
+        "?" => rsearch,
+        "n" => search_next,
+        "N" => search_prev,
+        "*" => search_selection,
+
+        "u" => undo,
+        "U" => redo,
+
+
+        "y" => yank,
+        "r" => replace_with_yanked,
+
+        "c" => toggle_comments,
+
+
+        "Q" => record_macro,
+        "q" => replay_macro,
+
+        ">" => indent,
+        "<" => unindent,
+
+        "A-," => remove_primary_selection,
+
+
+        "h" => hover,
+
+        "esc" => normal_mode,
+
+</br>
+
+"mode insert only":</br></br>
+
+        "esc" => normal_mode,
+        "tab" => insert_tab,
+        "S-tab" => unindent,
+        "del" => delete_char_forward,
+        "backspace" => delete_char_backward,
+        "up" => move_visual_line_up,
+        "down" => move_visual_line_down,
+        "left" => move_char_left,
+        "right" => move_char_right,
+        "pageup" => page_up,
+        "pagedown" => page_down,
+        "home" => goto_line_start,
+        "end" => goto_line_end_newline,
+        "ret" => insert_newline,
+</br>
+
+"mode merge only":</br></br>
+
+        "n" => extend_search_next,
+        "N" => extend_search_prev,
+
+
+
+        "home" => extend_to_line_start,
+        "end" => extend_to_line_end,
+        "esc" => normal_mode,
 </br>

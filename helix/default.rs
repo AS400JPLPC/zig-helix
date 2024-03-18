@@ -70,7 +70,8 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
 
         "%" => select_all,
         "x" => extend_line_below,
-
+        "X" => extend_line_above,
+        
         "m" => { "Match"
             "m" => match_brackets,
             "s" => surround_add,
@@ -118,7 +119,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
 
         "y" => yank,
         "r" => replace_with_yanked,
-                // move under <space>c
+        // move under <space>c
         "c" => toggle_comments,
 
 
@@ -282,6 +283,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "home" => extend_to_line_start,
         "end" => extend_to_line_end,
         "esc" => normal_mode,
+
 
     }));
     let insert = keymap!({ "Insert mode"

@@ -59,23 +59,42 @@ f_dsplyCentrer(){ #commande de positionnement	lines + couleur + text
 
 }
 
+cd $HOME
+
 f_dsplyCentrer 1  $fcJaune '> '
-zig version
+zls --version
 
 f_offColor
 
-rm -r $HOME/.zig
-
-wget https://zigbin.io/master/x86_64-linux.tar.xz
-tar -xf x86_64-linux.tar.xz
-mv zig-linux-x86_64* $HOME/.zig
-rm x86_64-linux*
 
 
+if test -d ~/.zls ; then
+		rm -r ~/.zls
+	fi
 
 
+if test -d ~/.cache/zig/ ; then
+		rm -rf ~/.cache/zig/
+	fi
+
+git clone https://github.com/zigtools/zls
+cd $HOME/zls
+
+zig build -Doptimize=ReleaseSafe
+
+mkdir $HOME/.zls
+
+mv  $HOME/zls/zig-out/bin/zls $HOME/.zls/zls
+
+if test -d ~/zls ; then
+		rm -rf ~/zls
+	fi
+if test -d ~/.cache/zig/ ; then
+		rm -rf ~/.cache/zig/
+	fi
+	
 f_dsplyCentrer 22  $fcVert '> '
-zig version
+zls --version
 
 f_offColor
 f_dsply 'veuilez faire Enter'
