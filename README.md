@@ -77,7 +77,7 @@ cache/helix  → Contains  helix.log  and  archiveFile.log
 
 ZIG project my architecture
 
-<table><tbody><tr><td> </td><td> </td><td> </td><td> </td><td>Zterm</td><td> </td><td> </td><td> </td><td> </td><td> </td></tr><tr><td>Docs</td><td> </td><td>Print</td><td> </td><td>src-c</td><td> </td><td>src-zig</td><td> </td><td> </td><td>binary</td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>deps</td><td> </td><td> </td><td> </td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>curse</td><td> </td><td> </td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>lib</td><td> </td><td> </td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>decimal</td><td> </td><td> </td></tr></tbody></table>
+<table><tbody><tr><td> </td><td> </td><td> </td><td> </td><td>Zterm</td><td> </td><td> </td><td> </td><td> </td><td> </td></tr><tr><td>Docs</td><td> </td><td>Print</td><td> </td><td>src-c</td><td>library</td><td>src-zig</td><td> </td><td> </td><td>binary</td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>deps</td><td> </td><td> </td><td> </td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>curse</td><td> </td><td> </td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>lib</td><td> </td><td> </td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>decimal</td><td> </td><td> </td></tr></tbody></table>
 
  
 
