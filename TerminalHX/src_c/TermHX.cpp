@@ -22,6 +22,7 @@
 /// ex:
 ///------------------------------------------
 
+// install depot
 #define WORKPGM		"/usr/lib/helix/hx"
 // this compile helix user 
 //#define WORKPGM		"/home/soleil/.helix/hx"

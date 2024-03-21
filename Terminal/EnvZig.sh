@@ -194,11 +194,6 @@ do
 # Clear projet Cache and binary
 		1)
 			echo -e  "Clear Projet"
-
-			if test -f $("$projet_bin")  ; then
-				rm -r $projet_bin 
-			fi
-
 			if test -d "$folder_cache_src" ; then
 				rm -r $folder_cache_src
 			fi

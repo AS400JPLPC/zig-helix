@@ -435,7 +435,7 @@ I reverted to using the basic setup for "ZIG" and adopted the "dark_plus.toml" t
 I added to the "thermHX" program in "C/C++" the prohibition of CRT-Z, which suspends and clears the terminal by default.</br>
 
 </br>
-* 2024-02-18 Adjustment of procedures</br>
+* 2024-03-18 Adjustment of procedures</br>
 
 
 prerequis:</br>
@@ -564,3 +564,5 @@ I left all the menus as they were</br>
         "end" => extend_to_line_end,
         "esc" => normal_mode,
 </br>
+
+* 2024-03-21 mineur update  option  clear =>  EnvZig / EnvLibZig / MgetHelix  </br>

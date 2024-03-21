@@ -69,7 +69,7 @@ f_offColor
 
 
 if test -d ~/.helix ; then
-		rm -r ~/.helix
+		rm -rf ~/.helix
 	fi
 
 
@@ -101,12 +101,15 @@ mv  $HOME/helix/runtime $HOME/.helix/
 if test -d ~/.cargo/ ; then
 		rm -r ~/.cargo
 	fi
-	
+if test -d ~/helix/ ; then
+		rm -rf ~/helix
+	fi
+
 f_dsplyCentrer 22  $fcVert '> '
 hx --version
 
 f_offColor
-f_dsply 'veuilez faire Enter'
+f_dsply 'veuilez faire Enter\n'
   
 f_read
 
