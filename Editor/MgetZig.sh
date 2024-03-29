@@ -60,10 +60,21 @@ f_dsplyCentrer(){ #commande de positionnement	lines + couleur + text
 }
 
 f_dsplyCentrer 1  $fcJaune '> '
-zig version
+~/.zig/zig version
+
+if test -d ~/.zig ; then
+	if test -d ~/.zigsav ; then
+		f_dsply 'déjà une version  build active  courveuilez faire Enter'
+		f_read
+		exit
+	else
+		mv ~/.zig  ~/.zigsav
+	fi
+fi
 
 f_offColor
 
+rm -r $HOME/.cache/zig
 rm -r $HOME/.zig
 
 wget https://zigbin.io/master/x86_64-linux.tar.xz
@@ -75,7 +86,7 @@ rm x86_64-linux*
 
 
 f_dsplyCentrer 22  $fcVert '> '
-zig version
+~/.zig/zig version
 
 f_offColor
 f_dsply 'veuilez faire Enter'

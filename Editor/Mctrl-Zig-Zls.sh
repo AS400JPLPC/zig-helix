@@ -39,12 +39,6 @@ f_dsply(){
 }
 
 
-f_read() {
-	echo -en '\033[0;0m'
-	echo -en $fdBlanc$fcNoir
-	read
-	echo -en '\033[0;0m'
-}
 
 f_offColor() { #off couleur
 	echo  -en '\033[0;0m'
@@ -59,53 +53,49 @@ f_dsplyCentrer(){ #commande de positionnement	lines + couleur + text
 
 }
 
+f_pause(){
+	echo -en '\033[0;0m'
+ 	echo -en $faStabilo$fcRouge'Press[Enter] key to continue'
+	tput civis 	# curseur invisible
+	read -s -n 1
+	echo -en '\033[0;0m'
+}
+
+f_cls() {
+
+reset > /dev/null
+	echo -en '\033[1;1H'
+	echo -en '\033]11;#000000\007'
+	echo -en '\033]10;#FFFFFF\007'	 
+}
 cd $HOME
 
-f_dsplyCentrer 1  $fcJaune '> '
+
+echo -en "Zig\n"
+~/.zig/zig version
+
+echo -en "Zls\n"
 ~/.zls/zls --version
+f_pause
+f_cls
 
+f_dsplyCentrer 1  $fcJaune '> ZIG\n'
 f_offColor
+f_pause
+~/MgetZig.sh
+f_cls
 
+f_dsplyCentrer 1  $fcJaune '> ZLS\n'
+f_offColor
+f_pause
+~/MgetZls.sh
+f_cls
 
-
-if test -d ~/.zls ; then
-	if test -d ~/.zlssav ; then
-		f_dsply 'déjà une version  build active  courveuilez faire Enter'
-		f_read
-		exit
-	else
-		mv ~/.zls  ~/.zlssav
+if  test -f ~/.zig/zig  ; then
+	if  test -f ~/.zls/zls  ; then
+		rm -rf ~/.zigsav
+		rm -rf ~/.zlssav
 	fi
 fi
-
-
-if test -d ~/.cache/zig/ ; then
-		rm -rf ~/.cache/zig/
-	fi
-
-git clone https://github.com/zigtools/zls
-
-cd $HOME/zls
-zig build -Doptimize=ReleaseSafe
-
-mkdir $HOME/.zls
-
-mv  $HOME/zls/zig-out/bin/zls $HOME/.zls/zls
-
-if test -d ~/zls ; then
-		rm -rf ~/zls
-	fi
-if test -d ~/.cache/zig/ ; then
-		rm -rf ~/.cache/zig/
-	fi
-
-
-f_dsplyCentrer 22  $fcVert '> '
-~/.zls/zls --version
-
-f_offColor
-f_dsply 'veuilez faire Enter'
-  
-f_read
 
 exit

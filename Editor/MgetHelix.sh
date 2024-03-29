@@ -62,7 +62,7 @@ f_dsplyCentrer(){ #commande de positionnement	lines + couleur + text
 cd $HOME
 
 f_dsplyCentrer 1  $fcJaune '> '
-hx --version
+$HOME/.helix/hx --version
 
 f_offColor
 
@@ -93,11 +93,9 @@ cargo install --path helix-term --locked
 cp  $HOME/.cargo/bin/hx $HOME/.helix/hx
 mv  $HOME/helix/contrib $HOME/.helix/
 mv  $HOME/helix/runtime $HOME/.helix/
+cp $HOME/.config/helix/dark_plus.toml  $HOME/.helix/runtime/themes/dark_plus.toml
 
 
-#if test -d ~/helix ; then
-#		rm -rf ~/helix
-#	fi
 if test -d ~/.cargo/ ; then
 		rm -r ~/.cargo
 	fi
@@ -106,10 +104,10 @@ if test -d ~/helix/ ; then
 	fi
 
 f_dsplyCentrer 22  $fcVert '> '
-hx --version
+$HOME/.helix/hx --version
 
 f_offColor
-f_dsply 'veuilez faire Enter\n'
+f_dsply '\nveuilez faire Enter\n'
   
 f_read
 

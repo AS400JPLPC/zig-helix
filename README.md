@@ -565,4 +565,6 @@ I left all the menus as they were</br>
         "esc" => normal_mode,
 </br>
 
-* 2024-03-21 mineur update  option  clear =>  EnvZig / EnvLibZig / MgetHelix  </br>
+* 2024-03-21 mineur update  option  clear =>  EnvZig / EnvLibZig / MgetHelix  </br> </br>
+* 2024-03-29 mineur update  option  clear =>  Mctrl-Zig-Zls.sh  MgetZig.sh MgetZls.sh  I anticipated the possibility of a level error between Zig and Zls... Please use Mctrl-Zig-Zls.sh </br> </br>
+
