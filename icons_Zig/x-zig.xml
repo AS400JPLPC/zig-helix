@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <!--Created automatically by update-mime-database. DO NOT EDIT!-->
+
+  <mime-type type="text/vnd.zig">
+    <comment>ZIG source code</comment>
+    <comment xml:lang="uk">початковий код мовою ZIG</comment>
+    <comment xml:lang="sv">ZIG-källkod</comment>
+    <comment xml:lang="ru">Исходный код ZIG</comment>
+    <comment xml:lang="pl">Kod źródłowy ZIG</comment>
+    <comment xml:lang="it">Codice sorgente ZIG</comment>
+    <comment xml:lang="gl">Código fonte ZIG</comment>
+    <comment xml:lang="eu">ZIG iturburu-kodea</comment>
+    <comment xml:lang="es">código fuente en ZIG</comment>
+    <comment xml:lang="de">ZIG-Quelltext</comment>
+    <comment xml:lang="be">зыходны код ZIG</comment>
+    <glob pattern="*.zig"/>
+    <icon name="zig"/>
+  </mime-type>
+</mime-info>
