@@ -504,7 +504,7 @@ I left all the menus as they were</br>
         "x" => extend_line_below,
         "X" => extend_line_above,
 
-                "/" => search,
+        "/" => search,
         "?" => rsearch,
         "n" => search_next,
         "N" => search_prev,
@@ -568,3 +568,5 @@ I left all the menus as they were</br>
 * 2024-03-21 mineur update  option  clear =>  EnvZig / EnvLibZig / MgetHelix  </br> </br>
 * 2024-03-29 mineur update  option  clear =>  Mctrl-Zig-Zls.sh  MgetZig.sh MgetZls.sh  I anticipated the possibility of a level error between Zig and Zls... Please use Mctrl-Zig-Zls.sh </br> </br>
 
+* 2024-03-31 folder icons for zig to linux </br> </br>
+* 2024-04-18 update config.toml </br> </br>

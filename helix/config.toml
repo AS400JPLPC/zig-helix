@@ -8,6 +8,8 @@ theme="dark_plus"
 # Highlight all lines with a cursor
 cursorline = true
 
+
+
 # Show a ruler at column 120 + 1 ruler    eq terminal 125x44  = 120 cols x 42 for src 
 rulers = [120]
 
@@ -20,13 +22,13 @@ auto-format =false
 
 auto-save = true
 
-middle-click-paste= true
+middle-click-paste= false
 
 scroll-lines = 1
 
-#gutters = ["diagnostics", "line-numbers"]
+
 [editor.gutters]
-layout = ["diagnostics", "line-numbers"]
+layout = ["diagnostics", "spacer", "line-numbers"]
 
 [editor.gutters.line-numbers]
 min-width = 1
@@ -49,9 +51,16 @@ normal = "block"
 select = "underline"
 
 
-[editor.whitespace]
-render = "all"
 
+[editor.whitespace.render]
+space = "all"
+newline = "all"
+tab = "all"
+
+[editor.whitespace.characters]
+space = " "
+newline = "⏎"
+tab = "→"
 
 
 [editor.soft-wrap]
@@ -64,7 +73,7 @@ enable = true
 left = ["mode","spinner"]
 center = ["file-name","file-modification-indicator"]
 #right = ["version-control", "diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
-right = [ "diagnostics", "position", "total-line-numbers",  "file-type"]
+right = [ "diagnostics", "position", "total-line-numbers"]
 separator = "│"
 
 mode.normal = "NORMAL"
@@ -86,6 +95,9 @@ display-messages = true
 smart-case = true
 wrap-around = true
 
+
+[keys.normal]
+C-n = [":vsplit-new","file_picker_in_current_directory"] # Maps Ctrl-n split new vertical get feil dir
 
 # create a new minor mode bound to `+`
 [keys.normal."+"]

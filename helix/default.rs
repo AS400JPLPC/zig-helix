@@ -117,8 +117,8 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "U" => redo,
 
 
-        "y" => yank,
-        "r" => replace_with_yanked,
+        "y" => yank_main_selection_to_clipboard,
+        "r" => replace_selections_with_clipboard,
         // move under <space>c
         "c" => toggle_comments,
 
