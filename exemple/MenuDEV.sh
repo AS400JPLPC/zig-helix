@@ -17,8 +17,8 @@ f_cls() {
 
 reset > /dev/null
 	echo -en '\033[1;1H'
-	echo -en '\033]11;#000000\007'
-	echo -en '\033]10;#FFFFFF\007'	 
+	#echo -en '\033]11;#000000\007'
+	#echo -en '\033]10;#FFFFFF\007'	 
 }
 
 f_pause(){
@@ -55,9 +55,9 @@ printf '\e[8;'32';'80't'
 
 envCPP="1"
 envZIG="2"
-PROJECT="EXEMPLE"
-LIBPROJECT=$HOME"/exemple/"
-
+PROJECT="ZTERM-exemple"
+LIBPROJECT="/home/soleil/exemple/"
+LIBRARY="/home/soleil/exemple/library/"
 choix=""
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -65,35 +65,38 @@ while [ "$choix" != "99" ]
 do
 	cd 
 	f_cls
-	f_dsplyPos  1  24 $faGras$fcJaune 'Project: '$faGras$fcCyan' Zterm'
+	f_dsplyPos  1  24 $faGras$fcJaune 'Project: '$faGras$fcCyan' '$PROJECT
 
 	f_dsplyPos  3  24 $faGras$fcJaune '------------compile cpp-----------------'
-	f_dsplyPos  4  20 $faGras$fcRouge' 1.'; f_dsplyPos  4  24 $faGras$fcGreen 'APPTERM'
+
+	f_dsplyPos  5  20 $faGras$fcRouge' 2.'; f_dsplyPos  5  24 $faGras$fcGreen 'APPTERM'
 
 	f_dsplyPos  6  24 $faGras$fcJaune '------------compile Zig-----------------'
-	f_dsplyPos  7  20 $faGras$fcRouge'12.'; f_dsplyPos  7  24 $faGras$fcGreen 'Exemple'
+	f_dsplyPos 10  20 $faGras$fcRouge'11.'; f_dsplyPos 10  24 $faGras$fcGreen 'Exemple'
 
+	f_dsplyPos 11  20 $faGras$fcRouge'20.'; f_dsplyPos 11  24 $faGras$fcGreen 'testreg'
+	f_dsplyPos 12  20 $faGras$fcRouge'21.'; f_dsplyPos 12  24 $faGras$fcGreen 'exCallpgm'
+	f_dsplyPos 13  20 $faGras$fcRouge'22.'; f_dsplyPos 13  24 $faGras$fcGreen 'prblm'
 
-	f_dsplyPos 11  20 $faGras$fcRouge'20.'; f_dsplyPos 11  24 $faGras$fcGreen 'study'
-
-
-	f_dsplyPos 13  24 $faGras$fcJaune '----------------------------------------'
+	f_dsplyPos 14  24 $faGras$fcJaune '----------------------------------------'
 
 	f_dsplyPos 15  20 $faGras$fcRouge'33.'; f_dsplyPos 15  24 $faGras$fcGreen 'Debug codelldb'
 
 	f_dsplyPos 17  20 $faGras$fcRouge'44.'; f_dsplyPos 17  24 $faGras$fcCyan  'enScript Printer'
-	
-	f_dsplyPos 19  20 $faGras$fcRouge'55.'; f_dsplyPos 19  24 $faGras$fcCyan  'Edit my project'
 
-	f_dsplyPos 21  20 $faGras$fcRouge'66.'; f_dsplyPos 21  24 $faGras$fcCyan  'Edit last source used'
+	f_dsplyPos 19  20 $faGras$fcRouge'50.'; f_dsplyPos 19  24 $faGras$fcCyan  'Edit my library'
 
-	f_dsplyPos 23  20 $faGras$fcRouge'77.'; f_dsplyPos 23  24 $faGras$fcCyan  'clear helix.log'
+	f_dsplyPos 21  20 $faGras$fcRouge'55.'; f_dsplyPos 21  24 $faGras$fcCyan  'Edit my project'
 
-	f_dsplyPos 25  20 $faGras$fcRouge'88.'; f_dsplyPos 25  24 $faGras$fcGreen 'Console'
+	f_dsplyPos 23  20 $faGras$fcRouge'66.'; f_dsplyPos 23  24 $faGras$fcCyan  'Edit last source used'
 
-	f_dsplyPos 27  20 $faGras$fcRouge'99.'; f_dsplyPos 27 24 $faGras$fcRouge  'Exit'
+	f_dsplyPos 25  20 $faGras$fcRouge'77.'; f_dsplyPos 25  24 $faGras$fcCyan  'clear helix.log'
 
-	f_dsplyPos 29  24 $faGras$fcBleu '----------------------------------------'
+	f_dsplyPos 27  20 $faGras$fcRouge'88.'; f_dsplyPos 27  24 $faGras$fcGreen 'Console'
+
+	f_dsplyPos 29  20 $faGras$fcRouge'99.'; f_dsplyPos 28 24 $faGras$fcRouge  'Exit'
+
+	f_dsplyPos 30  24 $faGras$fcBleu '----------------------------------------'
 	f_readPos  31  20  'Votre choix  :'; choix=$REPLY;
 	
 	# Recherche de caractères non numériques dans les arguments.
@@ -105,27 +108,29 @@ do
 
 
 # APPTERM
-		1)
+		2)
 			/home/soleil/.Terminal/dispatch.sh $envCPP $LIBPROJECT   "APPTERM"
 		;;
 
-
-
 #Example
-		12)
+		11)
 			/home/soleil/.Terminal/dispatch.sh $envZIG $LIBPROJECT   "Exemple"
 		;;
 
 
-
-
-#study 
+#testreg
         20)
-			/home/soleil/.Terminal/dispatch.sh $envZIG  $LIBPROJECT   "exCallpgm"	
+			/home/soleil/.Terminal/dispatch.sh $envZIG  $LIBPROJECT   "testreg"
+		;;
+#study 
+        21)
+			/home/soleil/.Terminal/dispatch.sh $envZIG  $LIBPROJECT   "exCallpgm"
 		;;
 
-
-
+#pblm 
+        22)
+			/home/soleil/.Terminal/dispatch.sh $envZIG  $LIBPROJECT   "prblm"
+		;;
 
 #debug
 		33)
@@ -137,11 +142,18 @@ do
 			/home/soleil/.Terminal/enScript.sh  $LIBPROJECT
 		;;
 
+#library
+		50)
+			/home/soleil/.Terminal/myProject.sh  $PROJECT $LIBRARY
+			sleep 2
+			break
+		;;
+
 #project
 		55)
 			/home/soleil/.Terminal/myProject.sh  $PROJECT $LIBPROJECT"src-zig"
-			sleep 2
-			break
+#			sleep 2
+#			break
 		;;
 
 #?file

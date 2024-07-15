@@ -1,5 +1,5 @@
 const std = @import("std");
-// zi=g 0.11.0 dev
+// zi=g 0.12.0 dev
 
 pub fn build(b: *std.Build) void {
 	// Standard release options allow the person running `zig build` to select
@@ -7,126 +7,39 @@ pub fn build(b: *std.Build) void {
 	const target   = b.standardTargetOptions(.{});
 	const optimize = b.standardOptimizeOption(.{});
 
-	// zig-src			source projet
-	// zig-src/deps		curs/ form / outils ....
-	// src_c			source c/c++
-	// zig-src/lib		source .h 
+	// ../librabry		library motor 
+	// ../src-zig		source projet
+	// ../src_c			source c/c++
 
-
-	// Definition of module
-		const match = b.createModule(.{
-		.source_file = .{ .path = "./deps/curse/match.zig" },
-	});
-	
-	const cursed = b.createModule(.{
-		.source_file = .{ .path = "./deps/curse/cursed.zig" },
-	});
-	
-	const utils = b.createModule(.{
-		.source_file = .{ .path = "./deps/curse/utils.zig" },
-	});
-
-	const forms = b.createModule(.{
-		.source_file = .{ .path = "./deps/curse/forms.zig" },
-		.dependencies= &.{
-		.{ .name = "cursed", .module = cursed },
-		.{ .name = "utils",  .module = utils },
-		.{ .name = "match",  .module = match },
-		},
-	});
-
-	const grid = b.createModule(.{
-		.source_file = .{ .path = "./deps/curse/grid.zig" },
-		.dependencies= &.{
-		.{ .name = "cursed", .module = cursed },
-		.{ .name = "utils",  .module = utils },
-		},
-	});
-	
-
-	const menu = b.createModule(.{
-		.source_file = .{ .path = "./deps/curse/menu.zig" },
-		.dependencies= &.{
-		.{ .name = "cursed", .module = cursed },
-		.{ .name = "utils",  .module = utils },
-		},
-	});
 
 
 	// Building the executable
 	
 	const Prog = b.addExecutable(.{
 	.name = "exCallpgm",
-	.root_source_file = .{ .path = "./exCallpgm.zig" },
+	.root_source_file =  b.path( "./exCallpgm.zig" ),
 	.target = target,
 	.optimize = optimize,
 	});
-	Prog.addIncludePath(.{.path = "./lib/"});
+
+	// for match use regex 
 	Prog.linkLibC();
-	Prog.addObjectFile(.{.cwd_relative = "/usr/lib/libpcre2-posix.so"});
-	Prog.addModule("cursed", cursed);
-	Prog.addModule("utils" , utils);
-	Prog.addModule("forms" , forms);
-	Prog.addModule("grid"  , grid);
-	Prog.addModule("menu"  , menu);
 
-	const install_exe = b.addInstallArtifact(Prog, .{});
-	b.getInstallStep().dependOn(&install_exe.step); 
+	// Resolve the 'library' dependency.
+	const library_dep = b.dependency("library", .{});
 
-
-
-
-
-	const tests = b.addTest(.{
-		.name = "Exemple",
-		.root_source_file = .{ .path = "./Exemple.zig" },
-		.target = target,
-		.optimize = optimize,
-
-	});
-	tests.addIncludePath(.{.path = "./lib/"});
-	tests.linkLibC();
-	tests.addObjectFile(.{.cwd_relative = "/usr/lib/libpcre2-posix.so"});
-	tests.addModule("cursed", cursed);
-	tests.addModule("utils" , utils);
-	tests.addModule("forms" , forms);
-	tests.addModule("grid"  , grid);
-	tests.addModule("menu"  , menu);
-
-
-
-	const test_step = b.step("test", "Run app tests");
-	test_step.dependOn(&tests.step);
-
-
-	//Build step to generate docs:  
+	// Import the smaller 'cursed' and 'utils' modules exported by the library. etc...
+	Prog.root_module.addImport("cursed", library_dep.module("cursed"));
+	Prog.root_module.addImport("utils", library_dep.module("utils"));
+	Prog.root_module.addImport("match", library_dep.module("match"));
+	Prog.root_module.addImport("forms", library_dep.module("forms"));
+	Prog.root_module.addImport("grid",  library_dep.module("grid"));
+	Prog.root_module.addImport("menu", library_dep.module("menu"));
+	Prog.root_module.addImport("callpgm", library_dep.module("callpgm"));
 	
-	const docs = b.addTest(.{
-		.name = "Exemple",
-		.root_source_file = .{ .path = "./Exemple.zig" },
-		.target = target,
-		.optimize = optimize,
-
-	});
-
-	docs.addIncludePath(.{.path = "./lib/"});
-	docs.linkLibC();
-	docs.addObjectFile(.{.cwd_relative = "/usr/lib/libpcre2-posix.so"});
-	docs.addModule("cursed", cursed);
-	docs.addModule("utils" , utils);
-	docs.addModule("forms" , forms);
-	docs.addModule("grid"  , grid);
-	docs.addModule("menu"  , menu);
-	//docs.addModule("match" , match);
 	
-	const install_docs = b.addInstallDirectory(.{
-		.source_dir = docs.getEmittedDocs(),
-		.install_dir = .prefix,
-		.install_subdir = "../Docs_Exemples",
-	});
-	
-	const docs_step = b.step("docs", "Generate docs");
-	docs_step.dependOn(&install_docs.step);
-	docs_step.dependOn(&docs.step);
+	b.installArtifact(Prog);
+
+
 
 }

@@ -46,7 +46,7 @@ const utl = @import("utils");
 const reg = @import("match");
 
 // tools execve Pgm
-const mdl = @import("modul");
+const mdl = @import("callpgm");
 
 /// Errors 
 pub const Error = error{
@@ -588,10 +588,11 @@ pub const FnProg = enum {
 	none,
 
 	pub fn run(self: FnProg, vpnl : *pnl.PANEL, vfld: *fld.FIELD ) void	{
-		switch (self) {
+			const pgmParm : ?[] const u8 = null;
+			switch (self) {
 			.exCallpgm=> {
 
-			 mdl.callPgm("APPTERM",vfld.progcall) 
+			 mdl.callPgmPid("APPTERM",vfld.progcall,pgmParm) 
 						catch |err | switch(err)  {
 								mdl.ErrChild.Module_Invalid => {
 								const msgerr  = std.fmt.allocPrint(utl.allocUtl,

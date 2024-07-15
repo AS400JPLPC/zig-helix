@@ -2,13 +2,20 @@
 
 if [ "$1" -eq 1 ] ; then
 
-	exec xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar -T "Compile-C/CC" -x  $HOME/.Terminal/EnvCPP.sh $2 $3 
+	gnome-terminal --hide-menubar  --title="Compile-C/CC"  --  $HOME/.Terminal/EnvCPP.sh $2 $3
+
 fi
 
 if [ "$1" -eq 2 ] ; then
 
-	exec xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar  -T "Compile-ZIG" -x   $HOME/.Terminal/EnvZig.sh $2 $3 
+	gnome-terminal --hide-menubar  --title="Compile-ZIG"   --  $HOME/.Terminal/EnvZig.sh $2 $3 
 
 fi
 
+
+if [ "$1" -eq 3 ] ; then
+
+	gnome-terminal --hide-menubar ---title="Compile-ZIG"   --  $HOME/.Terminal/EnvLibZig.sh $2 $3 
+
+fi
 exit 0

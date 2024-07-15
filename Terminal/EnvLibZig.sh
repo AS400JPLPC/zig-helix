@@ -30,12 +30,12 @@ mode=""
 projet_bin=$projet_lib"lib"${name_src%.*}".so"
 
 # folder cache
-folder_cache_src=$projet_lib$projet_src"zig-cache"
+folder_cache_src=$projet_lib$projet_src".zig-cache"
 
-folder_cache_deps=$projet_lib$projet_src"deps/zig-cache"
+folder_cache_deps=$projet_lib$projet_src"deps/.zig-cache"
 
 folder_library=$projet_lib"library"
-folder_library_cache=$folder_libtrary"/zig-cache"
+folder_library_cache=$folder_libtrary"/.zig-cache"
 
 # folder out
 folder_out=$projet_lib$projet_src"zig-out"
@@ -48,7 +48,31 @@ folder_docs=$projet_lib$projet_src"Docs_"${name_src%.*}
 projet_docs=$projet_lib"Docs_"${name_src%.*}
 
 choix=""
+#=========================
+# Func clear cache
+#=========================
+f_clear_Cache() { 
 
+			if test -d "$folder_cache_src" ; then
+				rm -r $folder_cache_src
+			fi
+
+			if test -d "$folder_out" ; then
+				rm -r $folder_out
+			fi
+
+			if test -d "$folder_cache_home" ; then
+				rm -r $folder_cache_home
+			fi
+
+			if test -d "$folder_library_cache" ; then
+				rm -r $folder_library_cache
+			fi
+
+			if test -d "$folder_cache_deps" ; then
+				rm -r $folder_cache_deps
+			fi
+} 
 #=========================
 # Func clear projet interne
 #=========================
@@ -190,28 +214,7 @@ do
 # Clear projet Cache and binary
 		1)
 			echo -e  "Clear Projet"
-
-			if test -d "$folder_cache_src" ; then
-				rm -r $folder_cache_src
-			fi
-
-			if test -d "$folder_cache_deps" ; then
-				rm -r $folder_cache_deps
-			fi
-			
-			
-			if test -d "$folder_library_cache" ; then
-				rm -r $folder_library_cache
-			fi
-			
-			if test -d "$folder_cache_home" ; then
-				rm -r $folder_cache_home
-			fi
-
-			if test -d "$folder_out" ; then
-				rm -r $folder_out
-			fi
-
+			f_clear_Cache
 			;;
 # DEBUG
 		2)
@@ -221,12 +224,14 @@ do
 			f_clear_Compile
 			
 			( set -x ; \
-				zig build  -Doptimize=Debug --build-file $projet_lib$projet_src"build"$name_src ;\
+				~/.zig/zig build  -Doptimize=Debug --build-file $projet_lib$projet_src"build"$name_src ;\
 			)
 
 			if test -f "$folder_bin" ; then
 				mode="DEBUG"
 				f_read_RESUTAT
+			else 
+				f_clear_Cache
 			fi
 			f_pause
 		;;
@@ -239,12 +244,14 @@ do
 			f_clear_Compile
 			
 			( set -x ; \
-					zig build -Doptimize=ReleaseFast --build-file $projet_lib$projet_src"build"$name_src ;\
+				~/.zig/zig build -Doptimize=ReleaseFast --build-file $projet_lib$projet_src"build"$name_src ;\
 			)
 			
 			if test -f "$folder_bin" ; then
 				mode="PROD"
 				f_read_RESUTAT
+			else 
+				f_clear_Cache
 			fi
 			f_pause
 		;;
@@ -257,12 +264,14 @@ do
 			f_clear_Compile
 			
 			( set -x ; \
-					zig build -Doptimize=ReleaseSafe  --build-file $projet_lib$projet_src"build"$name_src ;\
+				~/.zig/zig build -Doptimize=ReleaseSafe  --build-file $projet_lib$projet_src"build"$name_src ;\
 			)
 			
 			if test -f "$folder_bin" ; then
 				mode="SAFE"
 				f_read_RESUTAT
+			else 
+				f_clear_Cache
 			fi
 			f_pause
 		;;
@@ -275,13 +284,15 @@ do
 			f_clear_Compile
 			
 			( set -x ; \
-					zig build -Doptimize=ReleaseSmall --build-file $projet_lib$projet_src"build"$name_src ;\
+				~/.zig/zig build -Doptimize=ReleaseSmall --build-file $projet_lib$projet_src"build"$name_src ;\
 			)
 			
 
 			if test -f "$folder_bin" ; then
 				mode="SMALL"
 				f_read_RESUTAT
+			else 
+				f_clear_Cache
 			fi
 			f_pause
 		;;
@@ -299,7 +310,7 @@ do
 			fi
 			
 			( set -x ; \
-					zig build docs --build-file $projet_lib$projet_src"build"$name_src ;\
+				~/.zig/zig build docs --build-file $projet_lib$projet_src"build"$name_src ;\
 			)
 			echo -en "$folder_docs\n"
 			if test -d "$folder_docs" ; then
@@ -311,18 +322,9 @@ do
 				mv $folder_docs  $projet_docs
 
 				echo -e $faStabilo$fcCyan"BUILD DOCS"$mode $fcNoir "  " $fcJaune$name_src $fcNoir "->" $fcCyan "Docs_"${name_src%.*} $fcNoir
+				
+				f_clear_Cache
 
-				if test -d "$folder_cache_src" ; then
-					rm -r $folder_cache_src
-				fi
-
-				if test -d "$folder_cache_home" ; then
-					rm -r $folder_cache_home
-				fi
-
-				if test -d "$folder_out" ; then
-					rm -r $folder_out
-				fi
 			fi
 			f_pause
 		;;

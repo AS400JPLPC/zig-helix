@@ -37,6 +37,8 @@
 /// si test cout
 //#include <iostream>
 
+#define _DEBUG_ 1 /// ALT_F4 ACTIVE
+
 ///------------------------------------------
 /// paramétrage spécifique
 /// ex:
@@ -44,7 +46,7 @@
 
 #define WORKPGM		"./Exemple"
 
-bool _DEBUG_  = true; /// ALT_F4 ATVIVE  _DEBUG_ = true
+
 
 #define MESSAGE_ALT_F4 "vous devez activer uniquement \n en développemnt  \n Confirm destroy Application --> DEBUG"
 
@@ -59,7 +61,7 @@ unsigned int COL=	132;	  /// max 132
 unsigned int ROW =	42;		/// max 42 including a line for the system
 
 /// defined not optional
-#define VTEFONT	"Noto Sans Mono  Regular"
+#define VTEFONT	"Source Code Pro"
 
 //*******************************************************
 // PROGRAME
@@ -118,14 +120,13 @@ void close_window()
 ///-------------------------------------
 gboolean key_press_ALTF4()
 {
-	if (_DEBUG_ == 1)
-	{
+
 		GtkWidget *dialog;
 		const gchar* _MSG_ =  MESSAGE_ALT_F4;
 
 		dialog = gtk_message_dialog_new(
 										GTK_WINDOW(window),
-									  GTK_DIALOG_MODAL,
+									    GTK_DIALOG_MODAL,
 										GTK_MESSAGE_QUESTION,
 										GTK_BUTTONS_YES_NO,
 										_MSG_,
@@ -150,7 +151,7 @@ gboolean key_press_ALTF4()
 									//break;
 		}
 
-	}
+
 	// not active ALT_F4
 	return GDK_EVENT_STOP;
 }
@@ -183,12 +184,12 @@ void	init_Terminal()
 		}
 	else if ( s->width <= 1920 && s->height >=1080 ) {			/// ex: 17"... 32"
 		sprintf(font_terminal,"%s %s" , VTEFONT,"12");
-		COL = 152;
+		COL = 12;
 		ROW = 42;
 		}
 	else if ( s->width > 1920  ) {								//  ex: 2560 x1600 => 27"
-		sprintf(font_terminal,"%s %s" , VTEFONT,"15");
-		COL = 168;
+		sprintf(font_terminal,"%s %s" , VTEFONT,"12");
+		COL = 124;
 		ROW = 44;
 	}
 
@@ -324,7 +325,12 @@ int main(int argc, char *argv[])
 
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
 	gtk_window_set_resizable (GTK_WINDOW(window),false);
-	gtk_window_set_deletable (GTK_WINDOW(window),false);
+
+    #ifdef _DEBUG_  
+        gtk_window_set_deletable (GTK_WINDOW(window),true);
+    #else
+        gtk_window_set_deletable (GTK_WINDOW(window),false);
+    #endif
 
 
 

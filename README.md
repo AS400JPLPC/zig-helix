@@ -73,11 +73,19 @@ cache/helix  → Contains  helix.log  and  archiveFile.log
 
 .config/helix →Contains  config.toml , langage.toml , mytheme.toml  
 
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 ZIG project my architecture
 
-<table><tbody><tr><td> </td><td> </td><td> </td><td> </td><td>Zterm</td><td> </td><td> </td><td> </td><td> </td><td> </td></tr><tr><td>Docs</td><td> </td><td>Print</td><td> </td><td>src-c</td><td>library</td><td>src-zig</td><td> </td><td> </td><td>binary</td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>deps</td><td> </td><td> </td><td> </td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>curse</td><td> </td><td> </td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>lib</td><td> </td><td> </td></tr><tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td>decimal</td><td> </td><td> </td></tr></tbody></table>
+
+
+|Docs | |Print| |src-c|library |src-zig|   |binary |
+|-----|-|-----|-|-----|--------|-------|---|-------|
+|     | |     | |Term | curse  |Gencurs|   |Gencurs|
+|     | |     | |     | lib    |deps   |   |       |
+|     | |     | |     | decimal|       |   |       |
+|     | |     | |     |        |       |   |       |
+
 
  
 
@@ -89,17 +97,25 @@ Print    → Contains Docs source
 
 src-c    → source C/C++
 
-libray   → source zig 
+libray   → source zig  Contains  folders import  
 
-src-zig → Contains source and build, folders( library, deps, lib )
+                  curse   → Contains source import
 
-deps    → Contains  folders import  
+                  lib        → source.h  ex: link libpcre2-posix.so 
+
+                  decimal → source   import  link mpdecimal.so 
+
+or 
+deps    → Contains  folders import  
 
                   curse   → Contains source import
 
                   lib        → source.h  ex: link libpcre2-posix.so 
 
                   decimal → source   import  link mpdecimal.so 
+
+src-zig → Contains source and build, folders( library, deps, lib )
+
  
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
@@ -194,6 +210,8 @@ MenuDEV.sh
 33 → debeugeur LLDB 
 
 44 → List of your print-ready source files
+
+50 → Opening Helix --default-working-directory PROJECT/library
 
 55 → Opening Helix --default-working-directory PROJECT/src-zig
 
@@ -570,3 +588,7 @@ I left all the menus as they were</br>
 
 * 2024-03-31 folder icons for zig to linux </br> </br>
 * 2024-04-18 update config.toml </br> </br>
+
+
+* 2024-07-15 update change exf4-terminal gnome-terminal</br> </br>
+* 2024-07-15 update EnvlibZig.sh  EnvZig.sh </br> </br>

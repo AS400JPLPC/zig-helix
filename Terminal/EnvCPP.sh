@@ -36,6 +36,7 @@ cd $projet_lib
 
 
 
+
 choix=""
 
 
@@ -129,6 +130,10 @@ do
 
 # Clear projet Cache and binary
         1)
+
+echo -en $projet_bin
+echo -en $folder_obj
+f_pause
             echo -e  "Clear Projet_CPP"
 
 			if test -f $projet_bin  ; then
@@ -145,7 +150,7 @@ do
         2)
 			f_cls
             echo -e $faStabilo$fcGreen"Compile_Debug_CPP"$fcNoir
-printf   $name_Makefile
+
 			if [ ! -d $projet_lib$folder_obj ] ; then
     			mkdir  $folder_obj
     		fi
