@@ -88,7 +88,7 @@ auto-signature-help = false
 display-messages = true
 
 #LSP snippets are a way for language servers to provide more complex completions for an editor
-#display-inlay-hints = true
+#display-inlay-hints = false
 
 
 [editor.search]
@@ -97,13 +97,17 @@ wrap-around = true
 
 
 [keys.normal]
-C-n = [":vsplit-new","file_picker_in_current_directory"] # Maps Ctrl-n split new vertical get feil dir
+C-n = ["file_picker_in_current_directory"] # Maps Ctrl-n split new vertical get feil dir
+C-s = ":w"
+C-c = ["yank_main_selection_to_clipboard"]
+C-v = ["replace_selections_with_clipboard"]
+
 
 # create a new minor mode bound to `+`
 [keys.normal."+"]
-m = ":sh xfce4-terminal --title='Menu-General...' --hide-menubar --hide-scrollbar --hide-toolbar -x ../MenuDEV.sh && exit"
-g = ":sh xfce4-terminal --title='Compile-Gencurs' --hide-menubar --hide-scrollbar --hide-toolbar -x ../Compile_Zig.sh 'Gencurs'  && exit"
-e = ":sh xfce4-terminal --title='Compile-Exemple' --hide-menubar --hide-scrollbar --hide-toolbar -x ../Compile_Zig.sh 'Exemple'  && exit"
-t = ":sh xfce4-terminal --title='Compile-test   ' --hide-menubar --hide-scrollbar --hide-toolbar -x ../Compile_Zig.sh 'exCallpgm'  && exit"
-w = ":sh xfce4-terminal --title='Enr.Memoire(66)' --hide-menubar --hide-scrollbar --hide-toolbar -x $HOME/.Terminal/copyZig.sh && exit"
+m = ":sh gnome-terminal --title='Menu-General...' --hide-menubar -- ../MenuDEV.sh && exit"
+g = ":sh gnome-terminal --title='Compile-Gencurs' --hide-menubar -- ../Compile_Zig.sh 'Gencurs' && exit"
+h = ":sh gnome-terminal --title='Compile-Gensrc.' --hide-menubar -- ../Compile_Zig.sh 'Gensrc'  && exit"
+x = ":sh gnome-terminal --title='Compile-mdlsrc.' --hide-menubar -- ../Compile_Zig.sh 'mdlSrc'  && exit"
+w = ":sh gnome-terminal --title='Enr.Memoire(66)' --hide-menubar -- $HOME/.Terminal/copyZig.sh && exit"
 c = ":sh $HOME/.Terminal/console.sh  && exit"

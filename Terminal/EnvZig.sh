@@ -291,7 +291,7 @@ do
 			f_clear_Compile
 			
 			( set -x ; \
-				~/.zig/zig build -Doptimize=ReleaseSmal --build-file $projet_lib$projet_src"build"$name_src ;\
+				~/.zig/zig build -Doptimize=ReleaseSmall --build-file $projet_lib$projet_src"build"$name_src ;\
 			)
 			
 

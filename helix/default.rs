@@ -46,6 +46,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
             "k" => move_line_up,
             "j" => move_line_down,
             "." => goto_last_modification,
+            "w" => goto_word,
         },
         ":" => command_mode,
 
@@ -57,14 +58,12 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
 
         "A-d" => delete_selection,
 
-        "A-c" => change_selection,
+        "A-r" => change_selection,
 
 
 
         "s" => select_regex,
         
-
-        "C-s" => split_selection,
 
 
 
@@ -102,6 +101,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
             "t" => goto_next_class,
             "a" => goto_next_parameter,
             "c" => goto_next_comment,
+            "e" => goto_next_entry,
             "T" => goto_next_test,
             "p" => goto_next_paragraph,
             "space" => add_newline_below,
@@ -117,8 +117,8 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "U" => redo,
 
 
-        "y" => yank_main_selection_to_clipboard,
-        "r" => replace_selections_with_clipboard,
+        //"y" => yank_main_selection_to_clipboard,
+        //"r" => replace_selections_with_clipboard,
         // move under <space>c
         "c" => toggle_comments,
 
@@ -135,7 +135,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         // "Q" => replay_macro,
 
 
-        "h" => hover,
+        "C-h" => hover,
 
         "esc" => normal_mode,
 
@@ -164,9 +164,6 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         },
 
 
-
-        // z family for save/restore/combine from/to sels from register
-
         "space" => { "Space"
             "F" => file_picker,
             "f" => file_picker_in_current_directory,
@@ -176,9 +173,10 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
             "S" => workspace_symbol_picker,
             "d" => diagnostics_picker,
             "D" => workspace_diagnostics_picker,
+            "g" => changed_file_picker,
             "a" => code_action,
             "'" => last_picker,
-            "g" => { "Debug (experimental)" sticky=true
+            "G" => { "Debug (experimental)" sticky=true
                 "l" => dap_launch,
                 "r" => dap_restart,
                 "b" => dap_toggle_breakpoint,
@@ -224,7 +222,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
             "y" => yank_to_clipboard,
             "Y" => yank_main_selection_to_clipboard,
             "p" => paste_clipboard_after,
-            "P" => paste_before,
+            "P" => paste_clipboard_before,
             "R" => replace_selections_with_clipboard,
             "/" => global_search,
             "k" => hover,
@@ -269,7 +267,16 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
             "n" => search_next,
             "N" => search_prev,
         },
+        "\"" => select_register,
+        "|" => shell_pipe,
+        "A-|" => shell_pipe_to,
+        "!" => shell_insert_output,
+        "A-!" => shell_append_output,
+        "$" => shell_keep_pipe,
+        "C-z" => suspend,
 
+        "C-a" => increment,
+        "C-x" => decrement,
     });
     let mut select = normal.clone();
     select.merge_nodes(keymap!({ "Select mode"

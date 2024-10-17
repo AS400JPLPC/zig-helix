@@ -8,6 +8,17 @@ fcBleu='\033[34m'
 fcNoir='\033[0;0m'
 
 faGras='\033[1m'
+
+
+#=========================
+# Func clear cache
+#=========================
+folder_cache=$2".zig-cache"
+
+if test -d "$folder_cache" ; then
+	rm -r $folder_cache
+fi
+
  #=========================
 # function  menu
 #=========================
