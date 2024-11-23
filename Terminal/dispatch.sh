@@ -18,4 +18,10 @@ if [ "$1" -eq 3 ] ; then
 	gnome-terminal --hide-menubar ---title="Compile-ZIG"   --  $HOME/.Terminal/EnvLibZig.sh $2 $3 
 
 fi
+
+if [ "$1" -eq 4 ] ; then
+
+	gnome-terminal --hide-menubar  --title="Compile-OutZIG"   --  $HOME/.Terminal/OutZig.sh $2 $3 
+
+fi
 exit 0
