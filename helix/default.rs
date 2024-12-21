@@ -22,8 +22,6 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "end" => goto_line_end_newline,
         "ret" => insert_newline,
 
-
- 
         "C-g" => { "Goto"
             "g" => goto_file_start,
             "e" => goto_last_line,
@@ -52,8 +50,8 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
 
         "i" => insert_mode,
 
-        "o" => open_below,
-        "O" => open_above,
+        //"o" => open_below,
+        //"O" => open_above,
 
 
         "A-d" => delete_selection,
@@ -62,7 +60,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
 
 
 
-        "s" => select_regex,
+        "C-r" => select_regex,
         
 
 
@@ -88,6 +86,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
             "t" => goto_prev_class,
             "a" => goto_prev_parameter,
             "c" => goto_prev_comment,
+            "e" => goto_prev_entry,
             "T" => goto_prev_test,
             "p" => goto_prev_paragraph,
             "space" => add_newline_above,
