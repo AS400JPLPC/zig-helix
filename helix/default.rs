@@ -60,8 +60,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
 
 
 
-        "C-r" => select_regex,
-        
+
 
 
 
@@ -307,7 +306,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "pagedown" => page_down,
         "home" => goto_line_start,
         "end" => goto_line_end_newline,
-        "ret" => insert_newline,
+        "ret" => insert_at_line_start,
         
     });
     hashmap!(

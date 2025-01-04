@@ -2,6 +2,7 @@
 theme="dark_plus"
 
 [editor]
+
 # Show currently open buffers, only when more than one exists.=bufferline = "multiple"
 #bufferline = "multiple"
 
@@ -56,6 +57,9 @@ select = "underline"
 space = "all"
 newline = "all"
 tab = "all"
+
+
+
 
 [editor.whitespace.characters]
 space = " "
