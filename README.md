@@ -430,14 +430,22 @@ a) compile_zig_exemple, which displays the menu for compilation.</br>
 b) menu_Dev_exemple, which displays the general menu.</br></br>
 
 In the ./config/helix/ directory, I have added a few lines that simplify things.</br></br>
-[keys.normal."+"]</br>
-a = ":sh xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar --title='General-Menu...' -x ../MenuDEV.sh && exit"</br>
-b = ":sh xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar --title='Compile-Gencurs' -x ../Compile_Zig.sh 'Gencurs' && exit"</br>
-// Example: Specification for the 'Gencurs' project</br></br>
+[keys.normal]</br>
+C-n = ["file_picker_in_current_directory"] # Maps Ctrl-n split new vertical get feil dir</br>
+C-s = ":w"</br>
+C-c = ["yank_main_selection_to_clipboard"]</br>
+C-v = ["replace_selections_with_clipboard"]</br>
+</br>
 
-c = ":sh xfce4-terminal --hide-menubar --hide-scrollbar ---hide-toolbar --title='Compile-Example' -x ../Compile_Zig.sh 'Example' && exit"</br>
-q = ":sh xfce4-terminal --hide-menubar --hide-scrollbar --hide-toolbar --title='Save.Memory(66)' -x $HOME/.Terminal/copyZig.sh && exit"</br>
-t = ":sh $HOME/.Terminal/console.sh && exit"</br>
+// Example: Specification for the 'Gencurs' project</br></br>
+# create a new minor mode bound to `+`</br>
+[keys.normal."+"]</br>
+m = ":sh gnome-terminal --title='Menu-General...' --hide-menubar -- ../MenuDEV.sh && exit"</br>
+g = ":sh gnome-terminal --title='Compile-Gencurs' --hide-menubar -- ../Compile_Zig.sh 'Gencurs' && exit"</br>
+h = ":sh gnome-terminal --title='Compile-Gensrc.' --hide-menubar -- ../Compile_Zig.sh 'Gensrc'  && exit"</br>
+x = ":sh gnome-terminal --title='Compile-mdlsrc.' --hide-menubar -- ../Compile_Zig.sh 'mdlSrc'  && exit"</br>
+w = ":sh gnome-terminal --title='Enr.Memoire(66)' --hide-menubar -- $HOME/.Terminal/copyZig.sh && exit"</br>
+c = ":sh $HOME/.Terminal/console.sh  && exit"</br>
 </br>
 which allows you to envy nothing of VSCODE anymore.</br>
 </br>
@@ -501,23 +509,16 @@ I left all the menus as they were</br>
 
         "i" => insert_mode,
 
-        "o" => open_below,
-        "O" => open_above,
+
 
 
         "A-d" => delete_selection,
 
-        "A-c" => change_selection,
+        "A-r" => change_selection,
 
 
 
-        "s" => select_regex,
-        
-
-        "C-s" => split_selection,
-
-
-
+ 
         "%" => select_all,
         "x" => extend_line_below,
         "X" => extend_line_above,
@@ -532,8 +533,6 @@ I left all the menus as they were</br>
         "U" => redo,
 
 
-        "y" => yank,
-        "r" => replace_with_yanked,
 
         "c" => toggle_comments,
 
@@ -568,7 +567,7 @@ I left all the menus as they were</br>
         "pagedown" => page_down,
         "home" => goto_line_start,
         "end" => goto_line_end_newline,
-        "ret" => insert_newline,
+        "ret" => insert_at_line_start,
 </br>
 
 "mode merge only":</br></br>
@@ -592,3 +591,6 @@ I left all the menus as they were</br>
 
 * 2024-07-15 update change exf4-terminal gnome-terminal</br> </br>
 * 2024-07-15 update EnvlibZig.sh  EnvZig.sh </br> </br>
+
+* 2025-01-04 clear full cache  
+* 2025-01-04 Simplification of commands like crtl-c copy etc...
