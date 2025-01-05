@@ -19,7 +19,7 @@ projet_lib=$1
 
 name_src=$2".cpp"
 
-name_Makefile="./Makefile"$2
+name_Makefile="./src_c/Makefile"$2
 
 # type Compile
 mode=""

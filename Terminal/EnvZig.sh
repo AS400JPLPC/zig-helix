@@ -51,14 +51,19 @@ choix=""
 #=========================
 # Func clear cache
 #=========================
-f_clear_Cache() { 
+f_clear_Cache() {
 
-find $projet_lib -type d -name .zig-cache | while read line; do
-    rm -r "$line"
-done
-find $projet_src -type d -name  zig-out | while read line; do
-    rm -r "$line"
-done
+if test -d "$projet_lib" ; then
+        find $projet_lib -type d -name .zig-cache | while read line; do
+        rm -r "$line"
+    done
+fi
+
+if test -d "$folder_src" ; then
+        find $folder_src -type d -name  zig-out | while read line; do
+        rm -r "$line"
+    done
+fi
 } 
 
 #=========================
@@ -67,7 +72,7 @@ done
 f_clear_Compile() { 
 
     if test -f "$projet_bin"  ; then
-        rm -r $projet_bin 
+        rm -f $projet_bin 
     fi
     f_clear_Cache
 }
@@ -163,8 +168,13 @@ do
         1)
             echo -e  "Clear Projet"
             f_clear_Cache
-            rm -r $folder_cache_zig
-            rm -r $folder_cache_zls
+            if test -d "$folder_cache_zig" ; then
+                rm -r $folder_cache_zig
+            fi
+        
+            if test -d "$folder_cache_zls" ; then
+                rm -r $folder_cache_zls
+            fi    
             ;;
 
 # DEBUG
