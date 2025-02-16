@@ -599,3 +599,51 @@ I left all the menus as they were</br>
 
 * 2025-01-04 clear full cache  
 * 2025-01-04 Simplification of commands like crtl-c copy etc...
+
+
+* 2025-02-16 udpate HELIX  
+```  
+Hello, the new version of HELIX has been released. It allows you to clean up the function keys and add or rather transfer them to config.toml.
+
+As a result, I only use HELIX for ZIG.
+
+It's very efficient, and leaves very few errors.
+
+What I'm looking for in an editor is something simple. I don't like a multitude of function keys, which are useless, confusing and cause malfunctions. 
+
+I'm going to update my helix project in Github and Codeberg. 
+ps(please wait a day)
+
+Translated with DeepL.com (free version)  
+```
+</br>
+</br>  
+  
+exemple: </br>
+  
+```
+
+[keys.normal]
+C-a = [":vnew",":open /home/soleil/Zsnipset"]
+C-s = ":write"
+C-c = ["yank_main_selection_to_clipboard"]
+C-v = ["replace_selections_with_clipboard"]
+C-l = [":clear-register"]
+C-d = ["delete_selection"]
+C-u = ["undo"]
+C-r = ["redo"]
+C-t = ["toggle_line_comments","move_line_down"]
+C-h = ["hover"]
+
+
+[keys.insert]
+C-s = ["normal_mode",":write"]
+C-c = ["yank_main_selection_to_clipboard"]
+C-v = ["replace_selections_with_clipboard"]
+C-l = [":clear-register"]
+C-d = ["delete_selection"]
+C-u = ["undo"]
+C-r = ["redo"]
+C-t = ["toggle_line_comments","move_line_down"]
+C-h = ["hover"]
+```

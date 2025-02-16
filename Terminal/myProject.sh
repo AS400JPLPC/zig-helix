@@ -29,4 +29,4 @@ fi
 cd $2
 nohup  $HOME/.Terminal/TermHX  $1 $2 > /dev/null 2>&1 &
 
-#exit 0
+exit 0

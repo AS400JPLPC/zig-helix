@@ -2,31 +2,40 @@
 theme="dark_plus"
 
 [editor]
-
 # Show currently open buffers, only when more than one exists.=bufferline = "multiple"
-#bufferline = "multiple"
+bufferline = "never"
+
+popup-border = "all"
 
 # Highlight all lines with a cursor
 cursorline = true
 
-
+cursorcolumn = true
 
 # Show a ruler at column 120 + 1 ruler    eq terminal 125x44  = 120 cols x 42 for src 
 rulers = [120]
 
 # Force the theme to show colors
-true-color = true
+#true-color = false
+
+color-modes = true
 
 mouse = true
 
 auto-format =false
 
-auto-save = true
-
 middle-click-paste= false
 
 scroll-lines = 1
 
+
+
+continue-comments = false
+
+end-of-line-diagnostics = "hint"
+
+[editor.inline-diagnostics]
+cursor-line = "error"
 
 [editor.gutters]
 layout = ["diagnostics", "spacer", "line-numbers"]
@@ -72,7 +81,6 @@ max-wrap =0	    # espace before ruler
 enable = true
 
 
-
 [editor.statusline]
 left = ["mode","spinner"]
 center = ["file-name","file-modification-indicator"]
@@ -91,9 +99,6 @@ auto-signature-help = false
 # Show LSP messages in the status line
 display-messages = true
 
-#LSP snippets are a way for language servers to provide more complex completions for an editor
-#display-inlay-hints = false
-
 
 [editor.search]
 smart-case = true
@@ -101,17 +106,32 @@ wrap-around = true
 
 
 [keys.normal]
-C-n = ["file_picker_in_current_directory"] # Maps Ctrl-n split new vertical get feil dir
-C-s = ":w"
+C-a = [":vnew",":open /home/soleil/Zsnipset"]
+C-s = ":write"
 C-c = ["yank_main_selection_to_clipboard"]
 C-v = ["replace_selections_with_clipboard"]
+C-l = [":clear-register"]
+C-d = ["delete_selection"]
+C-u = ["undo"]
+C-r = ["redo"]
+C-t = ["toggle_line_comments","move_line_down"]
+C-h = ["hover"]
 
 
-# create a new minor mode bound to `+`
+[keys.insert]
+C-s = ["normal_mode",":write"]
+C-c = ["yank_main_selection_to_clipboard"]
+C-v = ["replace_selections_with_clipboard"]
+C-l = [":clear-register"]
+C-d = ["delete_selection"]
+C-u = ["undo"]
+C-r = ["redo"]
+C-t = ["toggle_line_comments","move_line_down"]
+C-h = ["hover"]
+
+
+#create a new minor mode bound to `+`
 [keys.normal."+"]
-m = ":sh gnome-terminal --title='Menu-General...' --hide-menubar -- ../MenuDEV.sh && exit"
-g = ":sh gnome-terminal --title='Compile-Gencurs' --hide-menubar -- ../Compile_Zig.sh 'Gencurs' && exit"
-h = ":sh gnome-terminal --title='Compile-Gensrc.' --hide-menubar -- ../Compile_Zig.sh 'Gensrc'  && exit"
-x = ":sh gnome-terminal --title='Compile-mdlsrc.' --hide-menubar -- ../Compile_Zig.sh 'mdlSrc'  && exit"
 w = ":sh gnome-terminal --title='Enr.Memoire(66)' --hide-menubar -- $HOME/.Terminal/copyZig.sh && exit"
 c = ":sh $HOME/.Terminal/console.sh  && exit"
+

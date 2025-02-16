@@ -22,10 +22,12 @@
 /// ex:
 ///------------------------------------------
 
-// install depot
-#define WORKPGM		"/usr/lib/helix/hx"
-// this compile helix user 
-//#define WORKPGM		"/home/soleil/.helix/hx"
+/// #define _ALTF4_ 1 /// ALT_F4 ACTIVE
+
+
+#define WORKPGM		"/home/soleil/.helix/hx"
+
+
 
 #define MESSAGE_ALT_F4 "Confirm destroy Application"
 
@@ -36,11 +38,11 @@
 #define VTENAME "VTE-TERM3270"
 
 /// basic function
-unsigned int COL=	80;
+unsigned int COL=	80;		
 unsigned int ROW =	24;
 
 /// defined not optional police default
-#define VTEFONT	"Noto Sans Mono"
+#define VTEFONT	"Source code Pro"
 
 //*******************************************************
 // PROGRAME
@@ -132,7 +134,7 @@ gboolean key_press_ALTF4()
 }
 
 ///-------------------------------------
-/// traitement CTRL-Z (bad helix cmd )
+/// traitement CTRL-Z
 ///-------------------------------------
 gboolean key_press_CTRLZ(GtkWidget *widget, GdkEventKey *event)
 {
@@ -144,10 +146,22 @@ gboolean key_press_CTRLZ(GtkWidget *widget, GdkEventKey *event)
 		{
 			return GDK_EVENT_STOP;
 		}
+
+        if ( event->keyval == GDK_3BUTTON_PRESS )
+		{
+			return GDK_EVENT_STOP;
+		}
 	}
-	return false;
+	return false ;
 }
 
+///-------------------------------------
+/// traitement clipboard
+///-------------------------------------
+//gboolean clipboard(GtkWidget *widget)
+//{
+//	return false;
+//}
 /// -----------------------------------------------------------------------------
 /// personalisation projet utilisant une terminal simplifier pour de la gestion
 /// -----------------------------------------------------------------------------
@@ -159,27 +173,10 @@ void	init_Terminal()
 
 	char * font_terminal = new char[30] ;
 
-	/// Font DejaVu Sans Mono -> xfce4-terminal
-	//if ( s->width <= 1600 && s->height >=1024 ) {					/// ex: 13"... 15"
-	//	sprintf(font_terminal,"%s %s" , VTEFONT,"11");
-	//	COL = 124;
-	//	ROW = 32;
-	//	}
-	//else if ( s->width <= 1920 && s->height >=1080 ) {			/// ex: 17"... 32"
-	//	sprintf(font_terminal,"%s %s" , VTEFONT,"12");
-	//	COL = 124;
-	//	ROW = 38;
-	//	}
-	//else if ( s->width > 1920  ) {								//  ex: 2560 x1600 => 27"
-	//	sprintf(font_terminal,"%s %s" , VTEFONT,"15");
-	//	COL = 124;
-	//	ROW = 44;
-	//}
-
 	/// confortable and extend numbers columns and rows
 	// HELIX 
-	sprintf(font_terminal,"%s %s" , VTEFONT," 15"); 
-	COL = 124; // 120 cols  src
+	sprintf(font_terminal,"%s %s" , VTEFONT," 14"); 
+	COL = 125; // 120 cols  src
 	ROW = 44;  // 42  lines src
 
 
@@ -258,15 +255,18 @@ inline bool isDir_File(const std::string& name) {
 int main(int argc, char *argv[])
 {
 	std::setlocale(LC_ALL, "");
-
+    gchar *arg_1[]  = { (gchar*)WORKPGM,  NULL}; // hx 
+    gchar *arg_2[] = { (gchar*)WORKPGM,(char*)"-c", (gchar*) argv[3], NULL}; // hx file
 	gchar ** command ;
-
-	gchar *arg_1[]  = { (gchar*)WORKPGM,  NULL}; // hx  
-
-	gchar *arg_2[] = { (gchar*)WORKPGM,(char*)"-c", (gchar*) argv[2], NULL}; // hx file
-
-	gchar  *Title = (char*) malloc (30);;
+    
+	gchar  *Title = (char*) malloc (200);;
 	sprintf(Title,"Project: %s",(gchar*) argv[1]); // PROJECT
+
+	const gchar *dir = (gchar*) argv[2];  // parm lib work parm file
+
+
+
+
 
 /// -----------------------------------------------------------------------------
 /// -----------------------------------------------------------------------------
@@ -282,15 +282,13 @@ int main(int argc, char *argv[])
 /// Button mini / maxi ON
 
 	if ( false == ctrlPgm(WORKPGM))					return EXIT_FAILURE;	// contrôle file exist helix
-printf(" nbr argc %d", argc);
+//printf(" nbr argc %d", argc);
     
-	if (argc >3 || argc < 2 )  return EXIT_FAILURE;
-
-	if (argc == 2) {
-		command = arg_1;
-
-	};
+	if (argc >4 || argc < 3 )  return EXIT_FAILURE;
 	if (argc == 3) {
+        command = arg_1;
+    }
+	if (argc == 4) {
 		command = arg_2;
 
 	};
@@ -306,8 +304,15 @@ printf(" nbr argc %d", argc);
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+
 	gtk_window_set_resizable (GTK_WINDOW(window),true);			   // <--- spécifique helix
-	gtk_window_set_deletable (GTK_WINDOW(window),false);
+	
+    #ifdef _ALTF4_  
+        gtk_window_set_deletable (GTK_WINDOW(window),true);
+    #else
+        gtk_window_set_deletable (GTK_WINDOW(window),false);
+    #endif
+
 
 	gtk_widget_set_events ( window, GDK_KEY_PRESS_MASK );
 
@@ -322,7 +327,7 @@ printf(" nbr argc %d", argc);
 		VTE_TERMINAL(terminal), //VteTerminal *terminal
 		VTE_PTY_DEFAULT, // VtePtyFlags pty_flags,
 
-		NULL,			// const char *working_directory PROJECT ex; $home/myproject/src-zig
+		dir,			// const char *working_directory PROJECT ex; $home/myproject/src-zig
 		command,		// command
 
 		NULL,			// environment
@@ -348,7 +353,6 @@ printf(" nbr argc %d", argc);
 	g_signal_connect(terminal, "destroy",  G_CALLBACK (close_window), NULL);
 
 	g_signal_connect(terminal, "resize-window", G_CALLBACK(on_resize_window),NULL);
-
 
 
 

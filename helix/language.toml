@@ -1,0 +1,11 @@
+#--------------------------------------------------------------------------
+#No need to define the “LSP” server, it is already defined in the language
+#--------------------------------------------------------------------------
+
+[[language]]
+name = "zig"
+auto-format = false
+
+
+
+

@@ -191,6 +191,9 @@ do
             if test -f "$folder_bin" ; then
                 mode="DEBUG"
                 f_read_RESUTAT
+            else
+                f_clear_Cache
+
             fi
 
             f_pause
@@ -210,6 +213,8 @@ do
             if test -f "$folder_bin" ; then
                 mode="PROD"
                 f_read_RESUTAT
+            else
+                f_clear_Cache
             fi
 
             f_pause
@@ -229,6 +234,8 @@ do
             if test -f "$folder_bin" ; then
                 mode="SAFE"
                 f_read_RESUTAT
+            else
+                f_clear_Cache
             fi
 
             f_pause
@@ -249,6 +256,8 @@ do
             if test -f "$folder_bin" ; then
                 mode="SMALL"
                 f_read_RESUTAT
+            else
+                f_clear_Cache
             fi
 
             f_pause

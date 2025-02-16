@@ -41,13 +41,14 @@ folder_src=$projet_lib$projet_src
 folder_bin=$projet_lib$projet_src"zig-out/bin/"${name_src%.*}
 
 
-folder_docs=$projet_lib$projet_src"Docs_"${name_src%.*}
+folder_docs=$projet_lib$projet_src"zig-out/Docs_"${name_src%.*}
 
 projet_docs=$projet_lib"Docs_"${name_src%.*}
 
 choix=""
 
-
+echo -en "$folder_docs\n"
+echo -en "$projet_docs\n"
 #=========================
 # Func clear cache
 #=========================
@@ -191,6 +192,8 @@ do
             if test -f "$folder_bin" ; then
                 mode="DEBUG"
                 f_read_RESUTAT
+            else
+                if_clear_Cache
             fi
             
             f_pause
@@ -210,6 +213,8 @@ do
             if test -f "$folder_bin" ; then
                 mode="PROD"
                 f_read_RESUTAT
+            else
+                f_clear_Cache
             fi
 
             f_pause
@@ -229,6 +234,8 @@ do
             if test -f "$folder_bin" ; then
                 mode="SAFE"
                 f_read_RESUTAT
+            else
+                f_clear_Cache
             fi
 
             f_pause
@@ -249,6 +256,8 @@ do
             if test -f "$folder_bin" ; then
                 mode="SMALL"
                 f_read_RESUTAT
+            else
+                f_clear_Cache
             fi
 
             f_pause

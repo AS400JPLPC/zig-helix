@@ -66,7 +66,15 @@ $HOME/.helix/hx --version
 
 f_offColor
 
-
+if test -d ~/.helix ; then
+	if test -d ~/.helixsav ; then
+		f_dsply 'déjà une version  build active  courveuilez faire Enter'
+		f_read
+		exit
+	else
+		mv ~/.helix  ~/.helixsav
+	fi
+fi
 
 if test -d ~/.helix ; then
 		rm -rf ~/.helix
@@ -84,16 +92,20 @@ if test -d ~/.cargo/ ; then
 mkdir $HOME/.helix
 
 git clone https://github.com/helix-editor/helix
-cd $HOME/helix
+#git clone https://github.com/AS400JPLPC/helix
 
+
+cd $HOME/helix
+cp $HOME/helix/helix-term/src/keymap/default.rs  $HOME/.config/helix/Origine_default.rs
 cp $HOME/.config/helix/default.rs  $HOME/helix/helix-term/src/keymap/default.rs
+
 cargo install --path helix-term --locked
 
 
 cp  $HOME/.cargo/bin/hx $HOME/.helix/hx
 mv  $HOME/helix/contrib $HOME/.helix/
 mv  $HOME/helix/runtime $HOME/.helix/
-cp $HOME/.config/helix/dark_plus.toml  $HOME/.helix/runtime/themes/dark_plus.toml
+
 
 
 if test -d ~/.cargo/ ; then
@@ -107,8 +119,25 @@ f_dsplyCentrer 22  $fcVert '> '
 $HOME/.helix/hx --version
 
 f_offColor
-f_dsply '\nveuilez faire Enter\n'
+f_dsply '\r\nveuilez faire Enter\n'
   
 f_read
 
-exit
+if  test -d ~/.helixsav  ; then
+	rm -rf ~/.helixsav
+	rm -rf ~/helix
+	search="ui.virtual.whitespace"
+
+	new_text='"ui.virtual.whitespace"      = { fg = "#611518" }'
+
+	line=$(grep -n $search "$HOME/.helix/contrib/themes/dark_plus.toml" | cut -d':' -f 1 ) 
+
+	cmd="$line"" c ""$new_text"
+
+	new_file=$(sed "$cmd"   "$HOME/.helix/contrib/themes/dark_plus.toml")
+
+    printf "%s"  "$new_file" > "$HOME/.helix/contrib/themes/dark_plus.toml"
+
+fi
+
+exit 0
