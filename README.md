@@ -615,6 +615,11 @@ I'm going to update my helix project in Github and Codeberg.
 ps(please wait a day)
 
 Translated with DeepL.com (free version)  
+
+</br></br></br>
+
+* 2025-02-28 udpate HELIX   file config.toml  default.rs  purge   
+
 ```
 </br>
 </br>  
@@ -625,7 +630,7 @@ exemple: </br>
 
 [keys.normal]
 C-a = [":vnew",":open /home/soleil/Zsnipset"]
-C-s = ":write"
+C-s = [":write"]
 C-c = ["yank_main_selection_to_clipboard"]
 C-v = ["replace_selections_with_clipboard"]
 C-l = [":clear-register"]
@@ -634,6 +639,17 @@ C-u = ["undo"]
 C-r = ["redo"]
 C-t = ["toggle_line_comments","move_line_down"]
 C-h = ["hover"]
+A-i = ["insert_at_line_start"]
+A-e = ["insert_at_line_end"]
+A-m = ["match_brackets"]
+A-d = ["goto_next_diag"]
+A-D = ["goto_first_diag"]
+A-f = ["file_picker_in_current_directory"]
+A-F = ["file_picker"]
+A-n = ["vsplit_new"]
+A-v = ["vsplit"]
+A-q = ["search"]
+A-g = ["goto_last_line"]
 
 
 [keys.insert]
@@ -646,4 +662,8 @@ C-u = ["undo"]
 C-r = ["redo"]
 C-t = ["toggle_line_comments","move_line_down"]
 C-h = ["hover"]
+A-m = ["match_brackets"]
+A-d = ["goto_next_diag"]
+A-D = ["goto_first_diag"]
+
 ```
