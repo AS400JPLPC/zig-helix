@@ -55,7 +55,7 @@ f_dsplyCentrer(){ #commande de positionnement	lines + couleur + text
 
 f_pause(){
 	echo -en '\033[0;0m'
- 	echo -en $faStabilo$fcRouge'Press[Enter] key to continue'
+ 	echo -en $faStabilo$fcRouge'Press[Enter] key to continue\n'
 	tput civis 	# curseur invisible
 	read -s -n 1
 	echo -en '\033[0;0m'

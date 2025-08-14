@@ -77,14 +77,27 @@ f_offColor
 rm -r $HOME/.cache/zig
 rm -r $HOME/.zig
 
-wget https://zigbin.io/master/x86_64-linux.tar.xz
-tar -xf x86_64-linux.tar.xz
-mv zig-linux-x86_64* $HOME/.zig
-rm x86_64-linux*
+curl https://ziglang.org/download/index.json | jq '.master.version' |
+while IFS= read -r indexlinux; do
+    master_version="$(echo $indexlinux | tr -d '"')"
+    tarbal='https://ziglang.org/builds/zig-x86_64-linux-'$master_version'.tar.xz'
+    linux='zig-x86_64-linux-'$master_version'.tar.xz'
+    rep='zig-x86_64-linux-'$master_version
+
+    wget  "$tarbal"
+    tar -xf "$linux"
+		mv "$rep" $HOME/.zig
+		rm "$linux"
+done
+
+#wget https://zigbin.io/master/x86_64-linux.tar.xz
+#tar -xf x86_64-linux.tar.xz
+#mv zig-x86_64-linux* $HOME/.zig
+#rm x86_64-linux*
 
 
 
-
+echo '\r\n'
 f_dsplyCentrer 22  $fcVert '> '
 ~/.zig/zig version
 

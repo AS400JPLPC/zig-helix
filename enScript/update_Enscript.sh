@@ -3,7 +3,8 @@
 
 #put the access path in clear text, of the enscript.st file
 match="modula_2;"
-insert="  \/\\\.zig\$\\/					zig;"
+insert="  \/\\\.zig\$\/					zig;"
+
 file='/usr/share/enscript/hl/enscript.st'
 
 

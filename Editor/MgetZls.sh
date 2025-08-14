@@ -74,7 +74,7 @@ if test -d ~/.zls ; then
 		f_read
 		exit
 	else
-		mv ~/.zls  ~/.zlssav
+		mv $HOME/.zls  $HOME/.zlssav
 	fi
 fi
 
@@ -86,7 +86,8 @@ if test -d ~/.cache/zig/ ; then
 git clone https://github.com/zigtools/zls
 
 cd $HOME/zls
-zig build -Doptimize=ReleaseSafe
+
+$HOME/.zig/zig build -Doptimize=ReleaseSafe
 
 mkdir $HOME/.zls
 
@@ -100,7 +101,7 @@ if test -d ~/.cache/zig/ ; then
 	fi
 
 
-f_dsplyCentrer 22  $fcVert '> '
+f_dsplyCentrer 20  $fcVert '> '
 ~/.zls/zls --version
 
 f_offColor
